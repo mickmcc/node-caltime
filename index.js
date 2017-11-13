@@ -1,6 +1,6 @@
 /**
  * Top-level module which provides all of the functions and constants.
- * @module schedtime
+ * @module caltime
  * @version 0.0.1
  *
  * @author Michael McCarthy
