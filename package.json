@@ -1,13 +1,16 @@
 {
   "name": "caltime",
   "version": "0.0.1",
-  "description": "Module helps represent and manipulate periods of time across multiple timezones.",
+  "description": "Manipulate time-spans across multiple timezones.",
   "main": "index.js",
   "directories": {
     "doc": "doc",
     "example": "example",
     "lib": "lib",
     "test": "test"
+  },
+  "engines": {
+    "node": "*"
   },
   "scripts": {
     "test-datespan": "./node_modules/.bin/mocha test/unit-datespan.js",
