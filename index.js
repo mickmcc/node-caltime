@@ -74,5 +74,30 @@ module.exports.SATURDAY = timeruleModule.SATURDAY;
 /** @constant {number} */
 module.exports.SUNDAY = timeruleModule.SUNDAY;
 
-/** @constant {number} */
+/** @constant {number}
+  * @see {*link module:caltime/timerule~MAX_MINS_PER_DAY} */
 module.exports.MAX_MINS_PER_DAY = timespanModule.MAX_MINS_PER_DAY;
+/** @constant {number}
+  * @see {*link module:caltime/timerule~CONSTRAINT_DAY_OF_WEEK} */
+module.exports.CONSTRAINT_DAY_OF_WEEK = timeruleModule.CONSTRAINT_DAY_OF_WEEK;
+/** @constant {number}
+  * @see {*link module:caltime/timerule~CONSTRAINT_DAY_OF_MONTH} */
+module.exports.CONSTRAINT_DAY_OF_MONTH = timeruleModule.CONSTRAINT_DAY_OF_MONTH;
+/** @constant {number}
+  * @see {*link module:caltime/timerule~CONSTRAINT_FIRST_OF_MONTH} */
+module.exports.CONSTRAINT_FIRST_OF_MONTH = timeruleModule.CONSTRAINT_FIRST_OF_MONTH;
+/** @constant {number}
+  * @see {*link module:caltime/timerule~CONSTRAINT_SECOND_OF_MONTH} */
+module.exports.CONSTRAINT_SECOND_OF_MONTH = timeruleModule.CONSTRAINT_SECOND_OF_MONTH;
+/** @constant {number}
+  * @see {*link module:caltime/timerule~CONSTRAINT_THIRD_OF_MONTH} */
+module.exports.CONSTRAINT_THIRD_OF_MONTH = timeruleModule.CONSTRAINT_THIRD_OF_MONTH;
+/** @constant {number}
+  * @see {*link module:caltime/timerule~CONSTRAINT_FOURTH_OF_MONTH} */
+module.exports.CONSTRAINT_FOURTH_OF_MONTH = timeruleModule.CONSTRAINT_FOURTH_OF_MONTH;
+/** @constant {number}
+  * @see {*link module:caltime/timerule~CONSTRAINT_FIFTH_OF_MONTH} */
+module.exports.CONSTRAINT_FIFTH_OF_MONTH = timeruleModule.CONSTRAINT_FIFTH_OF_MONTH;
+/** @constant {number}
+  * @see {*link module:caltime/timerule~CONSTRAINT_LAST_OF_MONTH} */
+module.exports.CONSTRAINT_LAST_OF_MONTH = timeruleModule.CONSTRAINT_LAST_OF_MONTH;

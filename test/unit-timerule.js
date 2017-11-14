@@ -64,17 +64,26 @@ after(function() {
 describe('Time Rule - Instantiation', function() {
   it('Create valid time-rule', function() {
     let timespan = testContext.timeSpanCtor(9, 0, 0, 0, 60);
-    let ruleObject = testContext.ruleRuleCtor(timespan, testContext.module.MONDAY, TZ_UTC);
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.module.CONSTRAINT_DAY_OF_WEEK,
+                                                testContext.module.MONDAY,
+                                                TZ_UTC);
     assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
   });
 
   it('Attempt to create time-rule with null arguments', function() {
 
-    assert.throws(function() { testContext.ruleRuleCtor(null, testContext.module.MONDAY, TZ_UTC)},
+    assert.throws(function() { testContext.ruleRuleCtor(null,
+                                                        testContext.module.CONSTRAINT_DAY_OF_WEEK,
+                                                        testContext.module.MONDAY,
+                                                        TZ_UTC)},
                     Error,
                     'Expected functional constructor to throw an error.');
     let timespan = testContext.timeSpanCtor(9, 0, 0, 0, 60);
-    assert.throws(function() { testContext.ruleRuleCtor(timespan, null, TZ_UTC)},
+    assert.throws(function() { testContext.ruleRuleCtor(timespan,
+                                                        testContext.module.CONSTRAINT_DAY_OF_WEEK,
+                                                        null,
+                                                        TZ_UTC)},
                     Error,
                     'Expected functional constructor to throw an error.');
   });
@@ -82,7 +91,10 @@ describe('Time Rule - Instantiation', function() {
   it('Attempt to create time-rule with negative time arguments', function() {
 
     let timespan = testContext.timeSpanCtor(9, 0, 0, 0, 60);
-    assert.throws(function() { testContext.ruleRuleCtor(timespan, -9, TZ_UTC)},
+    assert.throws(function() { testContext.ruleRuleCtor(timespan,
+                                                        testContext.module.CONSTRAINT_DAY_OF_WEEK,
+                                                        -9,
+                                                        TZ_UTC)},
                     Error,
                     'Expected functional constructor to throw an error.');
   });
@@ -90,10 +102,16 @@ describe('Time Rule - Instantiation', function() {
   it('Attempt to create time-rule with out-of-range arguments', function() {
 
     let timespan = testContext.timeSpanCtor(9, 0, 0, 0, 60);
-    assert.throws(function() { testContext.ruleRuleCtor(timespan, testContext.module.SUNDAY-100, TZ_UTC)},
+    assert.throws(function() { testContext.ruleRuleCtor(timespan,
+                                                        testContext.module.CONSTRAINT_DAY_OF_WEEK,
+                                                        testContext.module.SUNDAY-100,
+                                                        TZ_UTC)},
                     Error,
                     'Expected functional constructor to throw an error.');
-    assert.throws(function() { testContext.ruleRuleCtor(timespan, testContext.module.SATURDAY+100, TZ_UTC)},
+    assert.throws(function() { testContext.ruleRuleCtor(timespan,
+                                                          testContext.module.CONSTRAINT_DAY_OF_WEEK,
+                                                          testContext.module.SATURDAY+100,
+                                                          TZ_UTC)},
                     Error,
                     'Expected functional constructor to throw an error.');
   });
@@ -126,7 +144,10 @@ const isMidnight = function isMidnightFunc(inDate, inTZ) {
 describe('Time Rule - Generate Time Periods. Timezone: UTC.', function() {
   it('Create valid time-rule and get date-span.', function() {
     let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 6*60); // 16:00-22:00
-    let ruleObject = testContext.ruleRuleCtor(timespan, testContext.module.SATURDAY, TZ_UTC);
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.module.CONSTRAINT_DAY_OF_WEEK,
+                                                testContext.module.SATURDAY,
+                                                TZ_UTC);
     assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
     let result = ruleObject.getDateSpans(dateC, dateJ);
     assert.equal(typeof result, 'object', 'Method should return an array of TimePeriod objects.');
@@ -137,7 +158,10 @@ describe('Time Rule - Generate Time Periods. Timezone: UTC.', function() {
 
   it('Create valid time-rule but query date-span with no overlap.', function() {
     let timespan = testContext.timeSpanCtor(12, 0, 0, 0, 1*60); // 16:00-22:00
-    let ruleObject = testContext.ruleRuleCtor(timespan, testContext.module.SATURDAY, TZ_UTC);
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.module.CONSTRAINT_DAY_OF_WEEK,
+                                                testContext.module.SATURDAY,
+                                                TZ_UTC);
     assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
     let result = ruleObject.getDateSpans(dateE, dateJ);
     assert.equal(typeof result, 'object', 'Method should return an emtpy array.');
@@ -148,7 +172,10 @@ describe('Time Rule - Generate Time Periods. Timezone: UTC.', function() {
 describe('Time Rule - Generate Time Periods. Timezone: UTC+4 hours.', function() {
   it('Create valid time-rule and get period.', function() {
     let timespan = testContext.timeSpanCtor(14, 0, 0, 0, 8*60); // 14:00-22:00
-    let ruleObject = testContext.ruleRuleCtor(timespan, testContext.module.SATURDAY, TZ_PLUS_FOUR);
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.module.CONSTRAINT_DAY_OF_WEEK,
+                                                testContext.module.SATURDAY,
+                                                TZ_PLUS_FOUR);
     assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
     let result = ruleObject.getDateSpans(dateA, dateJ);
     assert.equal(typeof result, 'object', 'Method should return an array of TimePeriod objects.');
@@ -159,7 +186,10 @@ describe('Time Rule - Generate Time Periods. Timezone: UTC+4 hours.', function()
 
   it('Create valid time-rule. Query date-span before rule with no overlap.', function() {
     let timespan = testContext.timeSpanCtor(18, 0, 0, 0, 1*60); // 13:00-17:00
-    let ruleObject = testContext.ruleRuleCtor(timespan, testContext.module.SATURDAY, TZ_PLUS_FOUR);
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.module.CONSTRAINT_DAY_OF_WEEK,
+                                                testContext.module.SATURDAY,
+                                                TZ_PLUS_FOUR);
     assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
     let result = ruleObject.getDateSpans(dateC, dateD);
     assert.equal(typeof result, 'object', 'Method should return an emtpy array.');
@@ -168,7 +198,10 @@ describe('Time Rule - Generate Time Periods. Timezone: UTC+4 hours.', function()
 
   it('Create valid time-rule. Query date-span after rule with no overlap.', function() {
     let timespan = testContext.timeSpanCtor(12, 0, 0, 0, 1*60); // 23:00-00:00
-    let ruleObject = testContext.ruleRuleCtor(timespan, testContext.module.SATURDAY, TZ_PLUS_FOUR);
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.module.CONSTRAINT_DAY_OF_WEEK,
+                                                testContext.module.SATURDAY,
+                                                TZ_PLUS_FOUR);
     assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
     let result = ruleObject.getDateSpans(dateE, dateJ);
     assert.equal(typeof result, 'object', 'Method should return an emtpy array.');
@@ -179,7 +212,10 @@ describe('Time Rule - Generate Time Periods. Timezone: UTC+4 hours.', function()
 describe('Time Rule - Generate Time Periods. Timezone: UTC-4 hours.', function() {
   it('Create valid time-rule and get period.', function() {
     let timespan = testContext.timeSpanCtor(14, 0, 0, 0, 8*60); // 14:00-22:00 UTC-4
-    let ruleObject = testContext.ruleRuleCtor(timespan, testContext.module.SATURDAY, TZ_MINUS_FOUR);
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.module.CONSTRAINT_DAY_OF_WEEK,
+                                                testContext.module.SATURDAY,
+                                                TZ_MINUS_FOUR);
     assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
     let result = ruleObject.getDateSpans(dateA, dateJ);
     assert.equal(typeof result, 'object', 'Method should return an array of TimePeriod objects.');
@@ -190,7 +226,10 @@ describe('Time Rule - Generate Time Periods. Timezone: UTC-4 hours.', function()
 
   it('Create valid time-rule. Query date-span before rule with no overlap.', function() {
     let timespan = testContext.timeSpanCtor(18, 0, 0, 0, 1*60); // 13:00-17:00
-    let ruleObject = testContext.ruleRuleCtor(timespan, testContext.module.SATURDAY, TZ_MINUS_FOUR);
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.module.CONSTRAINT_DAY_OF_WEEK,
+                                                testContext.module.SATURDAY,
+                                                TZ_MINUS_FOUR);
     assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
     let result = ruleObject.getDateSpans(dateC, dateD);
     assert.equal(typeof result, 'object', 'Method should return an emtpy array.');
@@ -199,7 +238,10 @@ describe('Time Rule - Generate Time Periods. Timezone: UTC-4 hours.', function()
 
   it('Create valid time-rule. Query date-span after rule with no overlap.', function() {
     let timespan = testContext.timeSpanCtor(12, 0, 0, 0, 1*60); // 23:00-00:00
-    let ruleObject = testContext.ruleRuleCtor(timespan, testContext.module.SATURDAY, TZ_MINUS_FOUR);
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.module.CONSTRAINT_DAY_OF_WEEK,
+                                                testContext.module.SATURDAY,
+                                                TZ_MINUS_FOUR);
     assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
     let result = ruleObject.getDateSpans(dateG, dateJ);
     assert.equal(typeof result, 'object', 'Method should return an emtpy array.');
