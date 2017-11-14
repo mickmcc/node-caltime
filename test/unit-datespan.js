@@ -48,12 +48,17 @@ after(function() {
 
 describe('Date-Span - Instantiation', function() {
   it('Create valid minimum duration date-span', function() {
+    let periodObject = testContext.dateSpanCtor(dateA, null, 0, 0, 1);
+    assert.notEqual(periodObject, null, 'DateSpan object was not constructed.');
+  });
+
+  it('Create valid minimum-ish duration date-span', function() {
     let periodObject = testContext.dateSpanCtor(dateA, null, 1);
     assert.notEqual(periodObject, null, 'DateSpan object was not constructed.');
   });
 
   it('Create valid maximum duration date-span', function() {
-    let periodObject = testContext.dateSpanCtor(dateA, null, Number.MAX_SAFE_INTEGER);
+    let periodObject = testContext.dateSpanCtor(dateA, null, Number.MAX_SAFE_INTEGER, 59, 999);
     assert.notEqual(periodObject, null, 'DateSpan object was not constructed.');
   });
 
@@ -62,76 +67,85 @@ describe('Date-Span - Instantiation', function() {
     assert.notEqual(periodObject, null, 'DateSpan object was not constructed.');
   });
 
+  it('Create valid date-span using end date and zero durations', function() {
+    let periodObject = testContext.dateSpanCtor(dateA, dateB, 0, 0, 0);
+    assert.notEqual(periodObject, null, 'DateSpan object was not constructed.');
+  });
+
+  it('Create valid date-span using end date and null durations', function() {
+    let periodObject = testContext.dateSpanCtor(dateA, dateB, null, null, null);
+    assert.notEqual(periodObject, null, 'DateSpan object was not constructed.');
+  });
+
   it('Attempt to create an date-span with a null begin argument.', function() {
-    try {
-      let periodObject = testContext.dateSpanCtor(null, null, Number.MIN_SAFE_INTEGER);
-      assert.equal(periodObject, null, 'DateSpan object was not constructed.');
-    } catch (e) {
-      assert.ok(true, 'Exception not thrown as expected.');
-    }
+    assert.throws(function() { testContext.dateSpanCtor(null, null, Number.MIN_SAFE_INTEGER) },
+                    Error,
+                    'Expected functional constructor to throw an error.');
   });
 
   it('Attempt to create an date-span with an invalid (array) begin argument.', function() {
-    try {
-      let periodObject = testContext.dateSpanCtor([], null, Number.MIN_SAFE_INTEGER);
-      assert.equal(periodObject, null, 'DateSpan object was not constructed.');
-    } catch (e) {
-      assert.ok(true, 'Exception not thrown as expected.');
-    }
+    assert.throws(function() { testContext.dateSpanCtor([], null, Number.MIN_SAFE_INTEGER) },
+                    Error,
+                    'Expected functional constructor to throw an error.');
   });
 
   it('Attempt to create an date-span with an invalid type of begin argument.', function() {
-    try {
-      let periodObject = testContext.dateSpanCtor({}, null, Number.MIN_SAFE_INTEGER);
-      assert.equal(periodObject, null, 'DateSpan object was not constructed.');
-    } catch (e) {
-      assert.ok(true, 'Exception not thrown as expected.');
-    }
+    assert.throws(function() { testContext.dateSpanCtor({}, null, Number.MIN_SAFE_INTEGER) },
+                    Error,
+                    'Expected functional constructor to throw an error.');
   });
 
-  it('Attempt to create a date-span with negative duration', function() {
-    try {
-      let periodObject = testContext.dateSpanCtor(dateA, null, Number.MIN_SAFE_INTEGER);
-      assert.equal(periodObject, null, 'DateSpan object was not constructed.');
-    } catch (e) {
-      assert.ok(true, 'Exception not thrown as expected.');
-    }
+  it('Attempt to create a date-span with negative durations', function() {
+    assert.throws(function() { testContext.dateSpanCtor(dateA, null, Number.MIN_SAFE_INTEGER) },
+                    Error,
+                    'Expected functional constructor to throw an error.');
+    assert.throws(function() { testContext.dateSpanCtor(dateA, null, 0, Number.MIN_SAFE_INTEGER) },
+                    Error,
+                    'Expected functional constructor to throw an error.');
+    assert.throws(function() { testContext.dateSpanCtor(dateA, null, 0, 0, Number.MIN_SAFE_INTEGER) },
+                    Error,
+                    'Expected functional constructor to throw an error.');
   });
 
-  it('Attempt to create a date-span with zero duration', function() {
-    try {
-      let periodObject = testContext.dateSpanCtor(dateA, null, 0);
-      assert.equal(periodObject, null, 'DateSpan object was not constructed.');
-    } catch (e) {
-      assert.ok(true, 'Exception not thrown as expected.');
-    }
+  it('Attempt to create a date-span with out-of-range durations', function() {
+    assert.throws(function() { testContext.dateSpanCtor(dateA, null, Number.MIN_SAFE_INTEGER+1) },
+                    Error,
+                    'Expected functional constructor to throw an error (inDurationMins).');
+    assert.throws(function() { testContext.dateSpanCtor(dateA, null, 0, 60, 0) },
+                    Error,
+                    'Expected functional constructor to throw an error (inDurationSecs).');
+    assert.throws(function() { testContext.dateSpanCtor(dateA, null, 0, 0, 1000) },
+                    Error,
+                    'Expected functional constructor to throw an error (inDurationMSecs).');
   });
 
   it('Attempt to create an invalid date-span using floating point arguments.', function() {
-    try {
-      let periodObject = testContext.dateSpanCtor(dateA, null, Number.MAX_VALUE);
-      assert.equal(periodObject, null, 'DateSpan object was not constructed.');
-    } catch (e) {
-      assert.ok(true, 'Exception not thrown as expected.');
-    }
+    assert.throws(function() { testContext.dateSpanCtor(dateA, null, Number.MAX_VALUE) },
+                    Error,
+                    'Expected functional constructor to throw an error.');
   });
 
   it('Attempt to create an invalid date-span using a string argument.', function() {
-    try {
-      let periodObject = testContext.dateSpanCtor(dateA, null, '456');
-      assert.equal(periodObject, null, 'DateSpan object was not constructed.');
-    } catch (e) {
-      assert.ok(true, 'Exception not thrown as expected.');
-    }
+    assert.throws(function() { testContext.dateSpanCtor(dateA, null, 'ABCD') },
+                    Error,
+                    'Expected functional constructor to throw an error.');
   });
 
   it('Attempt to create an date-span using incorrect end date.', function() {
-    try {
-      let periodObject = testContext.dateSpanCtor(dateB, dateA);
-      assert.equal(periodObject, null, 'DateSpan object was not constructed.');
-    } catch (e) {
-      assert.ok(true, 'Exception not thrown as expected.');
-    }
+    assert.throws(function() { testContext.dateSpanCtor(dateB, dateA) },
+                    Error,
+                    'Expected functional constructor to throw an error.');
+  });
+});
+
+describe('Date-Span - Duration', function() {
+  it('Check total duration', function() {
+    let span = testContext.dateSpanCtor(dateA, null, 60, 40, 20);
+    assert.notEqual(span, null, 'DateSpan object was not constructed.');
+    assert.equal(span.getDurationMins(), 60, 'Expected different value for minutes component of duration.');
+    assert.equal(span.getDurationSecs(), 40, 'Expected different value for seconds component of duration.');
+    assert.equal(span.getDurationMSecs(), 20, 'Expected different value for milliseconds component of duration.');
+    assert.equal(span.getTotalDuration(), (60*60*1000)+(40*1000)+20, 'Expected different value for total duration in milliseconds.');
   });
 });
 
@@ -141,7 +155,7 @@ describe('Date-Span - Overlap', function() {
     let dateSpanB = testContext.dateSpanCtor(dateC, null, 10*60); // 10 hrs
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
     assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
-    let result = dateSpanA.isOverlapping(dateSpanB);
+    let result = dateSpanA.isIntersect(dateSpanB);
     assert.ok(result, 'DateSpan objects are overlapping.');
   });
 
@@ -150,7 +164,7 @@ describe('Date-Span - Overlap', function() {
     let dateSpanB = testContext.dateSpanCtor(dateC, null, 1*60); // 1 hr
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
     assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
-    let result = dateSpanA.isOverlapping(dateSpanB);
+    let result = dateSpanA.isIntersect(dateSpanB);
     assert.equal(result, false, 'DateSpan objects are overlapping.');
   });
 });
@@ -247,7 +261,7 @@ describe('Date-Span - Overlap', function() {
     assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
     // console.log(`dateSpanA begin: ${dateSpanA.getBegin()}, end: ${dateSpanA.getEnd()}, duration: ${dateSpanA.getDuration()}`);
     // console.log(`dateSpanB begin: ${dateSpanB.getBegin()}, end: ${dateSpanB.getEnd()}, duration: ${dateSpanB.getDuration()}`);
-    let periodC = dateSpanA.overlap(dateSpanB);
+    let periodC = dateSpanA.intersect(dateSpanB);
     assert.notEqual(periodC, null, 'DateSpan object was not returned by method.');
     // console.log(`periodC begin: ${periodC.getBegin()}, end: ${periodC.getEnd()}, duration: ${periodC.getDuration()}`);
     assert.equal(periodC.getBegin().getTime(), dateC.getTime(), 'Incorrect start time of overlapped date-span');
@@ -259,7 +273,7 @@ describe('Date-Span - Overlap', function() {
     let dateSpanB = testContext.dateSpanCtor(dateC, null, 1*60); // 1 hr
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
     assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
-    let periodC = dateSpanA.overlap(dateSpanB);
+    let periodC = dateSpanA.intersect(dateSpanB);
     assert.equal(periodC, null, 'Method should have returned null as they don\'t overlap.');
   });
 });
@@ -334,12 +348,9 @@ describe('Date-Span - Subtract', function() {
   it('Subtract null from date-span.', function() {
     let dateSpanA = testContext.dateSpanCtor(dateB, null, 60*60); // 60 hrs
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
-    try {
-      let result = dateSpanA.subtract(null);
-      assert.ok(false, 'Method should have thrown an error for null argument.');
-    }
-    catch(err) {
-      return;
-    }
+
+    assert.throws(function() { dateSpanA.subtract(null) },
+                    Error,
+                    'Expected functional constructor to throw an error.');
   });
 });
