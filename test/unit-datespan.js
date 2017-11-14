@@ -149,28 +149,28 @@ describe('Date-Span - Duration', function() {
   });
 });
 
-describe('Date-Span - Overlap', function() {
-  it('Check two overlapping date-spans', function() {
+describe('Date-Span - Intersection', function() {
+  it('Check two intersecting date-spans', function() {
     let dateSpanA = testContext.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = testContext.dateSpanCtor(dateC, null, 10*60); // 10 hrs
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
     assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
     let result = dateSpanA.isIntersect(dateSpanB);
-    assert.ok(result, 'DateSpan objects are overlapping.');
+    assert.ok(result, 'DateSpan objects are intersecting.');
   });
 
-  it('Check two non-overlapping date-spans', function() {
+  it('Check two non-intersecting date-spans', function() {
     let dateSpanA = testContext.dateSpanCtor(dateB, null, 1*60); // 1 hr
     let dateSpanB = testContext.dateSpanCtor(dateC, null, 1*60); // 1 hr
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
     assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
     let result = dateSpanA.isIntersect(dateSpanB);
-    assert.equal(result, false, 'DateSpan objects are overlapping.');
+    assert.equal(result, false, 'DateSpan objects are intersecting.');
   });
 });
 
 describe('Date-Span - Merge', function() {
-  it('Merge two overlapping date-spans', function() {
+  it('Merge two intersecting date-spans', function() {
     let dateSpanA = testContext.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = testContext.dateSpanCtor(dateC, null, 10*60); // 10 hrs
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
@@ -179,7 +179,7 @@ describe('Date-Span - Merge', function() {
     assert.notEqual(periodC, null, 'DateSpan objects were not merged.');
   });
 
-  it('Merge two non-overlapping date-spans', function() {
+  it('Merge two non-intersecting date-spans', function() {
     let dateSpanA = testContext.dateSpanCtor(dateB, null, 1*60); // 1 hr
     let dateSpanB = testContext.dateSpanCtor(dateC, null, 1*60); // 1 hr
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
@@ -188,7 +188,7 @@ describe('Date-Span - Merge', function() {
     assert.equal(periodC, null, 'Merge should have returned null as they don\'t overlap.');
   });
 
-  it('Merge list of non-overlapping date-spans', function() {
+  it('Merge list of non-intersecting date-spans', function() {
     const dateSpanA = testContext.dateSpanCtor(dateB, null, 1*60); // 1 hr
     const dateSpanB = testContext.dateSpanCtor(dateC, null, 1*60); // 1 hr
     const list = [dateSpanA, dateSpanB];
@@ -199,14 +199,14 @@ describe('Date-Span - Merge', function() {
     assert.equal(result.length, 2, 'Array should contain the two original elements.');
   });
 
-  it('Merge empty list of non-overlapping date-spans', function() {
+  it('Merge empty list of non-intersecting date-spans', function() {
     const list = [];
     const result = testContext.mergeDateSpans(list);
     assert.notEqual(result, null, 'Function should return an array.');
     assert.equal(result.length, 0, 'Array should contain the no elements.');
   });
 
-  it('Merge list of two overlapping date-spans', function() {
+  it('Merge list of two intersecting date-spans', function() {
     let dateSpanA = testContext.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = testContext.dateSpanCtor(dateC, null, 10*60); // 10 hrs
     const list = [dateSpanA, dateSpanB];
@@ -219,7 +219,7 @@ describe('Date-Span - Merge', function() {
     assert.equal(result[0].getEnd().getTime(), dateSpanB.getEnd().getTime(), 'Incorrect end date of merged period.');
   });
 
-  it('Merge list of three overlapping date-spans', function() {
+  it('Merge list of three intersecting date-spans', function() {
     let dateSpanA = testContext.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = testContext.dateSpanCtor(dateC, null, 30*60); // 10 hrs
     let periodC = testContext.dateSpanCtor(dateD, null, 10*60); // 10 hrs
@@ -234,7 +234,7 @@ describe('Date-Span - Merge', function() {
     assert.equal(result[0].getEnd().getTime(), periodC.getEnd().getTime(), 'Incorrect end date of merged period.');
   });
 
-  it('Merge list of three overlapping date-spans. Periods span leap day.', function() {
+  it('Merge list of three intersecting date-spans. Periods span leap day.', function() {
     let dateSpanA = testContext.dateSpanCtor(dateLeapB, null, 30*60); // 30 hrs
     let dateSpanB = testContext.dateSpanCtor(dateLeapC, null, 30*60); // 30 hrs
     let periodC = testContext.dateSpanCtor(dateLeapD, null, 30*60); // 30 hrs
@@ -253,8 +253,8 @@ describe('Date-Span - Merge', function() {
   });
 });
 
-describe('Date-Span - Overlap', function() {
-  it('Get the Overlap of two overlapping date-spans', function() {
+describe('Date-Span - Intersection', function() {
+  it('Get the Intersection of two intersecting date-spans', function() {
     let dateSpanA = testContext.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = testContext.dateSpanCtor(dateC, null, 10*60); // 10 hrs
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
@@ -268,7 +268,7 @@ describe('Date-Span - Overlap', function() {
     assert.equal(periodC.getDurationMins(), 6*60, 'Incorrect duration of overlapped date-span'); // expecting 6 hours overlap
   });
 
-  it('Get the overlap of two non-overlapping date-spans', function() {
+  it('Get the overlap of two non-intersecting date-spans', function() {
     let dateSpanA = testContext.dateSpanCtor(dateB, null, 1*60); // 1 hr
     let dateSpanB = testContext.dateSpanCtor(dateC, null, 1*60); // 1 hr
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
