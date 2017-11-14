@@ -251,7 +251,7 @@ describe('Date-Span - Overlap', function() {
     assert.notEqual(periodC, null, 'DateSpan object was not returned by method.');
     // console.log(`periodC begin: ${periodC.getBegin()}, end: ${periodC.getEnd()}, duration: ${periodC.getDuration()}`);
     assert.equal(periodC.getBegin().getTime(), dateC.getTime(), 'Incorrect start time of overlapped date-span');
-    assert.equal(periodC.getDuration(), 6*60, 'Incorrect duration of overlapped date-span'); // expecting 6 hours overlap
+    assert.equal(periodC.getDurationMins(), 6*60, 'Incorrect duration of overlapped date-span'); // expecting 6 hours overlap
   });
 
   it('Get the overlap of two non-overlapping date-spans', function() {
