@@ -42,6 +42,8 @@ const dateK = new Date(Date.UTC(2017, 6, 19, 16, 0, 0, 0)); // Third Wed. of Jul
 const dateL = new Date(Date.UTC(2017, 6, 19, 17, 0, 0, 0)); // Third Wed. of July, 17:00
 const dateM = new Date(Date.UTC(2017, 6, 26, 16, 0, 0, 0)); // Last Wed. of July, 16:00
 const dateN = new Date(Date.UTC(2017, 6, 26, 17, 0, 0, 0)); // Last Wed. of July, 17:00
+const dateP = new Date(Date.UTC(2017, 6, 29, 16, 0, 0, 0)); // Last Wed. of July, 16:00
+const dateQ = new Date(Date.UTC(2017, 6, 29, 17, 0, 0, 0)); // Last Wed. of July, 17:00
 const dateX = new Date(Date.UTC(2017, 6, 31, 16, 0, 0, 0)); // Monday 16:00, Last day of July
 const dateY = new Date(Date.UTC(2017, 6, 31, 17, 0, 0, 0)); // Monday 17:00, Last day of July
 const dateZ = new Date(Date.UTC(2017, 6, 31, 23, 0, 0, 0)); // Monday, Last day of July
@@ -302,7 +304,19 @@ describe('Time Rule - Generate Date-spans. Timezone: UTC.', function() {
     assert.equal(result[0].getEnd().getTime(), dateN.getTime(), 'Incorrect end time of date-span.');
   });
 
-  // TODO add test case for fifth instance of a day in a month
+  it('Create valid "Fifth Saturday of month" time-rule and get date-span.', function() {
+    let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 1*60); // 16:00-17:00
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.constants.CONSTRAINT_FIFTH_OF_MONTH,
+                                                testContext.constants.SATURDAY,
+                                                TZ_UTC);
+    assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
+    let result = ruleObject.generateDateSpans(dateAa, dateZ); // dateZ is last day of July
+    assert.equal(typeof result, 'object', 'Method should return an array of TimePeriod objects.');
+    assert.equal(result.length, 1, 'Method should return one date-span.');
+    assert.equal(result[0].getBegin().getTime(), dateP.getTime(), 'Incorrect start time of date-span.');
+    assert.equal(result[0].getEnd().getTime(), dateQ.getTime(), 'Incorrect end time of date-span.');
+  });
 
   it('Create valid time-rule but query date-span with no overlap.', function() {
     let timespan = testContext.timeSpanCtor(12, 0, 0, 0, 1*60); // 16:00-22:00
