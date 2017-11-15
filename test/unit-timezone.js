@@ -13,7 +13,7 @@ const assert = require('assert');
 const _ = require('lodash');
 
 const testContext = {};
-testContext.timeZoneCtor = require('../').timeZone;
+testContext.timeZoneCtor = require('../lib/timezone').timeZone;
 
 /* useful Date objects for testing */
 /* dates which don't span a leap day transition i.e. 29th of Feb. of leap year */
