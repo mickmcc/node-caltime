@@ -4,14 +4,14 @@
  * See accompanying MIT License file.
  */
 
- /* eslint max-len: ["error", 120] */
+ /* eslint max-len: ["error", 160] */
 
 'use strict';
 
 /* dependencies */
 const assert = require('assert');
-const _ = require('lodash');
-const momenttz = require('moment-timezone');
+// const _ = require('lodash');
+// const momenttz = require('moment-timezone');
 
 const testContext = {};
 testContext.module = require('../');
@@ -47,12 +47,6 @@ const dateQ = new Date(Date.UTC(2017, 6, 29, 17, 0, 0, 0)); // Last Wed. of July
 const dateX = new Date(Date.UTC(2017, 6, 31, 16, 0, 0, 0)); // Monday 16:00, Last day of July
 const dateY = new Date(Date.UTC(2017, 6, 31, 17, 0, 0, 0)); // Monday 17:00, Last day of July
 const dateZ = new Date(Date.UTC(2017, 6, 31, 23, 0, 0, 0)); // Monday, Last day of July
-/* dates which do span a leap day transition */
-const dateLeapA = new Date(Date.UTC(2016, 1, 27, 12, 0, 0, 0));
-const dateLeapB = new Date(Date.UTC(2016, 1, 28, 12, 0, 0, 0));
-const dateLeapC = new Date(Date.UTC(2016, 1, 29, 12, 0, 0, 0));
-const dateLeapD = new Date(Date.UTC(2016, 2, 1, 12, 0, 0, 0));
-const dateLeapE = new Date(Date.UTC(2016, 2, 2, 12, 0, 0, 0));
 
 /* timezones */
 const TZ_UTC = 'Etc/UTC'; // UTC timezone
@@ -96,100 +90,113 @@ describe('Time Rule - Instantiation', function() {
   });
 
   it('Attempt to create time-rule with null arguments', function() {
-
-    assert.throws(function() { testContext.ruleRuleCtor(null,
+    assert.throws(function() {
+ testContext.ruleRuleCtor(null,
                                                         testContext.constants.CONSTRAINT_DAY_OF_WEEK,
                                                         testContext.constants.MONDAY,
-                                                        TZ_UTC)},
+                                                        TZ_UTC);
+},
                     Error,
                     'Expected functional constructor to throw an error.');
     let timespan = testContext.timeSpanCtor(9, 0, 0, 0, 60);
-    assert.throws(function() { testContext.ruleRuleCtor(timespan,
+    assert.throws(function() {
+ testContext.ruleRuleCtor(timespan,
                                                         null,
                                                         testContext.constants.WEDNESDAY,
-                                                        TZ_UTC)},
+                                                        TZ_UTC);
+},
                     Error,
                     'Expected functional constructor to throw an error.');
-    assert.throws(function() { testContext.ruleRuleCtor(timespan,
+    assert.throws(function() {
+ testContext.ruleRuleCtor(timespan,
                                                         testContext.constants.CONSTRAINT_DAY_OF_WEEK,
                                                         null,
-                                                        TZ_UTC)},
+                                                        TZ_UTC);
+},
                     Error,
                     'Expected functional constructor to throw an error.');
-    assert.throws(function() { testContext.ruleRuleCtor(timespan,
+    assert.throws(function() {
+ testContext.ruleRuleCtor(timespan,
                                                         testContext.constants.CONSTRAINT_DAY_OF_WEEK,
                                                         testContext.constants.MONDAY,
-                                                        null)},
+                                                        null);
+},
                     Error,
                     'Expected functional constructor to throw an error.');
   });
 
   it('Attempt to create time-rule with negative day argument', function() {
-
     let timespan = testContext.timeSpanCtor(9, 0, 0, 0, 60);
-    assert.throws(function() { testContext.ruleRuleCtor(timespan,
+    assert.throws(function() {
+ testContext.ruleRuleCtor(timespan,
                                                         testContext.constants.CONSTRAINT_DAY_OF_WEEK,
                                                         -9,
-                                                        TZ_UTC)},
+                                                        TZ_UTC);
+},
                     Error,
                     'Expected functional constructor to throw an error.');
   });
 
   it('Attempt to create time-rule with out-of-range arguments', function() {
-
     let timespan = testContext.timeSpanCtor(9, 0, 0, 0, 60);
-    assert.throws(function() { testContext.ruleRuleCtor(timespan,
+    assert.throws(function() {
+ testContext.ruleRuleCtor(timespan,
                                                         testContext.constants.CONSTRAINT_DAY_OF_WEEK-100,
                                                         testContext.constants.SUNDAY,
-                                                        TZ_UTC)},
+                                                        TZ_UTC);
+},
                     Error,
                     'Expected functional constructor to throw an error.');
-    assert.throws(function() { testContext.ruleRuleCtor(timespan,
+    assert.throws(function() {
+ testContext.ruleRuleCtor(timespan,
                                                         testContext.constants.CONSTRAINT_DAY_OF_WEEK+100,
                                                         testContext.constants.SUNDAY,
-                                                        TZ_UTC)},
+                                                        TZ_UTC);
+},
                     Error,
                     'Expected functional constructor to throw an error.');
-    assert.throws(function() { testContext.ruleRuleCtor(timespan,
+    assert.throws(function() {
+ testContext.ruleRuleCtor(timespan,
                                                         testContext.constants.CONSTRAINT_DAY_OF_WEEK,
                                                         testContext.constants.SUNDAY-100,
-                                                        TZ_UTC)},
+                                                        TZ_UTC);
+},
                     Error,
                     'Expected functional constructor to throw an error.');
-    assert.throws(function() { testContext.ruleRuleCtor(timespan,
+    assert.throws(function() {
+ testContext.ruleRuleCtor(timespan,
                                                           testContext.constants.CONSTRAINT_DAY_OF_WEEK,
                                                           testContext.constants.SATURDAY+100,
-                                                          TZ_UTC)},
+                                                          TZ_UTC);
+},
                     Error,
                     'Expected functional constructor to throw an error.');
   });
-
 });
 
 
-/**
- * Check if a Date coincides exactly with midnight in a specific timezone.
- * @param {object} inDate Date to be checked.
- * @param {number} inTZ Timezone identifier string.
- * @return true if inDate coincides with midnight, otherwise false.
- */
-const isMidnight = function isMidnightFunc(inDate, inTZ) {
-
-  let retval = false;
-  let tzMoment = null;
-  if(_.isDate(inDate) === false
-      || _.isString(inTZ) === false) {
-    throw new Error('Invalid arguments passed to function.');
-  }
-  tzMoment = momenttz.tz(inDate, inTZ);
-  if(tzMoment.get('hour') === 0
-      && tzMoment.get('minutes') === 0
-      && tzMoment.get('seconds') === 0
-      && tzMoment.get('milliseconds') === 0) {
-    retval = true;
-  }
-  return retval;
-}
+// /**
+//  * Check if a Date coincides exactly with midnight in a specific timezone.
+//  * @param {object} inDate Date to be checked.
+//  * @param {number} inTZ Timezone identifier string.
+//  * @return true if inDate coincides with midnight, otherwise false.
+//  */
+// const isMidnight = function isMidnightFunc(inDate, inTZ) {
+//   let retval = false;
+//   let tzMoment = null;
+//   if (_.isDate(inDate) === false
+//       || _.isString(inTZ) === false) {
+//     throw new Error('Invalid arguments passed to function.');
+//   }
+//   tzMoment = momenttz.tz(inDate, inTZ);
+//   if (tzMoment.get('hour') === 0
+//       && tzMoment.get('minutes') === 0
+//       && tzMoment.get('seconds') === 0
+//       && tzMoment.get('milliseconds') === 0) {
+//     retval = true;
+//   }
+//   return retval;
+// };
 
 describe('Time Rule - Generate Date-spans. Timezone: UTC.', function() {
   it('Create valid "Day of week" time-rule and get date-span.', function() {
