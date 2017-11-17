@@ -48,5 +48,14 @@
   "dependencies": {
     "lodash": "~4.17.4",
     "moment-timezone": "~0.5.14"
-  }
+  },
+  "files": [
+    "package.json",
+    "index.js",
+    "LICENCE",
+    "README.md",
+    "doc",
+    "test",
+    "lib"
+  ]
 }
