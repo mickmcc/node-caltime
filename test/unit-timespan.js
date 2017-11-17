@@ -326,21 +326,21 @@ describe('TimeSpan - Operations', function() {
         assert.equal(_.isArray(result), true, 'Function should return an array.');
         assert.equal(result.length, 2, 'Expect two time-spans in array.');
         // not sure of order of elements in array, potential for test to fail because of this.
-        assert.equal(result[0].getHours(), 1, 'Incorrect start time: hours.');
-        assert.equal(result[0].getMinutes(), 0, 'Incorrect start time: minutes.');
-        assert.equal(result[0].getSeconds(), 0, 'Incorrect start time: seconds.');
-        assert.equal(result[0].getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
-        assert.equal(result[0].getDurationMins(), 20, 'Incorrect duration: minutes.');
-        assert.equal(result[0].getDurationSecs(), 0, 'Incorrect duration: seconds.');
-        assert.equal(result[0].getDurationMs(), 0, 'Incorrect duration: milliseconds.');
-        // second remainder from subtraction
         assert.equal(result[1].getHours(), 1, 'Incorrect start time: hours.');
-        assert.equal(result[1].getMinutes(), 30, 'Incorrect start time: minutes.');
+        assert.equal(result[1].getMinutes(), 0, 'Incorrect start time: minutes.');
         assert.equal(result[1].getSeconds(), 0, 'Incorrect start time: seconds.');
         assert.equal(result[1].getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
-        assert.equal(result[1].getDurationMins(), 30, 'Incorrect duration: minutes.');
+        assert.equal(result[1].getDurationMins(), 20, 'Incorrect duration: minutes.');
         assert.equal(result[1].getDurationSecs(), 0, 'Incorrect duration: seconds.');
         assert.equal(result[1].getDurationMs(), 0, 'Incorrect duration: milliseconds.');
+        // second remainder from subtraction
+        assert.equal(result[0].getHours(), 1, 'Incorrect start time: hours.');
+        assert.equal(result[0].getMinutes(), 30, 'Incorrect start time: minutes.');
+        assert.equal(result[0].getSeconds(), 0, 'Incorrect start time: seconds.');
+        assert.equal(result[0].getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
+        assert.equal(result[0].getDurationMins(), 30, 'Incorrect duration: minutes.');
+        assert.equal(result[0].getDurationSecs(), 0, 'Incorrect duration: seconds.');
+        assert.equal(result[0].getDurationMs(), 0, 'Incorrect duration: milliseconds.');
         // equal starts, produces 1 remainder
         result = spanA.subtract(spanC);
         assert.equal(_.isArray(result), true, 'Function should return an array.');
