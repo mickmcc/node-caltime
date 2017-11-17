@@ -165,7 +165,7 @@ describe('Date-Span - Duration', function() {
     assert.notEqual(span, null, 'DateSpan object was not constructed.');
     assert.equal(span.getDurationMins(), 60, 'Expected different value for minutes component of duration.');
     assert.equal(span.getDurationSecs(), 40, 'Expected different value for seconds component of duration.');
-    assert.equal(span.getDurationMSecs(), 20, 'Expected different value for milliseconds component of duration.');
+    assert.equal(span.getDurationMs(), 20, 'Expected different value for milliseconds component of duration.');
     assert.equal(span.getTotalDuration(), (60*60*1000)+(40*1000)+20, 'Expected different value for total duration in milliseconds.');
   });
 });
@@ -196,7 +196,7 @@ describe('Date-Span - Merge', function() {
     let dateSpanB = testContext.dateSpanCtor(dateC, null, 10*60); // 10 hrs
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
     assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
-    let periodC = dateSpanA.merge(dateSpanB);
+    let periodC = dateSpanA.union(dateSpanB);
     assert.notEqual(periodC, null, 'DateSpan objects were not merged.');
   });
 
@@ -205,7 +205,7 @@ describe('Date-Span - Merge', function() {
     let dateSpanB = testContext.dateSpanCtor(dateC, null, 1*60); // 1 hr
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
     assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
-    let periodC = dateSpanA.merge(dateSpanB);
+    let periodC = dateSpanA.union(dateSpanB);
     assert.equal(periodC, null, 'Merge should have returned null as they don\'t overlap.');
   });
 
