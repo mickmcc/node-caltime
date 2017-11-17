@@ -50,3 +50,6 @@ module.exports.mergeDateSpans = datespanModule.mergeSpans;
 /** Object's data members provides all of the constants which are made
     available by the package. */
 module.exports.constants = require('./lib/constants');
+
+/** Version number of the module in SemVer string format. */
+module.exports.version = '0.0.1';
