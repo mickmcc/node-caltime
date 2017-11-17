@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: schedtime/timespan</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: schedtime/timespan</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~timeSpan"><span class="type-signature">(inner) </span>timeSpan<span class="signature">(inHours, inMinutes, inSeconds, inMilliseconds, inDurationMins, inDurationSecs<span class="signature-attributes">opt</span>, inDurationMSecs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Functional constructor which creates an instance of a TimeSpan.
+Do not use with the 'new' operator.
+Each TimeSpan object is immutable. The inclusive end time of a timespan
+cannot exceed 23:59:59:999 i.e. the exclusive end time cannot exceed
+12 midnight (00:00:00:000 of the following day).
+The total duration of a timespan is equal to:
+inDurationMins + inDurationSecs + inDurationMSecs
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>inHours</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Integer. Represents the 'hour of day' component
+of the start time of the timespan. Valid values are 0-23.
+An error is thrown if the integer is not specified or is not
+within the valid range.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>inMinutes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Integer. Represents the minutes component
+of the start time of the timespan. Valid values are 0-59.
+An error is thrown if the integer is not specified or is not within
+the valid range.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>inSeconds</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Integer. Represents the seconds component
+of the start time of the timespan. Valid values are 0-59.
+An error is thrown if the integer is not specified or is not within
+the valid range.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>inMilliseconds</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Integer. Represents the milliseconds component
+of the start time of the timespan. Valid values are 0-999.
+An error is thrown if the integer is not specified or is not within
+the valid range.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>inDurationMins</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Positive integer representing the duration of
+the timespan in [minutes]. An error is thrown if this argument is not
+specified or it is not a valid, positive integer. Valid range is 0-1440.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>inDurationSecs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">Positive integer representing the [seconds]
+component of the duration. An error is thrown if this argument is not
+specified or it is not a valid, positive integer. Valid range is 0-59.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>inDurationMSecs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">Positive integer representing the
+[milliseconds] component of the duration. An error is thrown if this argument
+is not specified or it is not a valid, positive integer. Valid range is 0-999.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_timespan.js.html">lib/timespan.js</a>, <a href="lib_timespan.js.html#line64">line 64</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A new instance of the TimeSpan object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-caltime.html">caltime</a></li><li><a href="module-schedtime_datespan.html">schedtime/datespan</a></li><li><a href="module-schedtime_timerule.html">schedtime/timerule</a></li><li><a href="module-schedtime_timespan.html">schedtime/timespan</a></li><li><a href="module-schedtime_timezone.html">schedtime/timezone</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Nov 14 2017 13:23:49 GMT+0100 (CET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
