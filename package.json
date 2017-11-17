@@ -1,6 +1,6 @@
 {
   "name": "caltime",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Manipulate time-spans across multiple timezones.",
   "main": "index.js",
   "directories": {
