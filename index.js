@@ -21,29 +21,35 @@ const timeruleModule = require('./lib/timerule');
 
 /** Functional constructor which creates a TimeSpan object.
  * @public
- * @see {@link module:schedtime/timespan~timeSpan} */
+ * @see {@link module:caltime/timespan~timeSpan} */
 module.exports.timeSpan = timespanModule.timeSpan;
 
 /** Functional constructor which creates a DateSpan object.
  * @public
- * @see {@link module:schedtime/datespan~dateSpan}
+ * @see {@link module:caltime/datespan~dateSpan}
  */
 module.exports.dateSpan = datespanModule.dateSpan;
 
 /** Functional constructor which creates a TimeRule object.
  * @public
- * @see {@link module:schedtime/timerule~timeRule}
+ * @see {@link module:caltime/timerule~timeRule}
  */
 module.exports.timeRule = timeruleModule.timeRule;
 
 
 /* exported functions ++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-/** Function used to merge several DateSpan objects.
+/** Function used to merge DateSpan objects in an array.
  * @public
- * @see {@link module:schedtime/datespan~mergeSpans}
+ * @see {@link module:caltime/datespan~mergeSpans}
  */
 module.exports.mergeDateSpans = datespanModule.mergeSpans;
+
+/** Function used to sort DateSpan objects in an array.
+ * @public
+ * @see {@link module:caltime/datespan~sortSpans}
+ */
+module.exports.sortDateSpans = datespanModule.sortSpans;
 
 /* exported constants *********************************************************/
 
@@ -52,4 +58,4 @@ module.exports.mergeDateSpans = datespanModule.mergeSpans;
 module.exports.constants = require('./lib/constants');
 
 /** Version number of the module in SemVer string format. */
-module.exports.version = '0.0.1';
+module.exports.VERSION = '0.0.1';
