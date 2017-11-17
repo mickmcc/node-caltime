@@ -1,7 +1,7 @@
 # CalTime
 
-`CalTime` provides objects, methods and functions which help you manipulate
-time-spans.  Time-spans can be associated with any timezone and the operations
+`CalTime` is a Node.js module which provides objects, methods and functions which
+help you manipulate time-spans.  Time-spans can be associated with any timezone and the operations
 which manipulate them will take their timezone into account.
 
 The most powerful functionality provided by `CalTime` is the ability to define
