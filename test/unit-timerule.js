@@ -22,31 +22,32 @@ testContext.constants = testContext.module.constants;
 
 /* useful Date objects for testing */
 /* dates which don't span a leap day transition i.e. 29th of Feb. of leap year */
-const dateA = new Date(Date.UTC(2017, 6, 1, 0, 0, 0, 0)); // Saturday, 1st day of July
-const dateB = new Date(Date.UTC(2017, 6, 5, 16, 0, 0, 0)); // First Wed. of July, 16:00
-const dateC = new Date(Date.UTC(2017, 6, 5, 17, 0, 0, 0)); // Last Wed. of July, 17:00
+const dateA = new Date(Date.UTC(2017, 6, 1, 0, 0, 0, 0));   // Saturday 1st, 1st day of July
+const dateB = new Date(Date.UTC(2017, 6, 5, 16, 0, 0, 0));  // First Wed. of July, 16:00
+const dateBa = new Date(Date.UTC(2017, 6, 5, 16, 30, 0, 0));  // First Wed. of July, 16:30
+const dateC = new Date(Date.UTC(2017, 6, 5, 17, 0, 0, 0));  // Last Wed. of July, 17:00
 const dateD = new Date(Date.UTC(2017, 6, 12, 16, 0, 0, 0)); // Second Wed. of July, 16:00
 const dateE = new Date(Date.UTC(2017, 6, 12, 17, 0, 0, 0)); // Second Wed. of July, 17:00
-const dateF = new Date(Date.UTC(2017, 6, 14, 12, 0, 0, 0)); // Friday
-const dateG = new Date(Date.UTC(2017, 6, 15, 10, 0, 0, 0)); // Saturday
-const dateH = new Date(Date.UTC(2017, 6, 15, 12, 0, 0, 0)); // Saturday
-const dateI = new Date(Date.UTC(2017, 6, 15, 13, 0, 0, 0));
-const dateJ = new Date(Date.UTC(2017, 6, 15, 14, 0, 0, 0));
-const dateK = new Date(Date.UTC(2017, 6, 15, 16, 0, 0, 0));
-const dateL = new Date(Date.UTC(2017, 6, 15, 17, 0, 0, 0));
-const dateM = new Date(Date.UTC(2017, 6, 15, 18, 0, 0, 0)); // Saturday
-const dateN = new Date(Date.UTC(2017, 6, 15, 22, 0, 0, 0)); // Saturday
-const dateO = new Date(Date.UTC(2017, 6, 16, 2, 0, 0, 0)); // Friday 02:00
-const dateP = new Date(Date.UTC(2017, 6, 16, 13, 0, 0, 0)); // Sunday 13:00
+const dateF = new Date(Date.UTC(2017, 6, 14, 12, 0, 0, 0)); // Friday 14th, 12:00
+const dateG = new Date(Date.UTC(2017, 6, 15, 10, 0, 0, 0)); // Saturday 15th, 10:00
+const dateH = new Date(Date.UTC(2017, 6, 15, 12, 0, 0, 0)); // Saturday 15th, 12:00
+const dateI = new Date(Date.UTC(2017, 6, 15, 13, 0, 0, 0)); // Saturday 15th, 13:00
+const dateJ = new Date(Date.UTC(2017, 6, 15, 14, 0, 0, 0)); // Saturday 15th, 14:00
+const dateK = new Date(Date.UTC(2017, 6, 15, 16, 0, 0, 0)); // Saturday 15th, 16:00
+const dateL = new Date(Date.UTC(2017, 6, 15, 17, 0, 0, 0)); // Saturday 15th, 17:00
+const dateM = new Date(Date.UTC(2017, 6, 15, 18, 0, 0, 0)); // Saturday 15th, 18:00
+const dateN = new Date(Date.UTC(2017, 6, 15, 22, 0, 0, 0)); // Saturday 15th, 22:00
+const dateO = new Date(Date.UTC(2017, 6, 16, 2, 0, 0, 0));  // Sunday 16th, 02:00
+const dateP = new Date(Date.UTC(2017, 6, 16, 13, 0, 0, 0)); // Sunday 16th, 13:00
 const dateQ = new Date(Date.UTC(2017, 6, 19, 16, 0, 0, 0)); // Third Wed. of July, 16:00
 const dateR = new Date(Date.UTC(2017, 6, 19, 17, 0, 0, 0)); // Third Wed. of July, 17:00
 const dateS = new Date(Date.UTC(2017, 6, 26, 16, 0, 0, 0)); // Last Wed. of July, 16:00
 const dateT = new Date(Date.UTC(2017, 6, 26, 17, 0, 0, 0)); // Last Wed. of July, 17:00
 const dateU = new Date(Date.UTC(2017, 6, 29, 16, 0, 0, 0)); // Last Wed. of July, 16:00
 const dateV = new Date(Date.UTC(2017, 6, 29, 17, 0, 0, 0)); // Last Wed. of July, 17:00
-const dateX = new Date(Date.UTC(2017, 6, 31, 16, 0, 0, 0)); // Monday 16:00, Last day of July
-const dateY = new Date(Date.UTC(2017, 6, 31, 17, 0, 0, 0)); // Monday 17:00, Last day of July
-const dateZ = new Date(Date.UTC(2017, 6, 31, 23, 0, 0, 0)); // Monday, Last day of July
+const dateX = new Date(Date.UTC(2017, 6, 31, 16, 0, 0, 0)); // Monday 31st, 16:00, Last day of July
+const dateY = new Date(Date.UTC(2017, 6, 31, 17, 0, 0, 0)); // Monday 31st, 17:00, Last day of July
+const dateZ = new Date(Date.UTC(2017, 6, 31, 23, 0, 0, 0)); // Monday 31st, Last day of July
 
 /* timezones */
 const TZ_UTC = 'Etc/UTC'; // UTC timezone
@@ -71,6 +72,7 @@ after(function() {
 
 
 describe('Time Rule - Instantiation', function() {
+
   it('Create valid day-of-week time-rule', function() {
     let timespan = testContext.timeSpanCtor(9, 0, 0, 0, 60);
     let ruleObject = testContext.ruleRuleCtor(timespan,
@@ -176,6 +178,7 @@ describe('Time Rule - Instantiation', function() {
 
 
 describe('Time Rule - Generate Date-spans. Timezone: UTC.', function() {
+
   it('Create valid "Day of week" time-rule and get date-span.', function() {
     let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 6*60); // 16:00-22:00
     let ruleObject = testContext.ruleRuleCtor(timespan,
@@ -302,6 +305,34 @@ describe('Time Rule - Generate Date-spans. Timezone: UTC.', function() {
     assert.equal(result[0].getEnd().getTime(), dateV.getTime(), 'Incorrect end time of date-span.');
   });
 
+  it('Generate date-spans with start date overlapping rule time-span.', function() {
+    let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 1*60); // 16:00-17:00
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.constants.CONSTRAINT_FIRST_OF_MONTH,
+                                                testContext.constants.WEDNESDAY,
+                                                TZ_UTC);
+    assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
+    let result = ruleObject.generateDateSpans(dateBa, dateZ); // dateZ is last day of July
+    assert.equal(typeof result, 'object', 'Method should return an array of TimePeriod objects.');
+    assert.equal(result.length, 1, 'Method should return one date-span.');
+    assert.equal(result[0].getBegin().getTime(), dateBa.getTime(), 'Incorrect start time of date-span.');
+    assert.equal(result[0].getEnd().getTime(), dateC.getTime(), 'Incorrect end time of date-span.');
+  });
+
+  it('Generate date-spans with end date overlapping rule time-span.', function() {
+    let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 1*60); // 16:00-17:00
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.constants.CONSTRAINT_FIRST_OF_MONTH,
+                                                testContext.constants.WEDNESDAY,
+                                                TZ_UTC);
+    assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
+    let result = ruleObject.generateDateSpans(dateA, dateBa);
+    assert.equal(typeof result, 'object', 'Method should return an array of TimePeriod objects.');
+    assert.equal(result.length, 1, 'Method should return one date-span.');
+    assert.equal(result[0].getBegin().getTime(), dateB.getTime(), 'Incorrect start time of date-span.');
+    assert.equal(result[0].getEnd().getTime(), dateBa.getTime(), 'Incorrect end time of date-span.');
+  });
+
   it('Create valid time-rule but query date-span with no overlap.', function() {
     let timespan = testContext.timeSpanCtor(12, 0, 0, 0, 1*60); // 16:00-22:00
     let ruleObject = testContext.ruleRuleCtor(timespan,
@@ -316,6 +347,7 @@ describe('Time Rule - Generate Date-spans. Timezone: UTC.', function() {
 });
 
 describe('Time Rule - Generate Date-spans. Timezone: UTC+4 hours.', function() {
+
   it('Create valid time-rule and get date-span.', function() {
     let timespan = testContext.timeSpanCtor(14, 0, 0, 0, 8*60); // 14:00-22:00
     let ruleObject = testContext.ruleRuleCtor(timespan,
@@ -356,6 +388,7 @@ describe('Time Rule - Generate Date-spans. Timezone: UTC+4 hours.', function() {
 });
 
 describe('Time Rule - Generate Time Periods. Timezone: UTC-4 hours.', function() {
+
   it('Create valid time-rule and get date-span.', function() {
     let timespan = testContext.timeSpanCtor(14, 0, 0, 0, 8*60); // 14:00-22:00 UTC-4
     let ruleObject = testContext.ruleRuleCtor(timespan,
