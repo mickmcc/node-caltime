@@ -578,7 +578,7 @@ var modconstants = caltime.constants;
 var spanA = timespanCtor(9, 0, 0, 0, 30, 0, 0);
 var rule = timeruleCtor(spanA,
                           modconstants.CONSTRAINT_DAY_OF_WEEK,
-                          modconstants.THURSDAY,
+                          modconstants.WEDNESDAY,
                           'America/New_York');
 // now generate DateSpan objects based on the rule constraints
 var beginDate = new Date(2017, 5, 1, 12, 0, 0, 0, 0); // 12:00, 1 June 2017
