@@ -1,6 +1,6 @@
 # CalTime
 
-`CalTime` is a Node.js package which provides objects, methods and functions
+`CalTime` is a Node.js module which provides objects, methods and functions
 which help to generate, sort, add and subtract time-spans. Operations which are
 supported by the package include:
 - query if time-spans overlap with each other
