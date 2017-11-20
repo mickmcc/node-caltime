@@ -380,6 +380,10 @@ This method returns the end time up to which the rule generates `DateSpan` objec
 The method generates an Array of `DateSpan` objects which meet all of the constraints
 imposed by the `TimeRule`.
 
+## API Documentation
+
+Documentation for the last major release is available at [CalTime API](https://mickmcc.github.io/node-caltime/index.html).
+
 ## Dependencies
 
 `CalTime` currently depends on two packages when in production. Other packages are
@@ -392,5 +396,5 @@ required to test or develop `CalTime`. The production dependencies are:
 
 CalTime is copyright (c) 2017 Michael McCarthy <michael.mccarthy@ieee.org>.
 
-CalTime is free software, licensed under the MIT licence. See the file `LICENSE.md`
+CalTime is free software, licensed under the MIT licence. See the file `LICENSE`
 in this distribution for more information.
