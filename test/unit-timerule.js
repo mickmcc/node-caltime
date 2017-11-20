@@ -305,7 +305,7 @@ describe('Time Rule - Generate Date-spans. Timezone: UTC.', function() {
     assert.equal(result[0].getEnd().getTime(), dateV.getTime(), 'Incorrect end time of date-span.');
   });
 
-  it('Generate date-spans with start date overlapping rule time-span.', function() {
+  it('Generate date-spans with start date of search period overlapping rule time-span.', function() {
     let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 1*60); // 16:00-17:00
     let ruleObject = testContext.ruleRuleCtor(timespan,
                                                 testContext.constants.CONSTRAINT_FIRST_OF_MONTH,
@@ -319,7 +319,7 @@ describe('Time Rule - Generate Date-spans. Timezone: UTC.', function() {
     assert.equal(result[0].getEnd().getTime(), dateC.getTime(), 'Incorrect end time of date-span.');
   });
 
-  it('Generate date-spans with end date overlapping rule time-span.', function() {
+  it('Generate date-spans with end date of search period overlapping rule time-span.', function() {
     let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 1*60); // 16:00-17:00
     let ruleObject = testContext.ruleRuleCtor(timespan,
                                                 testContext.constants.CONSTRAINT_FIRST_OF_MONTH,
@@ -343,6 +343,38 @@ describe('Time Rule - Generate Date-spans. Timezone: UTC.', function() {
     let result = ruleObject.generateDateSpans(dateJ, dateP);
     assert.equal(typeof result, 'object', 'Method should return an emtpy array.');
     assert.equal(result.length, 0, 'Method should return no date-spans.');
+  });
+
+  it('Generate date-spans with rule start date overlapping rule time-span.', function() {
+    let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 1*60); // 16:00-17:00
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.constants.CONSTRAINT_FIRST_OF_MONTH,
+                                                testContext.constants.WEDNESDAY,
+                                                TZ_UTC,
+                                                dateB,
+                                                null);
+    assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
+    let result = ruleObject.generateDateSpans(dateA, dateZ); // dateZ is last day of July
+    assert.equal(typeof result, 'object', 'Method should return an array of TimePeriod objects.');
+    assert.equal(result.length, 1, 'Method should return one date-span.');
+    assert.equal(result[0].getBegin().getTime(), dateB.getTime(), 'Incorrect start time of date-span.');
+    assert.equal(result[0].getEnd().getTime(), dateC.getTime(), 'Incorrect end time of date-span.');
+  });
+
+  it('Generate date-spans with end date of rule overlapping rule time-span.', function() {
+    let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 1*60); // 16:00-17:00
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.constants.CONSTRAINT_FIRST_OF_MONTH,
+                                                testContext.constants.WEDNESDAY,
+                                                TZ_UTC,
+                                                null,
+                                                dateBa);
+    assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
+    let result = ruleObject.generateDateSpans(dateA, dateZ);
+    assert.equal(typeof result, 'object', 'Method should return an array of TimePeriod objects.');
+    assert.equal(result.length, 1, 'Method should return one date-span.');
+    assert.equal(result[0].getBegin().getTime(), dateB.getTime(), 'Incorrect start time of date-span.');
+    assert.equal(result[0].getEnd().getTime(), dateBa.getTime(), 'Incorrect end time of date-span.');
   });
 });
 
