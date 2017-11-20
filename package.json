@@ -4,7 +4,7 @@
   "description": "Manipulate time-spans across multiple timezones.",
   "main": "index.js",
   "directories": {
-    "doc": "doc",
+    "doc": "docs",
     "example": "example",
     "lib": "lib",
     "test": "test"
@@ -19,7 +19,7 @@
     "test-timezone": "./node_modules/.bin/mocha test/unit-timezone.js",
     "test": "npm run -s test-datespan && npm run -s test-timespan && npm run -s test-timezone && npm run -s test-timerule",
     "lint": "./node_modules/.bin/eslint index.js && ./node_modules/.bin/eslint lib && ./node_modules/.bin/eslint test",
-    "doc": "./node_modules/.bin/jsdoc -d doc README.md index.js lib/"
+    "doc": "./node_modules/.bin/jsdoc -d docs README.md index.js lib/"
   },
   "repository": {
     "type": "git",

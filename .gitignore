@@ -58,7 +58,7 @@ typings/
 .env
 
 # ignore jsdoc generated files 
-doc/*
+docs/*
 
 # atom packages
 .tern-project

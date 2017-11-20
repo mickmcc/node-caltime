@@ -589,6 +589,18 @@ result[0].getBegin(); // 7 June 2017, 09:00-09:30am Eastern Daylight Time (-0400
 result[1].getBegin(); // 14 June 2017, 09:00-09:30am Eastern Daylight Time (-0400)
 ```
 
+## API Documentation
+
+Documentation describing the last major release of `CalTime` is available at
+(CalTime API)(https://mickmcc.github.io/node-caltime/).
+
+The latest API documentation can be generated using `jsdoc`.
+
+```sh
+cd <caltime-git-clone>
+npm run -s doc
+```
+
 ## Dependencies
 
 `CalTime` currently depends on two packages when in production. Other packages are
