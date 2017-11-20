@@ -1,0 +1,61 @@
+{
+  "name": "caltime",
+  "version": "1.0.0",
+  "description": "Manipulate time-spans across multiple timezones.",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc",
+    "example": "example",
+    "lib": "lib",
+    "test": "test"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "scripts": {
+    "test-datespan": "./node_modules/.bin/mocha test/unit-datespan.js",
+    "test-timespan": "./node_modules/.bin/mocha test/unit-timespan.js",
+    "test-timerule": "./node_modules/.bin/mocha test/unit-timerule.js",
+    "test-timezone": "./node_modules/.bin/mocha test/unit-timezone.js",
+    "test": "npm run -s test-datespan && npm run -s test-timespan && npm run -s test-timezone && npm run -s test-timerule",
+    "lint": "./node_modules/.bin/eslint index.js && ./node_modules/.bin/eslint lib && ./node_modules/.bin/eslint test",
+    "doc": "./node_modules/.bin/jsdoc -d doc README.md index.js lib/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mickmcc/node-caltime.git"
+  },
+  "keywords": [
+    "date",
+    "time",
+    "timezone",
+    "timespan",
+    "span",
+    "calendar"
+  ],
+  "author": "Michael McCarthy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mickmcc/node-caltime/issues"
+  },
+  "homepage": "https://github.com/mickmcc/node-caltime",
+  "devDependencies": {
+    "eslint": "~4.8.0",
+    "eslint-config-google": "~0.9.1",
+    "jsdoc": "~3.5.5",
+    "mocha": "~4.0.0"
+  },
+  "dependencies": {
+    "lodash": "~4.17.4",
+    "moment-timezone": "~0.5.14"
+  },
+  "files": [
+    "package.json",
+    "index.js",
+    "LICENCE",
+    "README.md",
+    "doc",
+    "test",
+    "lib"
+  ]
+}

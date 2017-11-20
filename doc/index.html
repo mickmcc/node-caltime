@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>CalTime</h1><p><code>CalTime</code> is a Node.js module which provides objects, methods and functions which
+help you manipulate time-spans.  Time-spans can be associated with any timezone and the operations
+which manipulate them will take their timezone into account.</p>
+<p>The most powerful functionality provided by <code>CalTime</code> is the ability to define
+time-based rules. This allows time-spans to be defined following periodic
+rules. Examples are:</p>
+<ul>
+<li>2-3pm on Monday of every week in xx timezone.</li>
+<li>14:00-16:00 on the 24th of every month in xx timezone.</li>
+<li>9-10am on the third Tuesday of every month in xx timezone.</li>
+</ul>
+<p>Suggested uses include:</p>
+<ul>
+<li>Time tracking. Track the effort assigned to multiple resources across multiple timezones.</li>
+<li>Calculate the cost of resource usage using a calendar of costs which change over time.</li>
+<li>Schedule meetings across multiple timezones and book the required resources.</li>
+</ul>
+<p><code>CalTime</code> does not attempt to provide functionality which is already provided by
+other packages such as <a href="http://momentjs.com">Moment</a>. For this reason, <code>CalTime</code> is not
+interested in converting dates or times to or from their string representation.</p>
+<h2>API Usage</h2><p>The <code>CalTime</code> package provides a top-level object with several member functions
+and objects. All of these functions and objects can be accessed by requiring
+the <code>caltime</code> package.</p>
+<pre class="prettyprint source lang-js"><code>var caltime = require('caltime');
+// functional constructor for TimeSpan
+var timespan = caltime.timeSpan;
+// functional constructor for DateSpan
+var datespan = caltime.dateSpan;
+// function to merge DateSpans in an array
+var mergeDateSpans = caltime.mergeDateSpans;
+// function to sort DateSpans in an array
+var sortDateSpans = caltime.sortDateSpans;
+// functional constructor for TimeRule
+var timerule = caltime.timeRule;
+// Constants object provides all constants
+var caltimeConstants = caltime.constants;</code></pre><h2>TimeSpan</h2><p>A <code>TimeSpan</code> object defines an arc of time which starts at a defined time of the day
+and which has a defined duration and end time. The <code>TimeSpan</code> is not associated
+with any specific date or timezone. It just defines the span between two points
+in time during a single day.
+<code>TimeSpan</code> is deliberately not date specific. It does not take into
+account factors such as the timezone, leap seconds or Daylight Savings Time.</p>
+<pre class="prettyprint source lang-js"><code>var caltime = require('caltime');
+// call the functional constructor. do not use the new operator.
+var timespanCtor = caltime.timeSpan;
+// create a TimeSpan object which represents 09:00am - 10:00am.
+var spanA = timespanCtor(9, 0, 0, 0, 60, 0, 0);</code></pre><h3>timeSpan()</h3><p>The <code>timeSpan</code> function is a functional constructor therefore it should not be
+called with the <code>new</code> operator. The function accepts several arguments:</p>
+<ul>
+<li>inHours: Hour component of the start time of the <code>TimeSpan</code> (24 hour clock). Valid range is 0-23.</li>
+<li>inMinute: Minutes component of the start time. Valid range is 0-59.</li>
+<li>inSeconds: Seconds component of the start time. Valid range is 0-59.</li>
+<li>inMilliseconds: Milliseconds component of the start time. Valid range is 0-999.</li>
+<li>inDurationMins: Minutes component of the duration of the <code>TimeSpan</code> in minutes.
+Durations can exceed one hour and in this case this argument can exceed the value 59.</li>
+<li>inDurationSecs: Seconds component of the duration. Valid range is 0-59.</li>
+<li>inDurationMs: Milliseconds component of the duration. Valid range is 0-999.</li>
+</ul>
+<h3>getHours(), getMinutes, getSeconds() and getMilliseconds()</h3><p>These methods return the various components of the start time of the <code>TimeSpan</code>.</p>
+<pre class="prettyprint source lang-js"><code>var caltime = require('caltime');
+var timespanCtor = caltime.timeSpan;
+// create a TimeSpan object which represents 09:01:30:444am - 09:31:30:444am.
+var spanA = timespanCtor(9, 1, 34, 444, 30, 0, 0);
+spanA.getHours(); // 9 hours
+spanA.getMinutes(); // 1 minute
+spanA.getSeconds(); // 34 seconds
+spanA.getMilliseconds(); // 444 milliseconds</code></pre><h3>getDurationMins(), getDurationSecs() and getDurationMs()</h3><p>These methods return the various components of the duration of the <code>TimeSpan</code>.
+A <code>TimeSpan</code> which is longer than 1 hour will have a duration with &gt; 60 minutes.</p>
+<pre class="prettyprint source lang-js"><code>var caltime = require('caltime');
+var timespanCtor = caltime.timeSpan;
+// create a TimeSpan object which represents 09:00:0:000am - 09:04:05:006am.
+var spanA = timespanCtor(9, 0, 0, 0, 4, 5, 6);
+spanA.getDurationMins(); // 4 minutes
+spanA.getDurationSecs(); // 5 seconds
+spanA.getDurationMs(); // 6 milliseconds</code></pre><h3>getTotalDuration()</h3><p>This method returns the total duration of the <code>TimeSpan</code> in milliseconds.</p>
+<pre class="prettyprint source lang-js"><code>var caltime = require('caltime');
+var timespanCtor = caltime.timeSpan;
+// create a TimeSpan object which represents 09:00:0:000am - 09:01:01:001am.
+var spanA = timespanCtor(9, 0, 0, 0, 1, 1, 1);
+spanA.getTotalDuration(); // 60000+1000+1 = 61001</code></pre><h3>isEqual()</h3><p>Method returns true if two <code>TimeSpan</code> objects have exactly the same start times
+and total durations.</p>
+<pre class="prettyprint source lang-js"><code>var caltime = require('caltime');
+var timespanCtor = caltime.timeSpan;
+// create a TimeSpan object which represents 09:00:0:000am - 09:01:01:001am.
+var spanA = timespanCtor(9, 0, 0, 0, 1, 1, 1);
+var spanB = timespanCtor(9, 0, 0, 0, 1, 1, 1);
+// create a TimeSpan object which represents 09:00:0:000am - 09:02:00:000am.
+var spanC = timespanCtor(9, 2, 0, 0, 0, 0, 0);
+spanA.isEqual(spanB); // true
+spanA.isEqual(spanC); // false</code></pre><h3>isIntersect()</h3><p>Method returns true if two <code>TimeSpan</code> objects intersect each other i.e. they
+overlap.  Since the end time of a <code>TimeSpan</code> is exclusive, overlapping the
+beginning of one <code>TimeSpan</code> with the end time of another does not count as
+an intersection.</p>
+<pre class="prettyprint source lang-js"><code>var caltime = require('caltime');
+var timespanCtor = caltime.timeSpan;
+// create a TimeSpan object which represents 09:30am - 10:00am.
+var spanA = timespanCtor(9, 30, 0, 0, 30, 0, 0);
+// create a TimeSpan object which represents 09:45am - 10:00am.
+var spanB = timespanCtor(9, 45, 0, 0, 15, 0, 0);
+// create a TimeSpan object which represents 10:00am - 10:15am.
+var spanC = timespanCtor(10, 0, 0, 0, 15, 0, 0);
+spanA.isIntersect(spanB); // true
+spanA.isIntersect(spanC); // false</code></pre><h3>intersect()</h3><p>Method calculates the intersection, if any, between two <code>TimeSpan</code> objects
+and returns a new <code>TimeSpan</code> object or null if there was no intersection.</p>
+<h3>union()</h3><p>Method calculates the union between two intersecting <code>TimeSpan</code> objects. It
+returns a new <code>TimeSpan</code> or null if there is no intersection.</p>
+<h3>subtract()</h3><p>Method calculates the remainder(s) after subtracting one <code>TimeSpan</code> from
+another.  It returns an array containing one or two new <code>TimeSpan</code> objects
+which represent the remainders.  The array is empty if there was an exact
+overlap between the time-spans and there was no remainder. The method returns
+null if subtraction could not be performed because there wasn't sufficient
+overlap.</p>
+<h3>toString()</h3><p>Method returns a string which represents the state of the <code>TimeSpan</code>. This
+method is only made available for debugging and the format of the string
+can change between releases.</p>
+<h2>DateSpan</h2><p>Similar to a <code>TimeSpan</code>, a <code>DateSpan</code> object specifies a start time and duration, however
+the <code>DateSpan</code> is tied to a specific point in time i.e. a specific date which
+is affected by timezone, leap years and Daylight Savings Time.</p>
+<h3>dateSpan()</h3><p>The <code>dateSpan</code> function is a functional constructor therefore it should not be
+called with the <code>new</code> operator. The function accepts several arguments:</p>
+<ul>
+<li>inBegin: A valid Date object which indicates the start time and date.</li>
+<li>inEnd: Optional argument. A valid Date object which indicates the end time and
+date. Pass null when it is preferred to specify the duration.</li>
+<li>inDurationMins: Minutes component of the duration of the <code>DateSpan</code> in minutes.
+Durations can exceed one hour and in this case this argument can exceed the value 59.
+The argument is optional and should not be passed if inEnd is specified.</li>
+<li>inDurationSecs: Seconds component of the duration. Valid range is 0-59.
+The argument is optional and should not be passed if inEnd is specified.</li>
+<li><p>inDurationMs: Milliseconds component of the duration. Valid range is 0-999.
+The argument is optional and should not be passed if inEnd is specified.</p>
+<pre class="prettyprint source lang-js"><code>var caltime = require('caltime');
+var datespanCtor = caltime.dateSpan;
+// DateSpan object which represents 09:00:00:000am - 09:30:00:000am, 15.Nov.2017.
+var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
+var spanA = datespanCtor(beginDate, 30, 0, 0);</code></pre></li>
+</ul>
+<h3>getBegin()</h3><p>  This method returns the start time of the <code>DateSpan</code> as a Date object.</p>
+<pre class="prettyprint source lang-js"><code>  var caltime = require('caltime');
+  var datespanCtor = caltime.dateSpan;
+  // DateSpan object which represents 09:00:00:000am - 09:30:00:000am, 15.Nov.2017.
+  var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
+  var spanA = datespanCtor(beginDate, 30, 0, 0);
+  spanA.getBegin(); // Date object</code></pre><h3>getDurationMins(), getDurationSecs() and getDurationMs()</h3><p>  These methods return the various components of the duration of the <code>DateSpan</code>.
+  A <code>DateSpan</code> which is longer than 1 hour will have a duration with &gt; 60 minutes.</p>
+<pre class="prettyprint source lang-js"><code>  var caltime = require('caltime');
+  var datespanCtor = caltime.dateSpan;
+  // DateSpan object which represents 09:00:00:000am - 09:30:11:222am, 15.Nov.2017.
+  var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
+  var spanA = datespanCtor(beginDate, 30, 11, 222);
+  spanA.getDurationMins(); // 30 minutes
+  spanA.getDurationSecs(); // 11 seconds
+  spanA.getDurationMs(); // 222 milliseconds</code></pre><h3>getTotalDuration</h3><p>Method returns the total duration of the <code>DateSpan</code> in milliseconds.</p>
+<pre class="prettyprint source lang-js"><code>var caltime = require('caltime');
+var datespanCtor = caltime.dateSpan;
+// DateSpan object which represents 09:00:00:000am - 09:31:02:003am, 15.Nov.2017.
+var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
+var spanA = datespanCtor(beginDate, 1, 2, 3);
+spanA.getTotalDuration(); // (1*60000)+(2*1000)+(3) = 62003 milliseconds</code></pre><h3>getEnd()</h3><p>  This method returns the end time of the <code>DateSpan</code> as a Date object.</p>
+<pre class="prettyprint source lang-js"><code>  var caltime = require('caltime');
+  var datespanCtor = caltime.dateSpan;
+  // DateSpan object which represents 09:00:00:000am - 09:30:00:000am, 15.Nov.2017.
+  var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
+  var spanA = datespanCtor(beginDate, 30, 0, 0);
+  spanA.getEnd(); // Date object with time 09:30am</code></pre><h3>isIntersect</h3><p>Method returns true if two <code>DateSpan</code> objects intersect each other i.e. they
+overlap.  Since the end time of a <code>DateSpan</code> is exclusive, overlapping the
+beginning of one <code>DateSpan</code> with the end time of another does not count as
+an intersection.</p>
+<pre class="prettyprint source lang-js"><code>var caltime = require('caltime');
+var datespanCtor = caltime.timeSpan;
+// DateSpan object which represents 09:00:00:000am - 09:30:00:000am, 15.Nov.2017.
+var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
+var spanA = datespanCtor(beginDate, 30, 0, 0);
+// create a DateSpan object which represents 09:45am - 10:00am.
+beginDate = new Date(2017, 10, 15, 9, 45, 0, 0);
+var spanB = datespanCtor(beginDate, 15, 0, 0);
+// create a DateSpan object which represents 10:00am - 10:15am.
+beginDate = new Date(2017, 10, 15, 10, 0, 0, 0);
+var spanC = datespanCtor(beginDate, 15, 0, 0);
+spanA.isIntersect(spanB); // true
+spanA.isIntersect(spanC); // false</code></pre><h3>intersect()</h3><p>Method calculates the intersection, if any, between two <code>DateSpan</code> objects
+and returns a new <code>DateSpan</code> object or null if there was no intersection.</p>
+<h3>union()</h3><p>Method calculates the union between two intersecting <code>DateSpan</code> objects. It
+returns a new <code>DateSpan</code> or null if there is no intersection.</p>
+<h3>subtract()</h3><p>Method calculates the remainder(s) after subtracting one <code>DateSpan</code> from
+another.  It returns an array containing one or two new <code>DateSpan</code> objects
+which represent the remainders.  The array is empty if there was an exact
+overlap between the date-spans and there was no remainder. The method returns
+null if subtraction could not be performed because there wasn't sufficient
+overlap.</p>
+<h3>toString()</h3><p>Method returns a string which represents the state of the <code>DateSpan</code>. This
+method is only made available for debugging and the format of the string
+can change between releases.</p>
+<h3>mergeSpans()</h3><p>Function is passed an Array of <code>DateSpan</code> objects and sorts the objects in
+the array based on the start time. It then merges any of the <code>DateSpan</code> objects
+which are overlapping. A new array is returned (merging is not in-situ) which
+contains the merged and non-merged <code>DateSpan</code> objects.</p>
+<h3>sortSpans()</h3><p>Function creates and returns a new Array which contains the same <code>DateSpan</code>
+objects which are sorted by their start time.</p>
+<h2>TimeRule</h2><p>The <code>TimeRule</code> object allows logic to be defined which can then be used to
+automatically generate <code>DateSpan</code> objects for a range of time. Several types
+of rules can be created. The constraint applied to the rule controls for which
+days or dates the <code>DateSpan</code> objects are created. Possible constraints are:</p>
+<ul>
+<li>The same day of the week, every week e.g. every Monday from 9-10am.</li>
+<li>The same date every month e.g. 4th of every month from 1-2pm.</li>
+<li>The Nth weekday of every month e.g. 3rd Tuesday of the month from 9-10pm.</li>
+</ul>
+<h3>timeRule()</h3><p>The <code>timeRule</code> function is a functional constructor, therefore it should not be
+called with the <code>new</code> operator. The function accepts several arguments:</p>
+<ul>
+<li>inTimeSpan: <code>TimeSpan</code> object describing the start time and duration of the <code>DateSpan</code>
+objects which will be generated by the rule.</li>
+<li>inConstraint: Controls how the rule generates <code>DateSpan</code> objects. Constants
+for each type of constraint are provided by the <code>CalTime</code> module's constants object.</li>
+<li>inDay: Specifies the day of the week or day of the month. How this value is
+interpreted depends on <code>inConstraint</code>.</li>
+<li>inTZ: String defining the timezone used when generating the <code>DateSpan</code> objects.
+See https://www.iana.org/time-zones for valid timezone identifier strings.
+The timezone is required because the <code>inTimeSpan</code> argument is timezone agnostic.</li>
+<li>inBegin: Optional argument. Defines a start time before which the rule does
+not apply and therefore does not generate any <code>DateSpan</code> objects.</li>
+<li>inEnd: Optional argument. Defines an end time after which the rule does
+not apply and therefore does not generate any <code>DateSpan</code> objects.</li>
+</ul>
+<h3>getTimeSpan()</h3><p>Method returns a <code>TimeSpan</code> object which defines the span of time during the day
+which is used when generating the <code>DateSpan</code> objects.</p>
+<h3>getDay()</h3><p>Method returns the day (0 (Sunday) - 6 (Saturday) of the week or day of the month (1-31)
+which indicates which days which the rule will generate a <code>DateSpan</code> object.</p>
+<h3>getTZ()</h3><p>Method returns a string which indicates the timezone used when generating the
+<code>DateSpan</code> objects.</p>
+<h3>getBegin()</h3><p>This method returns the start time from which the rule begins generating
+<code>DateSpan</code> objects.</p>
+<h3>getEnd()</h3><p>This method returns the end time up to which the rule generates <code>DateSpan</code> objects.</p>
+<h3>generateDateSpans()</h3><p>The method generates an Array of <code>DateSpan</code> objects which meet all of the constraints
+imposed by the <code>TimeRule</code>.</p>
+<h2>Dependencies</h2><p><code>CalTime</code> currently depends on two packages when in production. Other packages are
+required to test or develop <code>CalTime</code>. The production dependencies are:</p>
+<ul>
+<li><a href="https://lodash.com/">Lodash</a></li>
+<li><a href="https://momentjs.com/timezone/">Moment Timezone</a></li>
+</ul>
+<h2>License</h2><p>CalTime is copyright (c) 2017 Michael McCarthy <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#58;&#x6d;&#x69;&#99;&#104;&#97;&#101;&#x6c;&#46;&#109;&#99;&#x63;&#x61;&#x72;&#116;&#x68;&#x79;&#64;&#x69;&#101;&#x65;&#101;&#x2e;&#x6f;&#x72;&#103;">&#x6d;&#x69;&#99;&#104;&#97;&#101;&#x6c;&#46;&#109;&#99;&#x63;&#x61;&#x72;&#116;&#x68;&#x79;&#64;&#x69;&#101;&#x65;&#101;&#x2e;&#x6f;&#x72;&#103;</a>.</p>
+<p>CalTime is free software, licensed under the MIT licence. See the file <code>LICENSE.md</code>
+in this distribution for more information.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-caltime.html">caltime</a></li><li><a href="module-caltime_constants.html">caltime/constants</a></li><li><a href="module-caltime_datespan.html">caltime/datespan</a></li><li><a href="module-caltime_timerule.html">caltime/timerule</a></li><li><a href="module-caltime_timespan.html">caltime/timespan</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Nov 17 2017 17:05:04 GMT+0100 (CET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

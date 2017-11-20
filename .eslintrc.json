@@ -1,0 +1,11 @@
+{
+  "extends": "google",
+  "env": {
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
+  "rules": {
+    // Additional, per-project rules...
+  }
+}

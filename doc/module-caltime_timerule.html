@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: caltime/timerule</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: caltime/timerule</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~timeRule"><span class="type-signature">(inner) </span>timeRule<span class="signature">(inTimeSpan, inConstraint, inDay, inTZ, inBegin<span class="signature-attributes">opt</span>, inEnd<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Functional constructor. Creates an instance of a TimeRule.
+Each TimeRule object is immutable.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>inTimeSpan</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">A TimeSpan object which represents the begin time
+and duration of a span of time during which the rule applies. An error is
+thrown if this argument is not specified or it is not a valid object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>inConstraint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Integer. Identifies which type of Constraint
+is applied by the time rule. Valid values are:
+ CONSTRAINT_DAY_OF_WEEK, CONSTRAINT_DAY_OF_MONTH, CONSTRAINT_FIRST_OF_MONTH,
+ CONSTRAINT_SECOND_OF_MONTH, CONSTRAINT_THIRD_OF_MONTH,
+ CONSTRAINT_FOURTH_OF_MONTH, CONSTRAINT_FIFTH_OF_MONTH and
+ CONSTRAINT_LAST_OF_MONTH.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>inDay</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Integer. Represents the day of the week or month
+when this rule applies. Values representing the days of the week are the
+same as those of the Date.getDay() method and values for the day of the
+month must be in the range 1-31. Whether the day of the week or month is
+specified depends on the value passed to inConstraint.
+An error is thrown if no value is specified or it is outside the valid range.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>inTZ</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Timezone identifier as defined by the
+tz database - sometimes called the TZ environment variable value.
+See https://www.iana.org/time-zones for more details.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>inBegin</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last">Date and time from which the rule is applied.
+If no begin time is specified then the rule begins at the earliest possible
+time.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>inEnd</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last">Date and time up until which the rule is applied.
+If no begin time is specified then the rule ends at the latest possible time.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_timerule.js.html">lib/timerule.js</a>, <a href="lib_timerule.js.html#line46">line 46</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A new instance of a TimeRule object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-caltime.html">caltime</a></li><li><a href="module-caltime_constants.html">caltime/constants</a></li><li><a href="module-caltime_datespan.html">caltime/datespan</a></li><li><a href="module-caltime_timerule.html">caltime/timerule</a></li><li><a href="module-caltime_timespan.html">caltime/timespan</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Nov 17 2017 17:05:04 GMT+0100 (CET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
