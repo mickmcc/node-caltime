@@ -33,9 +33,10 @@ The `CalTime` package provides a top-level object with several member functions
 and objects. All of these functions and objects can be accessed by installing
 the `caltime` package.
 
-'''
+```sh
+cd <myproject>
 npm install --save caltime
-'''
+```
 
 Currently, the `caltime` package provides three object constructors, two functions
 and the constants object.
