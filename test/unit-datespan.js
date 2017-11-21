@@ -77,84 +77,84 @@ describe('Date-Span - Instantiation', function() {
 
   it('Attempt to create an date-span with a null begin argument.', function() {
     assert.throws(function() {
- tc.dateSpanCtor(null, null, Number.MIN_SAFE_INTEGER);
-},
+                     tc.dateSpanCtor(null, null, Number.MIN_SAFE_INTEGER);
+                    },
                     Error,
                     'Expected functional constructor to throw an error.');
   });
 
   it('Attempt to create an date-span with an invalid (array) begin argument.', function() {
     assert.throws(function() {
- tc.dateSpanCtor([], null, Number.MIN_SAFE_INTEGER);
-},
+                     tc.dateSpanCtor([], null, Number.MIN_SAFE_INTEGER);
+                    },
                     Error,
                     'Expected functional constructor to throw an error.');
   });
 
   it('Attempt to create an date-span with an invalid type of begin argument.', function() {
     assert.throws(function() {
- tc.dateSpanCtor({}, null, Number.MIN_SAFE_INTEGER);
-},
+                     tc.dateSpanCtor({}, null, Number.MIN_SAFE_INTEGER);
+                    },
                     Error,
                     'Expected functional constructor to throw an error.');
   });
 
   it('Attempt to create a date-span with negative durations', function() {
     assert.throws(function() {
- tc.dateSpanCtor(dateA, null, Number.MIN_SAFE_INTEGER);
-},
+                     tc.dateSpanCtor(dateA, null, Number.MIN_SAFE_INTEGER);
+                    },
                     Error,
                     'Expected functional constructor to throw an error.');
     assert.throws(function() {
- tc.dateSpanCtor(dateA, null, 0, Number.MIN_SAFE_INTEGER);
-},
+                     tc.dateSpanCtor(dateA, null, 0, Number.MIN_SAFE_INTEGER);
+                    },
                     Error,
                     'Expected functional constructor to throw an error.');
     assert.throws(function() {
- tc.dateSpanCtor(dateA, null, 0, 0, Number.MIN_SAFE_INTEGER);
-},
+                     tc.dateSpanCtor(dateA, null, 0, 0, Number.MIN_SAFE_INTEGER);
+                    },
                     Error,
                     'Expected functional constructor to throw an error.');
   });
 
   it('Attempt to create a date-span with out-of-range durations', function() {
     assert.throws(function() {
- tc.dateSpanCtor(dateA, null, Number.MIN_SAFE_INTEGER+1);
-},
+                     tc.dateSpanCtor(dateA, null, Number.MIN_SAFE_INTEGER+1);
+                    },
                     Error,
                     'Expected functional constructor to throw an error (inDurationMins).');
     assert.throws(function() {
- tc.dateSpanCtor(dateA, null, 0, 60, 0);
-},
+                     tc.dateSpanCtor(dateA, null, 0, 60, 0);
+                    },
                     Error,
                     'Expected functional constructor to throw an error (inDurationSecs).');
     assert.throws(function() {
- tc.dateSpanCtor(dateA, null, 0, 0, 1000);
-},
+                     tc.dateSpanCtor(dateA, null, 0, 0, 1000);
+                    },
                     Error,
                     'Expected functional constructor to throw an error (inDurationMSecs).');
   });
 
   it('Attempt to create an invalid date-span using floating point arguments.', function() {
     assert.throws(function() {
- tc.dateSpanCtor(dateA, null, Number.MAX_VALUE);
-},
+                     tc.dateSpanCtor(dateA, null, Number.MAX_VALUE);
+                    },
                     Error,
                     'Expected functional constructor to throw an error.');
   });
 
   it('Attempt to create an invalid date-span using a string argument.', function() {
     assert.throws(function() {
- tc.dateSpanCtor(dateA, null, 'ABCD');
-},
+                     tc.dateSpanCtor(dateA, null, 'ABCD');
+                    },
                     Error,
                     'Expected functional constructor to throw an error.');
   });
 
   it('Attempt to create an date-span using incorrect end date.', function() {
     assert.throws(function() {
- tc.dateSpanCtor(dateB, dateA);
-},
+                     tc.dateSpanCtor(dateB, dateA);
+                    },
                     Error,
                     'Expected functional constructor to throw an error.');
   });

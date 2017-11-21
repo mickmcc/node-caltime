@@ -51,6 +51,18 @@ module.exports.mergeDateSpans = datespanModule.mergeSpans;
  */
 module.exports.sortDateSpans = datespanModule.sortSpans;
 
+/** Function used to merge TimeSpan objects in an array.
+ * @public
+ * @see {@link module:caltime/timespan~mergeSpans}
+ */
+module.exports.mergeTimeSpans = timespanModule.mergeSpans;
+
+/** Function used to sort TimeSpan objects in an array.
+ * @public
+ * @see {@link module:caltime/timespan~sortSpans}
+ */
+module.exports.sortTimeSpans = timespanModule.sortSpans;
+
 /* exported constants *********************************************************/
 
 /** Object's data members provides all of the constants which are made

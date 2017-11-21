@@ -14,6 +14,8 @@ const util = require('util');
 const _ = require('lodash');
 const tc = {}; // test context
 tc.spanCtor = require('../').timeSpan;
+tc.sortTimeSpans = require('../').sortTimeSpans;
+tc.mergeTimeSpans = require('../').mergeTimeSpans;
 tc.constants = require('../').constants;
 
 
@@ -148,9 +150,6 @@ describe('TimeSpan - Instantiation', function() {
                     Error,
                     'Expected functional constructor to throw an error.'); // spans 00:00:00:000 - 00:00:00:001
   });
-
-
-
 });
 
 
@@ -388,5 +387,91 @@ describe('TimeSpan - Operations', function() {
           result = spanA.subtract(spanD);
           assert.equal(_.isNull(result), true, 'Function should return null.');
         });
+
+});
+
+describe('TimeSpan - Sort', function() {
+
+  it('Sort an empty array', function() {
+    const spanArray = [];
+    let result = tc.sortTimeSpans(spanArray);
+    assert.notEqual(result, null, 'TimeSpan objects were not subtracted.');
+    assert.equal(_.isArray(result), true, 'Method should return an array.');
+  });
+
+  it('Sort an array of TimeSpan objects', function() {
+    const spanArray = [];
+    const timeSpanA = tc.spanCtor(9, 30, 30, 0, 60, 0, 0, 0);  // 9:30-10:30
+    const timeSpanB = tc.spanCtor(10, 30, 30, 0, 60, 0, 0, 0); // 10:30-11:30
+    const timeSpanC = tc.spanCtor(11, 30, 30, 0, 60, 0, 0, 0); // 11:30-12:30
+    const timeSpanD = tc.spanCtor(12, 30, 30, 0, 60, 0, 0, 0); // 12:30-13:30
+    // sort in ascending order
+    spanArray.push(timeSpanD);
+    spanArray.push(timeSpanC);
+    spanArray.push(timeSpanB);
+    spanArray.push(timeSpanA);
+    let result = tc.sortTimeSpans(spanArray);
+    assert.notEqual(result, null, 'TimeSpan objects were not subtracted.');
+    assert.equal(_.isArray(result), true, 'Method should return an array.');
+    assert.equal(result.length, 4, 'Expected 4 elements in array.');
+    assert.notEqual(result, spanArray, 'Method should return a new array object.');
+    assert.equal(result[0], timeSpanA, 'Expected a different TimeSpan');
+    assert.equal(result[1], timeSpanB, 'Expected a different TimeSpan');
+    assert.equal(result[2], timeSpanC, 'Expected a different TimeSpan');
+    assert.equal(result[3], timeSpanD, 'Expected a different TimeSpan');
+    // sort in descending order again
+    result = tc.sortTimeSpans(spanArray, true);
+    assert.notEqual(result, null, 'TimeSpan objects were not subtracted.');
+    assert.equal(_.isArray(result), true, 'Method should return an array.');
+    assert.equal(result.length, 4, 'Expected 4 elements in array.');
+    assert.notEqual(result, spanArray, 'Method should return a new array object.');
+    assert.equal(result[0], timeSpanD, 'Expected a different TimeSpan');
+    assert.equal(result[1], timeSpanC, 'Expected a different TimeSpan');
+    assert.equal(result[2], timeSpanB, 'Expected a different TimeSpan');
+    assert.equal(result[3], timeSpanA, 'Expected a different TimeSpan');
+  });
+});
+
+describe('TimeSpan - Merge List', function() {
+
+  it('Merge empty list of non-intersecting timespans', function() {
+    const list = [];
+    const result = tc.mergeTimeSpans(list);
+    assert.notEqual(result, null, 'Function should return an array.');
+    assert.equal(result.length, 0, 'Array should contain the no elements.');
+  });
+
+  it('Merge list of four intersecting timespans', function() {
+    const timeSpanA = tc.spanCtor(9, 30, 0, 0, 80, 0, 0, 0);  // 9:30-10:50
+    const timeSpanB = tc.spanCtor(10, 30, 0, 0, 80, 0, 0, 0); // 10:30-11:50
+    const timeSpanC = tc.spanCtor(11, 30, 0, 0, 80, 0, 0, 0); // 11:30-12:50
+    const timeSpanD = tc.spanCtor(12, 30, 0, 0, 80, 0, 0, 0); // 12:30-13:50
+    const list = [timeSpanA, timeSpanB, timeSpanC, timeSpanD];
+    assert.notEqual(timeSpanA, null, 'TimeSpan object was not constructed.');
+    assert.notEqual(timeSpanB, null, 'TimeSpan object was not constructed.');
+    assert.notEqual(timeSpanC, null, 'TimeSpan object was not constructed.');
+    assert.notEqual(timeSpanD, null, 'TimeSpan object was not constructed.');
+    const result = tc.mergeTimeSpans(list);
+    assert.notEqual(result, null, 'Function should return an array.');
+    assert.equal(result.length, 1, 'Array should contain one merged element.');
+    assert.equal(result[0].getHours(), timeSpanA.getHours(), 'Incorrect start time of merged period.');
+    assert.equal(result[0].getMinutes(), timeSpanA.getMinutes(), 'Incorrect start time of merged period.');
+    assert.equal(result[0].getDurationMins(), 260, 'Incorrect duration of merged period.'); // 9:30-13:50
+  });
+
+  it('Merge list of four non-intersecting timespans', function() {
+    const timeSpanA = tc.spanCtor(9, 30, 0, 0, 60, 0, 0, 0);  // 9:30-10:30
+    const timeSpanB = tc.spanCtor(10, 30, 0, 0, 60, 0, 0, 0); // 10:30-11:30
+    const timeSpanC = tc.spanCtor(11, 30, 0, 0, 60, 0, 0, 0); // 11:30-12:30
+    const timeSpanD = tc.spanCtor(12, 30, 0, 0, 60, 0, 0, 0); // 12:30-13:30
+    const list = [timeSpanA, timeSpanB, timeSpanC, timeSpanD];
+    assert.notEqual(timeSpanA, null, 'TimeSpan object was not constructed.');
+    assert.notEqual(timeSpanB, null, 'TimeSpan object was not constructed.');
+    assert.notEqual(timeSpanC, null, 'TimeSpan object was not constructed.');
+    assert.notEqual(timeSpanD, null, 'TimeSpan object was not constructed.');
+    const result = tc.mergeTimeSpans(list);
+    assert.notEqual(result, null, 'Function should return an array.');
+    assert.equal(result.length, 4, 'Array should contain 4 original elements.');
+  });
 
 });
