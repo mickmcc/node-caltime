@@ -1,7 +1,7 @@
 {
   "name": "caltime",
   "version": "1.0.0",
-  "description": "Manipulate time-spans across multiple timezones.",
+  "description": "Node.js module to add, subtract, intersect timespans and generate them from rules.",
   "main": "index.js",
   "directories": {
     "doc": "docs",
@@ -26,12 +26,18 @@
     "url": "https://github.com/mickmcc/node-caltime.git"
   },
   "keywords": [
-    "date",
     "time",
-    "timezone",
+    "date",
     "timespan",
+    "time-span",
     "span",
-    "calendar"
+    "overlap",
+    "intersect",
+    "merge",
+    "subtract",
+    "union",
+    "sort",
+    "timezone"
   ],
   "author": "Michael McCarthy",
   "license": "MIT",
