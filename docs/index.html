@@ -45,7 +45,7 @@
     <section>
         <article><h1>CalTime</h1><p><code>CalTime</code> is a Node.js module which provides objects, methods and functions
 which help to generate, sort, add and subtract timespans. Operations which are
-supported by the package include:</p>
+supported by the module include:</p>
 <ul>
 <li>query if timespans overlap with each other</li>
 <li>calculate the overlap (intersection) of timespans</li>
@@ -68,17 +68,21 @@ certain constraints. Examples of the timespans which can be generated are:</p>
 <li>Schedule work across multiple timezones and reserve the required resources.</li>
 </ul>
 <p><code>CalTime</code> does not attempt to provide functionality which is already provided by
-other packages such as <a href="http://momentjs.com">Moment</a>. For this reason, <code>CalTime</code>
+other modules such as <a href="http://momentjs.com">Moment</a>. For this reason, <code>CalTime</code>
 avoids converting dates or times to or from their string representation.</p>
-<h2>API Usage</h2><p>The <code>CalTime</code> package provides a top-level object with several member functions
+<h2>API Usage</h2><p>The <code>CalTime</code> module provides a top-level object with several member functions
 and objects. All of these functions and objects can be accessed by installing
-the <code>caltime</code> package.</p>
+the <code>caltime</code> module.</p>
 <pre class="prettyprint source lang-sh"><code>$ cd &lt;myproject>
-$ npm install --save caltime</code></pre><p>Currently, the <code>caltime</code> package provides three object constructors, two functions
+$ npm install --save caltime</code></pre><p>Currently, the <code>caltime</code> module provides three object constructors, four functions
 and the constants object.</p>
 <pre class="prettyprint source lang-js"><code>var caltime = require('caltime');
 // functional constructor to create TimeSpan objects
 var timespan = caltime.timeSpan;
+// function to merge TimeSpans in an array
+var mergeTimeSpans = caltime.mergeTimeSpans;
+// function to sort TimeSpans in an array
+var sortTimeSpans = caltime.sortTimeSpans;
 // functional constructor to create DateSpan objects
 var datespan = caltime.dateSpan;
 // function to merge DateSpans in an array
@@ -87,7 +91,7 @@ var mergeDateSpans = caltime.mergeDateSpans;
 var sortDateSpans = caltime.sortDateSpans;
 // functional constructor to create TimeRule objects
 var timerule = caltime.timeRule;
-// Constants object provides all of the constants defined by the package
+// Constants object provides all of the constants defined by the module
 var caltimeConstants = caltime.constants;</code></pre><h2>TimeSpan</h2><p>A <code>TimeSpan</code> object defines an arc of time which starts at a defined time of the day
 and which has a defined duration and end time. The <code>TimeSpan</code> is not associated
 with any specific date or timezone. It just defines the span between two points
@@ -542,17 +546,17 @@ module_constants.CONSTRAINT_SECOND_OF_MONTH; // Monday, Tuesday,... etc.
 module_constants.CONSTRAINT_THIRD_OF_MONTH; // Monday, Tuesday,... etc.
 module_constants.CONSTRAINT_FOURTH_OF_MONTH; // Monday, Tuesday,... etc.
 module_constants.CONSTRAINT_FIFTH_OF_MONTH; // Monday, Tuesday,... etc.</code></pre><h2>API Documentation</h2><p>Documentation describing the last major release of <code>CalTime</code> is available at
-(CalTime API)(https://mickmcc.github.io/node-caltime/).</p>
+<a href="https://mickmcc.github.io/node-caltime/">CalTime API</a>.</p>
 <p>The latest API documentation can be generated using <code>jsdoc</code>. The documentation
 is created in the <code>docs/</code> directory.</p>
 <pre class="prettyprint source lang-sh"><code>$ cd &lt;caltime-git-clone>
-$ npm run -s doc</code></pre><h2>Dependencies</h2><p><code>CalTime</code> currently depends on two packages when in production. Other packages are
+$ npm run -s doc</code></pre><h2>Dependencies</h2><p><code>CalTime</code> currently depends on two modules when in production. Other modules are
 required to test or develop <code>CalTime</code>. The production dependencies are:</p>
 <ul>
 <li><a href="https://lodash.com/">Lodash</a></li>
 <li><a href="https://momentjs.com/timezone/">Moment Timezone</a></li>
 </ul>
-<h2>License</h2><p>CalTime is copyright (c) 2017 Michael McCarthy <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6d;&#x69;&#99;&#104;&#x61;&#101;&#x6c;&#46;&#109;&#99;&#x63;&#97;&#114;&#x74;&#104;&#121;&#64;&#105;&#x65;&#101;&#x65;&#46;&#x6f;&#114;&#x67;">&#x6d;&#x69;&#99;&#104;&#x61;&#101;&#x6c;&#46;&#109;&#99;&#x63;&#97;&#114;&#x74;&#104;&#121;&#64;&#105;&#x65;&#101;&#x65;&#46;&#x6f;&#114;&#x67;</a>.</p>
+<h2>License</h2><p>CalTime is copyright (c) 2017 Michael McCarthy <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#109;&#105;&#x63;&#x68;&#x61;&#101;&#108;&#x2e;&#109;&#99;&#x63;&#x61;&#x72;&#116;&#104;&#x79;&#64;&#105;&#101;&#x65;&#101;&#46;&#x6f;&#x72;&#103;">&#109;&#105;&#x63;&#x68;&#x61;&#101;&#108;&#x2e;&#109;&#99;&#x63;&#x61;&#x72;&#116;&#104;&#x79;&#64;&#105;&#101;&#x65;&#101;&#46;&#x6f;&#x72;&#103;</a>.</p>
 <p>CalTime is free software, licensed under the MIT licence. See the file <code>LICENSE</code>
 in this distribution for more information.</p></article>
     </section>
@@ -571,7 +575,7 @@ in this distribution for more information.</p></article>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Nov 21 2017 15:48:52 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Nov 21 2017 16:45:16 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>
