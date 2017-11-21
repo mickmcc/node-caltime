@@ -65,7 +65,7 @@ with any specific date or timezone. It just defines the span between two points
 in time during a single day.
 `TimeSpan` is deliberately not date specific. It does not take into
 account factors such as the timezone, leap seconds or Daylight Savings Time.
-The end time of a `TimeSpan` does not form part of the time-span i.e. In
+The end time of a `TimeSpan` does not form part of the timespan i.e. In
 mathematical terms, the `TimeSpan` object represents a `half-open` interval of
 time where the end time is `exclusive` but the begin time is `inclusive`.
 
