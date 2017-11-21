@@ -157,236 +157,242 @@ describe('TimeSpan - Operations', function() {
 
   it('Time-spans which are equals', function() {
 
-      let spanA = tc.spanCtor(1, 2, 3, 4, 5, 6, 7);
-      let spanB = tc.spanCtor(1, 2, 3, 4, 5, 6, 7);
-      assert.equal(spanA.isEqual(spanB), true, 'TimeSpan objects should be equal.');
-      assert.equal(spanB.isEqual(spanA), true, 'TimeSpan objects should be equal.');
-      assert.equal(spanA.isEqual(spanA), true, 'TimeSpan objects should be equal.');
+    let spanA = tc.spanCtor(1, 2, 3, 4, 5, 6, 7);
+    let spanB = tc.spanCtor(1, 2, 3, 4, 5, 6, 7);
+    assert.equal(spanA.isEqual(spanB), true, 'TimeSpan objects should be equal.');
+    assert.equal(spanB.isEqual(spanA), true, 'TimeSpan objects should be equal.');
+    assert.equal(spanA.isEqual(spanA), true, 'TimeSpan objects should be equal.');
   });
 
   it('Time-spans which are not equals', function() {
 
-      let spanA = tc.spanCtor(1, 2, 3, 4, 5, 6, 7);
-      let spanB = tc.spanCtor(1, 2, 3, 4, 5, 6, 8); // different duration
-      let spanC = tc.spanCtor(1, 2, 3, 9, 5, 6, 7); // different begin time
-      assert.equal(spanA.isEqual(spanB), false, 'TimeSpans have different durations.');
-      assert.equal(spanB.isEqual(spanA), false, 'TimeSpans have different durations.');
-      assert.equal(spanA.isEqual(spanC), false, 'TimeSpans have different begin times.');
-      assert.equal(spanC.isEqual(spanA), false, 'TimeSpans have different begin times.');
-      assert.equal(spanB.isEqual(spanC), false, 'TimeSpans are different.');
-      assert.equal(spanC.isEqual(spanB), false, 'TimeSpans are different.');
+    let spanA = tc.spanCtor(1, 2, 3, 4, 5, 6, 7);
+    let spanB = tc.spanCtor(1, 2, 3, 4, 5, 6, 8); // different duration
+    let spanC = tc.spanCtor(1, 2, 3, 9, 5, 6, 7); // different begin time
+    assert.equal(spanA.isEqual(spanB), false, 'TimeSpans have different durations.');
+    assert.equal(spanB.isEqual(spanA), false, 'TimeSpans have different durations.');
+    assert.equal(spanA.isEqual(spanC), false, 'TimeSpans have different begin times.');
+    assert.equal(spanC.isEqual(spanA), false, 'TimeSpans have different begin times.');
+    assert.equal(spanB.isEqual(spanC), false, 'TimeSpans are different.');
+    assert.equal(spanC.isEqual(spanB), false, 'TimeSpans are different.');
   });
 
   it('Query the intersection of time-spans', function() {
 
-      let spanA = tc.spanCtor(1, 0, 0, 0, 60, 0, 0);  // 01:00 - 02:00
-      let spanB = tc.spanCtor(1, 30, 0, 0, 60, 0, 0); // 01:30 - 02:30
-      let spanC = tc.spanCtor(1, 30, 0, 0, 10, 0, 0); // 01:30 - 01:40
-      let spanD = tc.spanCtor(2, 0, 0, 0, 60, 0, 0);  // 02:00 - 03:00
-      let spanE = tc.spanCtor(2, 30, 0, 0, 60, 0, 0); // 02:30 - 03:30
-      // pass invalid arguments to method
-      assert.throws(function() { spanA.isIntersect(null) },
-                      Error,
-                      'Expected method to throw an error.');
-      assert.throws(function() { spanA.isIntersect(undefined) },
-                      Error,
-                      'Expected method to throw an error.');
-      assert.throws(function() { spanA.isIntersect( {} ) },
-                      Error,
-                      'Expected method to throw an error.');
-      // spans which do intersect
-      assert.equal(spanA.isIntersect(spanA), true, 'TimeSpans should intersect.');
-      assert.equal(spanA.isIntersect(spanB), true, 'TimeSpans should intersect.');
-      assert.equal(spanA.isIntersect(spanC), true, 'TimeSpans should intersect.');
-      assert.equal(spanB.isIntersect(spanA), true, 'TimeSpans should intersect.');
-      assert.equal(spanB.isIntersect(spanC), true, 'TimeSpans should intersect.');
-      assert.equal(spanD.isIntersect(spanE), true, 'TimeSpans should intersect.');
-      // spans which don't intersect
-      assert.equal(spanA.isIntersect(spanD), false, 'TimeSpans should not intersect.');
-      assert.equal(spanA.isIntersect(spanE), false, 'TimeSpans should not intersect.');
-      assert.equal(spanD.isIntersect(spanA), false, 'TimeSpans should not intersect.');
-      assert.equal(spanE.isIntersect(spanA), false, 'TimeSpans should not intersect.');
+    let spanA = tc.spanCtor(1, 0, 0, 0, 60, 0, 0);  // 01:00 - 02:00
+    let spanB = tc.spanCtor(1, 30, 0, 0, 60, 0, 0); // 01:30 - 02:30
+    let spanC = tc.spanCtor(1, 30, 0, 0, 10, 0, 0); // 01:30 - 01:40
+    let spanD = tc.spanCtor(2, 0, 0, 0, 60, 0, 0);  // 02:00 - 03:00
+    let spanE = tc.spanCtor(2, 30, 0, 0, 60, 0, 0); // 02:30 - 03:30
+    // pass invalid arguments to method
+    assert.throws(function() { spanA.isIntersect(null) },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() { spanA.isIntersect(undefined) },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() { spanA.isIntersect( {} ) },
+                    Error,
+                    'Expected method to throw an error.');
+    // spans which do intersect
+    assert.equal(spanA.isIntersect(spanA), true, 'TimeSpans should intersect.');
+    assert.equal(spanA.isIntersect(spanB), true, 'TimeSpans should intersect.');
+    assert.equal(spanA.isIntersect(spanC), true, 'TimeSpans should intersect.');
+    assert.equal(spanB.isIntersect(spanA), true, 'TimeSpans should intersect.');
+    assert.equal(spanB.isIntersect(spanC), true, 'TimeSpans should intersect.');
+    assert.equal(spanD.isIntersect(spanE), true, 'TimeSpans should intersect.');
+    // spans which don't intersect
+    assert.equal(spanA.isIntersect(spanD), false, 'TimeSpans should not intersect.');
+    assert.equal(spanA.isIntersect(spanE), false, 'TimeSpans should not intersect.');
+    assert.equal(spanD.isIntersect(spanA), false, 'TimeSpans should not intersect.');
+    assert.equal(spanE.isIntersect(spanA), false, 'TimeSpans should not intersect.');
   });
 
   it('Intersection of time-spans', function() {
 
-      let spanA = tc.spanCtor(1, 0, 0, 0, 60, 0, 0);  // 01:00 - 02:00
-      let spanB = tc.spanCtor(1, 30, 0, 0, 60, 0, 0); // 01:30 - 02:30
-      let spanC = tc.spanCtor(1, 59, 0, 0, 10, 0, 0); // 01:59 - 02:09
-      let spanD = tc.spanCtor(1, 30, 0, 0, 0, 0, 100);  // 01:30 - 01:30:00:100
-      let spanE = tc.spanCtor(1, 30, 0, 0, 0, 0, 1); // 01:30 - 01:30:00:001
-      let spanF = tc.spanCtor(2, 0, 0, 0, 30, 0, 0);  // 02:00 - 02:30
-      // pass invalid arguments to method
-      assert.throws(function() { spanA.intersect(null) },
-                      Error,
-                      'Expected method to throw an error.');
-      assert.throws(function() { spanA.intersect(undefined) },
-                      Error,
-                      'Expected method to throw an error.');
-      assert.throws(function() { spanA.intersect( {} ) },
-                      Error,
-                      'Expected method to throw an error.');
-      // spans which do intersect
-      let newSpan = spanA.intersect(spanB);
-      assert.equal(_.isObject(newSpan), true, 'Function should return a TimeSpan object.');
-      assert.equal(newSpan.getHours(), 1, 'Incorrect start time: hours.');
-      assert.equal(newSpan.getMinutes(), 30, 'Incorrect start time: minutes.');
-      assert.equal(newSpan.getSeconds(), 0, 'Incorrect start time: seconds.');
-      assert.equal(newSpan.getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
-      assert.equal(newSpan.getDurationMins(), 30, 'Incorrect duration: minutes.');
-      assert.equal(newSpan.getDurationSecs(), 0, 'Incorrect duration: seconds.');
-      assert.equal(newSpan.getDurationMs(), 0, 'Incorrect duration: milliseconds.');
-      // spans with 1 minute overlap
-      newSpan = spanA.intersect(spanC);
-      assert.equal(_.isObject(newSpan), true, 'Function should return a TimeSpan object.');
-      assert.equal(newSpan.getHours(), 1, 'Incorrect start time: hours.');
-      assert.equal(newSpan.getMinutes(), 59, 'Incorrect start time: minutes.');
-      assert.equal(newSpan.getSeconds(), 0, 'Incorrect start time: seconds.');
-      assert.equal(newSpan.getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
-      assert.equal(newSpan.getDurationMins(), 1, 'Incorrect duration: minutes.');
-      assert.equal(newSpan.getDurationSecs(), 0, 'Incorrect duration: seconds.');
-      assert.equal(newSpan.getDurationMs(), 0, 'Incorrect duration: milliseconds.');
-      // spans with 1 millisecond overlap
-      newSpan = spanD.intersect(spanE);
-      assert.equal(_.isObject(newSpan), true, 'Function should return a TimeSpan object.');
-      assert.equal(newSpan.getHours(), 1, 'Incorrect start time: hours.');
-      assert.equal(newSpan.getMinutes(), 30, 'Incorrect start time: minutes.');
-      assert.equal(newSpan.getSeconds(), 0, 'Incorrect start time: seconds.');
-      assert.equal(newSpan.getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
-      assert.equal(newSpan.getDurationMins(), 0, 'Incorrect duration: minutes.');
-      assert.equal(newSpan.getDurationSecs(), 0, 'Incorrect duration: seconds.');
-      assert.equal(newSpan.getDurationMs(), 1, 'Incorrect duration: milliseconds.');
-      // spans which don't intersect
-      newSpan = spanA.intersect(spanF);
-      assert.equal(newSpan, null, 'Function should return null.');
+    let spanA = tc.spanCtor(1, 0, 0, 0, 60, 0, 0);  // 01:00 - 02:00
+    let spanB = tc.spanCtor(1, 30, 0, 0, 60, 0, 0); // 01:30 - 02:30
+    let spanC = tc.spanCtor(1, 59, 0, 0, 10, 0, 0); // 01:59 - 02:09
+    let spanD = tc.spanCtor(1, 30, 0, 0, 0, 0, 100);  // 01:30 - 01:30:00:100
+    let spanE = tc.spanCtor(1, 30, 0, 0, 0, 0, 1); // 01:30 - 01:30:00:001
+    let spanF = tc.spanCtor(2, 0, 0, 0, 30, 0, 0);  // 02:00 - 02:30
+    // pass invalid arguments to method
+    assert.throws(function() { spanA.intersect(null) },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() { spanA.intersect(undefined) },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() { spanA.intersect( {} ) },
+                    Error,
+                    'Expected method to throw an error.');
+    // spans which do intersect
+    let newSpan = spanA.intersect(spanB);
+    assert.equal(_.isObject(newSpan), true, 'Function should return a TimeSpan object.');
+    assert.equal(newSpan.getHours(), 1, 'Incorrect start time: hours.');
+    assert.equal(newSpan.getMinutes(), 30, 'Incorrect start time: minutes.');
+    assert.equal(newSpan.getSeconds(), 0, 'Incorrect start time: seconds.');
+    assert.equal(newSpan.getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
+    assert.equal(newSpan.getDurationMins(), 30, 'Incorrect duration: minutes.');
+    assert.equal(newSpan.getDurationSecs(), 0, 'Incorrect duration: seconds.');
+    assert.equal(newSpan.getDurationMs(), 0, 'Incorrect duration: milliseconds.');
+    // spans with 1 minute overlap
+    newSpan = spanA.intersect(spanC);
+    assert.equal(_.isObject(newSpan), true, 'Function should return a TimeSpan object.');
+    assert.equal(newSpan.getHours(), 1, 'Incorrect start time: hours.');
+    assert.equal(newSpan.getMinutes(), 59, 'Incorrect start time: minutes.');
+    assert.equal(newSpan.getSeconds(), 0, 'Incorrect start time: seconds.');
+    assert.equal(newSpan.getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
+    assert.equal(newSpan.getDurationMins(), 1, 'Incorrect duration: minutes.');
+    assert.equal(newSpan.getDurationSecs(), 0, 'Incorrect duration: seconds.');
+    assert.equal(newSpan.getDurationMs(), 0, 'Incorrect duration: milliseconds.');
+    // spans with 1 millisecond overlap
+    newSpan = spanD.intersect(spanE);
+    assert.equal(_.isObject(newSpan), true, 'Function should return a TimeSpan object.');
+    assert.equal(newSpan.getHours(), 1, 'Incorrect start time: hours.');
+    assert.equal(newSpan.getMinutes(), 30, 'Incorrect start time: minutes.');
+    assert.equal(newSpan.getSeconds(), 0, 'Incorrect start time: seconds.');
+    assert.equal(newSpan.getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
+    assert.equal(newSpan.getDurationMins(), 0, 'Incorrect duration: minutes.');
+    assert.equal(newSpan.getDurationSecs(), 0, 'Incorrect duration: seconds.');
+    assert.equal(newSpan.getDurationMs(), 1, 'Incorrect duration: milliseconds.');
+    // spans which don't intersect
+    newSpan = spanA.intersect(spanF);
+    assert.equal(newSpan, null, 'Function should return null.');
   });
 
   it('Union of time-spans', function() {
 
-      let spanA = tc.spanCtor(1, 0, 0, 0, 60, 0, 0);  // 01:00 - 02:00
-      let spanB = tc.spanCtor(1, 59, 0, 0, 10, 0, 0); // 01:59 - 02:09
-      let spanC = tc.spanCtor(2, 0, 0, 0, 30, 0, 0);  // 02:00 - 02:30
-      let spanD = tc.spanCtor(2, 0, 0, 0, 6*60, 0, 0);  // 02:00 - 08:00
-      // pass invalid arguments to method
-      assert.throws(function() { spanA.union(null) },
-                      Error,
-                      'Expected method to throw an error.');
-      assert.throws(function() { spanA.union(undefined) },
-                      Error,
-                      'Expected method to throw an error.');
-      assert.throws(function() { spanA.union( {} ) },
-                      Error,
-                      'Expected method to throw an error.');
-      // spans which do intersect
-      let newSpan = spanA.union(spanB);
-      assert.equal(_.isObject(newSpan), true, 'Function should return a TimeSpan object.');
-      assert.equal(newSpan.getHours(), 1, 'Incorrect start time: hours.');
-      assert.equal(newSpan.getMinutes(), 0, 'Incorrect start time: minutes.');
-      assert.equal(newSpan.getSeconds(), 0, 'Incorrect start time: seconds.');
-      assert.equal(newSpan.getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
-      assert.equal(newSpan.getDurationMins(), 69, 'Incorrect duration: minutes.');
-      assert.equal(newSpan.getDurationSecs(), 0, 'Incorrect duration: seconds.');
-      assert.equal(newSpan.getDurationMs(), 0, 'Incorrect duration: milliseconds.');
-      // spans which do intersect
-      newSpan = spanB.union(spanD);
-      assert.equal(_.isObject(newSpan), true, 'Function should return a TimeSpan object.');
-      assert.equal(newSpan.getHours(), 1, 'Incorrect start time: hours.');
-      assert.equal(newSpan.getMinutes(), 59, 'Incorrect start time: minutes.');
-      assert.equal(newSpan.getSeconds(), 0, 'Incorrect start time: seconds.');
-      assert.equal(newSpan.getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
-      assert.equal(newSpan.getDurationMins(), (6*60)+1, 'Incorrect duration: minutes.');
-      assert.equal(newSpan.getDurationSecs(), 0, 'Incorrect duration: seconds.');
-      assert.equal(newSpan.getDurationMs(), 0, 'Incorrect duration: milliseconds.');
-    });
+    let spanA = tc.spanCtor(1, 0, 0, 0, 60, 0, 0);  // 01:00 - 02:00
+    let spanB = tc.spanCtor(1, 59, 0, 0, 10, 0, 0); // 01:59 - 02:09
+    let spanC = tc.spanCtor(2, 0, 0, 0, 30, 0, 0);  // 02:00 - 02:30
+    let spanD = tc.spanCtor(2, 0, 0, 0, 6*60, 0, 0);  // 02:00 - 08:00
+    // pass invalid arguments to method
+    assert.throws(function() { spanA.union(null) },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() { spanA.union(undefined) },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() { spanA.union( {} ) },
+                    Error,
+                    'Expected method to throw an error.');
+    // spans which do intersect
+    let newSpan = spanA.union(spanB);
+    assert.equal(_.isObject(newSpan), true, 'Function should return a TimeSpan object.');
+    assert.equal(newSpan.getHours(), 1, 'Incorrect start time: hours.');
+    assert.equal(newSpan.getMinutes(), 0, 'Incorrect start time: minutes.');
+    assert.equal(newSpan.getSeconds(), 0, 'Incorrect start time: seconds.');
+    assert.equal(newSpan.getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
+    assert.equal(newSpan.getDurationMins(), 69, 'Incorrect duration: minutes.');
+    assert.equal(newSpan.getDurationSecs(), 0, 'Incorrect duration: seconds.');
+    assert.equal(newSpan.getDurationMs(), 0, 'Incorrect duration: milliseconds.');
+    // spans which do intersect
+    newSpan = spanB.union(spanD);
+    assert.equal(_.isObject(newSpan), true, 'Function should return a TimeSpan object.');
+    assert.equal(newSpan.getHours(), 1, 'Incorrect start time: hours.');
+    assert.equal(newSpan.getMinutes(), 59, 'Incorrect start time: minutes.');
+    assert.equal(newSpan.getSeconds(), 0, 'Incorrect start time: seconds.');
+    assert.equal(newSpan.getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
+    assert.equal(newSpan.getDurationMins(), (6*60)+1, 'Incorrect duration: minutes.');
+    assert.equal(newSpan.getDurationSecs(), 0, 'Incorrect duration: seconds.');
+    assert.equal(newSpan.getDurationMs(), 0, 'Incorrect duration: milliseconds.');
+  });
 
-    it('Subtraction of time-spans with invalid arguments', function() {
+  it('Subtraction of time-spans with invalid arguments', function() {
 
-        let spanA = tc.spanCtor(1, 0, 0, 0, 60, 0, 0);   // 01:00 - 02:00
-        assert.throws(function() { spanA.subtract(null) },
-                        Error,
-                        'Expected method to throw an error.');
-        assert.throws(function() { spanA.subtract(undefined) },
-                        Error,
-                        'Expected method to throw an error.');
-        assert.throws(function() { spanA.subtract( {} ) },
-                        Error,
-                        'Expected method to throw an error.');
-      });
+    let spanA = tc.spanCtor(1, 0, 0, 0, 60, 0, 0);   // 01:00 - 02:00
+    assert.throws(function() { spanA.subtract(null) },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() { spanA.subtract(undefined) },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() { spanA.subtract( {} ) },
+                    Error,
+                    'Expected method to throw an error.');
+  });
 
-    it('Subtraction of time-spans', function() {
+  it('Subtraction of time-spans', function() {
 
-        const spanA = tc.spanCtor(1, 0, 0, 0, 60, 0, 0);    // 01:00 - 02:00
-        const spanB = tc.spanCtor(1, 20, 0, 0, 10, 0, 0);   // 01:20 - 01:40
-        const spanBb = tc.spanCtor(1, 20, 0, 0, 10, 0, 0);  // same as spanB
-        const spanC = tc.spanCtor(1, 0, 0, 0, 30, 0, 0);    // 01:00 - 01:30
-        const spanD = tc.spanCtor(1, 30, 0, 0, 30, 0, 0);   // 01:30 - 02:00
-        // produces two remainders
-        let result = spanA.subtract(spanB);
-        assert.equal(_.isArray(result), true, 'Function should return an array.');
-        assert.equal(result.length, 2, 'Expect two time-spans in array.');
-        // not sure of order of elements in array, potential for test to fail because of this.
-        assert.equal(result[1].getHours(), 1, 'Incorrect start time: hours.');
-        assert.equal(result[1].getMinutes(), 0, 'Incorrect start time: minutes.');
-        assert.equal(result[1].getSeconds(), 0, 'Incorrect start time: seconds.');
-        assert.equal(result[1].getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
-        assert.equal(result[1].getDurationMins(), 20, 'Incorrect duration: minutes.');
-        assert.equal(result[1].getDurationSecs(), 0, 'Incorrect duration: seconds.');
-        assert.equal(result[1].getDurationMs(), 0, 'Incorrect duration: milliseconds.');
-        // second remainder from subtraction
-        assert.equal(result[0].getHours(), 1, 'Incorrect start time: hours.');
-        assert.equal(result[0].getMinutes(), 30, 'Incorrect start time: minutes.');
-        assert.equal(result[0].getSeconds(), 0, 'Incorrect start time: seconds.');
-        assert.equal(result[0].getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
-        assert.equal(result[0].getDurationMins(), 30, 'Incorrect duration: minutes.');
-        assert.equal(result[0].getDurationSecs(), 0, 'Incorrect duration: seconds.');
-        assert.equal(result[0].getDurationMs(), 0, 'Incorrect duration: milliseconds.');
-        // equal starts, produces 1 remainder
-        result = spanA.subtract(spanC);
-        assert.equal(_.isArray(result), true, 'Function should return an array.');
-        assert.equal(result.length, 1, 'Expect one time-span in array.');
-        assert.equal(result[0].getHours(), 1, 'Incorrect start time: hours.');
-        assert.equal(result[0].getMinutes(), 30, 'Incorrect start time: minutes.');
-        assert.equal(result[0].getSeconds(), 0, 'Incorrect start time: seconds.');
-        assert.equal(result[0].getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
-        assert.equal(result[0].getDurationMins(), 30, 'Incorrect duration: minutes.');
-        assert.equal(result[0].getDurationSecs(), 0, 'Incorrect duration: seconds.');
-        assert.equal(result[0].getDurationMs(), 0, 'Incorrect duration: milliseconds.');
-        // equal ends, produces 1 remainder
-        result = spanA.subtract(spanD);
-        assert.equal(_.isArray(result), true, 'Function should return an array.');
-        assert.equal(result.length, 1, 'Expect one time-span in array.');
-        assert.equal(result[0].getHours(), 1, 'Incorrect start time: hours.');
-        assert.equal(result[0].getMinutes(), 0, 'Incorrect start time: minutes.');
-        assert.equal(result[0].getSeconds(), 0, 'Incorrect start time: seconds.');
-        assert.equal(result[0].getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
-        assert.equal(result[0].getDurationMins(), 30, 'Incorrect duration: minutes.');
-        assert.equal(result[0].getDurationSecs(), 0, 'Incorrect duration: seconds.');
-        assert.equal(result[0].getDurationMs(), 0, 'Incorrect duration: milliseconds.');
-        // equal starts and ends, produces empty array
-        result = spanB.subtract(spanB);
-        assert.equal(_.isArray(result), true, 'Function should return an array.');
-        assert.equal(result.length, 0, 'Expect empty array.');
-        result = spanB.subtract(spanBb);
-        assert.equal(_.isArray(result), true, 'Function should return an array.');
-        assert.equal(result.length, 0, 'Expect empty array.');
-      });
+    const spanA = tc.spanCtor(1, 0, 0, 0, 60, 0, 0);    // 01:00 - 02:00
+    const spanB = tc.spanCtor(1, 20, 0, 0, 10, 0, 0);   // 01:20 - 01:40
+    const spanBb = tc.spanCtor(1, 20, 0, 0, 10, 0, 0);  // same as spanB
+    const spanC = tc.spanCtor(1, 0, 0, 0, 30, 0, 0);    // 01:00 - 01:30
+    const spanD = tc.spanCtor(1, 30, 0, 0, 30, 0, 0);   // 01:30 - 02:00
+    // produces two remainders
+    let result = spanA.subtract(spanB);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 2, 'Expect two time-spans in array.');
+    // not sure of order of elements in array, potential for test to fail because of this.
+    assert.equal(result[1].getHours(), 1, 'Incorrect start time: hours.');
+    assert.equal(result[1].getMinutes(), 0, 'Incorrect start time: minutes.');
+    assert.equal(result[1].getSeconds(), 0, 'Incorrect start time: seconds.');
+    assert.equal(result[1].getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
+    assert.equal(result[1].getDurationMins(), 20, 'Incorrect duration: minutes.');
+    assert.equal(result[1].getDurationSecs(), 0, 'Incorrect duration: seconds.');
+    assert.equal(result[1].getDurationMs(), 0, 'Incorrect duration: milliseconds.');
+    // second remainder from subtraction
+    assert.equal(result[0].getHours(), 1, 'Incorrect start time: hours.');
+    assert.equal(result[0].getMinutes(), 30, 'Incorrect start time: minutes.');
+    assert.equal(result[0].getSeconds(), 0, 'Incorrect start time: seconds.');
+    assert.equal(result[0].getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
+    assert.equal(result[0].getDurationMins(), 30, 'Incorrect duration: minutes.');
+    assert.equal(result[0].getDurationSecs(), 0, 'Incorrect duration: seconds.');
+    assert.equal(result[0].getDurationMs(), 0, 'Incorrect duration: milliseconds.');
+    // equal starts, produces 1 remainder
+    result = spanA.subtract(spanC);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 1, 'Expect one time-span in array.');
+    assert.equal(result[0].getHours(), 1, 'Incorrect start time: hours.');
+    assert.equal(result[0].getMinutes(), 30, 'Incorrect start time: minutes.');
+    assert.equal(result[0].getSeconds(), 0, 'Incorrect start time: seconds.');
+    assert.equal(result[0].getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
+    assert.equal(result[0].getDurationMins(), 30, 'Incorrect duration: minutes.');
+    assert.equal(result[0].getDurationSecs(), 0, 'Incorrect duration: seconds.');
+    assert.equal(result[0].getDurationMs(), 0, 'Incorrect duration: milliseconds.');
+    // equal ends, produces 1 remainder
+    result = spanA.subtract(spanD);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 1, 'Expect one time-span in array.');
+    assert.equal(result[0].getHours(), 1, 'Incorrect start time: hours.');
+    assert.equal(result[0].getMinutes(), 0, 'Incorrect start time: minutes.');
+    assert.equal(result[0].getSeconds(), 0, 'Incorrect start time: seconds.');
+    assert.equal(result[0].getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
+    assert.equal(result[0].getDurationMins(), 30, 'Incorrect duration: minutes.');
+    assert.equal(result[0].getDurationSecs(), 0, 'Incorrect duration: seconds.');
+    assert.equal(result[0].getDurationMs(), 0, 'Incorrect duration: milliseconds.');
+    // equal starts and ends, produces empty array
+    result = spanB.subtract(spanB);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 0, 'Expect empty array.');
+    result = spanB.subtract(spanBb);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 0, 'Expect empty array.');
+  });
 
-      it('Subtraction of time-spans with insufficient overlap', function() {
+  it('Subtraction of time-spans with insufficient overlap', function() {
 
-          let spanA = tc.spanCtor(1, 0, 0, 0, 60, 0, 0);   // 01:00 - 02:00
-          let spanB = tc.spanCtor(1, 20, 0, 0, 60, 0, 0);  // 01:20 - 02:20
-          let spanC = tc.spanCtor(0, 30, 0, 0, 40, 0, 0);   // 00:30 - 01:10
-          let spanD = tc.spanCtor(2, 0, 0, 0, 30, 0, 0);   // 02:00 - 02:30
+    let spanA = tc.spanCtor(1, 0, 0, 0, 60, 0, 0);   // 01:00 - 02:00
+    let spanB = tc.spanCtor(1, 20, 0, 0, 60, 0, 0);  // 01:20 - 02:20
+    let spanC = tc.spanCtor(0, 30, 0, 0, 40, 0, 0);   // 00:30 - 01:10
+    let spanD = tc.spanCtor(2, 0, 0, 0, 30, 0, 0);   // 02:00 - 02:30
 
-          let result = spanA.subtract(spanB);
-          assert.equal(_.isNull(result), true, 'Function should return null.');
-          result = spanB.subtract(spanA);
-          assert.equal(_.isNull(result), true, 'Function should return null.');
-          result = spanA.subtract(spanC);
-          assert.equal(_.isNull(result), true, 'Function should return null.');
-          result = spanA.subtract(spanD);
-          assert.equal(_.isNull(result), true, 'Function should return null.');
-        });
+    let result = spanA.subtract(spanB);
+    assert.equal(_.isNull(result), true, 'Function should return null.');
+    result = spanB.subtract(spanA);
+    assert.equal(_.isNull(result), true, 'Function should return null.');
+    result = spanA.subtract(spanC);
+    assert.equal(_.isNull(result), true, 'Function should return null.');
+    result = spanA.subtract(spanD);
+    assert.equal(_.isNull(result), true, 'Function should return null.');
+  });
+
+  it('String output of TimeSpan', function() {
+
+    let spanA = tc.spanCtor(1, 2, 3, 4, 5, 6, 7);
+    assert.equal(spanA.toString(), '[ 1:2:3:4, 5:6:7 ]', 'TimeSpan string not formatted as expected.');
+  });
 
 });
 

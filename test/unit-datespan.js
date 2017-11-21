@@ -184,6 +184,31 @@ describe('Date-Span - Duration', function() {
   });
 });
 
+describe('DateSpan - Equals', function() {
+
+  it('Date-spans which are equals', function() {
+
+      let spanA = tc.dateSpanCtor(dateA, null, 60, 40, 20);
+      let spanB = tc.dateSpanCtor(dateA, null, 60, 40, 20);
+      assert.equal(spanA.isEqual(spanB), true, 'DateSpan objects should be equal.');
+      assert.equal(spanB.isEqual(spanA), true, 'DateSpan objects should be equal.');
+      assert.equal(spanA.isEqual(spanA), true, 'DateSpan objects should be equal.');
+  });
+
+  it('Date-spans which are not equals', function() {
+
+      let spanA = tc.dateSpanCtor(dateA, null, 60, 40, 20);
+      let spanB = tc.dateSpanCtor(dateA, null, 60, 40, 40); // different duration
+      let spanC = tc.dateSpanCtor(dateB, null, 60, 40, 20); // different begin time
+      assert.equal(spanA.isEqual(spanB), false, 'DateSpan have different durations.');
+      assert.equal(spanB.isEqual(spanA), false, 'DateSpan have different durations.');
+      assert.equal(spanA.isEqual(spanC), false, 'DateSpan have different begin times.');
+      assert.equal(spanC.isEqual(spanA), false, 'DateSpan have different begin times.');
+      assert.equal(spanB.isEqual(spanC), false, 'DateSpan are different.');
+      assert.equal(spanC.isEqual(spanB), false, 'DateSpan are different.');
+  });
+});
+
 describe('Date-Span - Intersection', function() {
 
   it('Check two intersecting date-spans', function() {
@@ -379,5 +404,14 @@ describe('Date-Span - Sort', function() {
     assert.equal(result[1], dateSpanC, 'Expected a different DateSpan');
     assert.equal(result[2], dateSpanB, 'Expected a different DateSpan');
     assert.equal(result[3], dateSpanA, 'Expected a different DateSpan');
+  });
+});
+
+describe('Date-Span - String', function() {
+
+  it('String output of DateSpan', function() {
+
+    let spanA = tc.dateSpanCtor(dateA, null, 11, 22, 33);
+    assert.equal(spanA.toString(), '[ '+ dateA.toISOString()+', 11:22:33 ]', 'TimeSpan string not formatted as expected.');
   });
 });

@@ -1,17 +1,17 @@
 # CalTime
 
 `CalTime` is a Node.js module which provides objects, methods and functions
-which help to generate, sort, add and subtract time-spans. Operations which are
+which help to generate, sort, add and subtract timespans. Operations which are
 supported by the package include:
-- query if time-spans overlap with each other
-- calculate the overlap (intersection) of time-spans
-- calculate the addition (union) of time-spans
-- calculate the remainder left after subtracting time-spans
-- sort an array of time-spans
+- query if timespans overlap with each other
+- calculate the overlap (intersection) of timespans
+- calculate the addition (union) of timespans
+- calculate the remainder left after subtracting timespans
+- sort an array of timespans
 
 One useful feature provided by `CalTime` is the ability to define time-based rules.
-This allows time-spans to be generated according to a specific period and within
-certain constraints. Examples of the time-spans which can be generated are:
+This allows timespans to be generated according to a specific period and within
+certain constraints. Examples of the timespans which can be generated are:
 - 2-3pm on Monday of every week in UTC timezone.
 - 14:00-16:00 on the 24th of every month in New York timezone.
 - 9-10am on the third Tuesday of every month in Delhi timezone.
@@ -34,8 +34,8 @@ and objects. All of these functions and objects can be accessed by installing
 the `caltime` package.
 
 ```sh
-cd <myproject>
-npm install --save caltime
+$ cd <myproject>
+$ npm install --save caltime
 ```
 
 Currently, the `caltime` package provides three object constructors, two functions
@@ -184,12 +184,12 @@ var spanA = timespanCtor(9, 30, 0, 0, 30, 0, 0);
 var spanB = timespanCtor(9, 45, 0, 0, 15, 0, 0);
 // create a TimeSpan object which represents 10:00am - 10:15am.
 var spanC = timespanCtor(10, 0, 0, 0, 15, 0, 0);
-// these two time-spans do overlap
+// these two timespans do overlap
 let newSpan = spanA.intersect(spanB);
 newSpan.getHours(); // 9
 newSpan.getMinutes(); // 45
 newSpan.getDurationMins(); // 15 minutes
-// these time-spans do not overlap
+// these timespans do not overlap
 newSpan = spanA.intersect(spanC); // null
 ```
 
@@ -207,12 +207,12 @@ var spanA = timespanCtor(9, 30, 0, 0, 30, 0, 0);
 var spanB = timespanCtor(9, 45, 0, 0, 20, 0, 0);
 // create a TimeSpan object which represents 10:00am - 10:15am.
 var spanC = timespanCtor(10, 0, 0, 0, 15, 0, 0);
-// these two time-spans do overlap
+// these two timespans do overlap
 let newSpan = spanA.intersect(spanB);
 newSpan.getHours(); // 9
 newSpan.getMinutes(); // 30
 newSpan.getDurationMins(); // 35 minutes
-// these time-spans do not intersect
+// these timespans do not intersect
 newSpan = spanA.intersect(spanC); // null
 ```
 
@@ -221,7 +221,7 @@ newSpan = spanA.intersect(spanC); // null
 Method calculates the remainder(s) after subtracting one `TimeSpan` from
 another.  It returns an array containing one or two new `TimeSpan` objects
 which represent the remainders.  The array is empty if there was an exact
-overlap between the time-spans and there was no remainder. The method returns
+overlap between the timespans and there was no remainder. The method returns
 null if subtraction could not be performed because there wasn't sufficient
 overlap.
 
@@ -234,21 +234,84 @@ var spanA = timespanCtor(9, 30, 0, 0, 30, 0, 0);
 var spanB = timespanCtor(9, 45, 0, 0, 15, 0, 0);
 // create a TimeSpan object which represents 10:00am - 10:15am.
 var spanC = timespanCtor(10, 0, 0, 0, 15, 0, 0);
-// these two time-spans do intersect
+// these two timespans do intersect
 let result = spanA.subtract(spanB);
 result.length; // 1 element in array
 result[0].getHours(); // 9
 result[0].getMinutes(); // 30
 result[0].getDurationMins(); // 15 minutes
-// these time-spans do not intersect
+// these timespans do not intersect
 result = spanA.intersect(spanC); // null
 result.length; // 0
+```
+
+### mergeTimeSpans()
+
+Function is passed an Array of `TimeSpan` objects and sorts the objects in
+the array based on the start time. It then merges any of the `TimeSpan` objects
+which are overlapping. A new array is returned (merging is not in-situ) which
+contains the merged and non-merged `TimeSpan` objects.
+
+```js
+var caltime = require('caltime');
+var timespanCtor = caltime.timeSpan;
+var mergeTimeSpans = caltime.mergeTimeSpans;
+var spanList = null;
+// create TimeSpan objects which overlap
+const timeSpanA = timespanCtor(9, 0, 0, 0, 60, 0, 0, 0);  // 9:00-10:00
+const timeSpanB = timespanCtor(9, 30, 0, 0, 60, 0, 0, 0); // 9:30-10:30
+const timeSpanC = timespanCtor(10, 0, 0, 0, 60, 0, 0, 0); // 10:00-11:00
+// this TimeSpan does not overlap with others
+const timeSpanD = timespanCtor(11, 30, 0, 0, 60, 0, 0, 0); // 11:30-12:30
+// add TimeSpans to array in ascending order
+const list = [timeSpanA, timeSpanB, timeSpanC, timeSpanD];
+const result = mergeTimeSpans(list);
+result.length; // 2
+result[0].getHours(); // 9 as merged TimeSpan is 9:00-11:00
+result[0].getMinutes(); // 0
+result[0].getDurationMins(); // 120
+result[1].getHours(); // 11 as TimeSpan is not merged
+result[1].getMinutes(); // 30
+result[1].getDurationMins(); // 60
+```
+
+### sortTimeSpans()
+
+Function takes an Array of `TimeSpan` objects and returns a new Array which
+contains the same `TimeSpan` objects, sorted by their start time.
+
+```js
+var caltime = require('caltime');
+var timespanCtor = caltime.timeSpan;
+var sortTimeSpans = caltime.sortTimeSpans;
+var spanList = null;
+// create TimeSpan objects
+const timeSpanA = timespanCtor(9, 0, 0, 0, 60, 0, 0, 0);  // 9:00-10:00
+const timeSpanB = timespanCtor(10, 0, 0, 0, 60, 0, 0, 0); // 10:00-11:00
+const timeSpanC = timespanCtor(11, 0, 0, 0, 60, 0, 0, 0); // 11:00-12:00
+const timeSpanD = timespanCtor(12, 0, 0, 0, 60, 0, 0, 0); // 12:00-13:00
+// add TimeSpans to array in ascending order
+const list = [timeSpanA, timeSpanB, timeSpanC, timeSpanD];
+// sort list in descending order
+const result = sortTimeSpans(list, true);
+result.length; // 4
+result[0].getHours(); // 12 (is timeSpanD)
+result[1].getHours(); // 11 (is timeSpanC)
+result[2].getHours(); // 10 (is timeSpanB)
+result[3].getHours(); // 9 (is timeSpanA)
+// sort list in ascending order again
+const result = sortTimeSpans(list);
+result.length; // 4
+result[0].getHours(); // 9 (is timeSpanA)
+result[1].getHours(); // 10 (is timeSpanB)
+result[2].getHours(); // 11 (is timeSpanC)
+result[3].getHours(); // 12 (is timeSpanD)
 ```
 
 ### toString()
 
 Method returns a string which represents the state of the `TimeSpan`. This
-method is intended to help debugging and the format of the string
+method is only intended to help debugging and the format of the string
 can change between releases.
 
 ## DateSpan
@@ -333,6 +396,30 @@ spanA.getTotalDuration(); // (1*60000)+(2*1000)+(3) = 62003 milliseconds
   var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
   var spanA = datespanCtor(beginDate, 30, 0, 0);
   spanA.getEnd(); // Date object with time 09:30am
+  ```
+
+### isEqual()
+
+  Method returns true if two `DateSpan` objects have exactly the same start times
+  and durations.
+
+  ```js
+  var caltime = require('caltime');
+  var datespanCtor = caltime.dateSpan;
+  // DateSpan object which represents 09:00am - 9:45:00am, 15.Nov.2017.
+  var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
+  var spanA = datespanCtor(beginDate, 45, 0, 0);
+  // create a DateSpan object with same start and duration
+  var spanB = datespanCtor(beginDate, 45, 0, 0);
+  // create a DateSpan object a different start time
+  var otherDate = new Date(2017, 10, 15, 10, 0, 0, 0);
+  var spanC = datespanCtor(otherDate, 45, 0, 0);
+  // create a DateSpan object with same start but different duration
+  var spanC = datespanCtor(beginDate, 40, 0, 0);
+  spanA.isEqual(spanA); // true
+  spanA.isEqual(spanB); // true
+  spanA.isEqual(spanC); // false
+  spanA.isEqual(spanD); // false
   ```
 
 ### isIntersect
@@ -444,10 +531,10 @@ result = spanA.intersect(spanC); // null
 ### toString()
 
 Method returns a string which represents the state of the `DateSpan`. This
-method is intended to help debugging and the format of the string
+method is only intended to help debugging and the format of the string
 can change between releases.
 
-### mergeSpans()
+### mergeDateSpans()
 
 Function is passed an Array of `DateSpan` objects and sorts the objects in
 the array based on the start time. It then merges any of the `DateSpan` objects
@@ -478,7 +565,7 @@ result[1].getBegin(); // 10:00am
 result[1].getEnd();   // 10:15am
 ```
 
-### sortSpans()
+### sortDateSpans()
 
 Function takes an Array of `DateSpan` objects and returns a new Array which
 contains the same `DateSpan` objects, sorted by their start time.
@@ -574,7 +661,7 @@ var caltime = require('caltime');
 var timespanCtor = caltime.timeSpan;
 var timeruleCtor = caltime.timeRule;
 var modconstants = caltime.constants;
-// Rule will generate
+// Rule will generate date-spans
 var spanA = timespanCtor(9, 0, 0, 0, 30, 0, 0);
 var rule = timeruleCtor(spanA,
                           modconstants.CONSTRAINT_DAY_OF_WEEK,
@@ -594,11 +681,12 @@ result[1].getBegin(); // 14 June 2017, 09:00-09:30am Eastern Daylight Time (-040
 Documentation describing the last major release of `CalTime` is available at
 (CalTime API)(https://mickmcc.github.io/node-caltime/).
 
-The latest API documentation can be generated using `jsdoc`.
+The latest API documentation can be generated using `jsdoc`. The documentation
+is created in the `docs/` directory.
 
 ```sh
-cd <caltime-git-clone>
-npm run -s doc
+$ cd <caltime-git-clone>
+$ npm run -s doc
 ```
 
 ## Dependencies
