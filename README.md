@@ -2,7 +2,7 @@
 
 `CalTime` is a Node.js module which provides objects, methods and functions
 which help to generate, sort, add and subtract timespans. Operations which are
-supported by the package include:
+supported by the module include:
 - query if timespans overlap with each other
 - calculate the overlap (intersection) of timespans
 - calculate the addition (union) of timespans
@@ -22,29 +22,33 @@ Suggested uses of `caltime` include:
 - Schedule work across multiple timezones and reserve the required resources.
 
 `CalTime` does not attempt to provide functionality which is already provided by
-other packages such as [Moment](http://momentjs.com). For this reason, `CalTime`
+other modules such as [Moment](http://momentjs.com). For this reason, `CalTime`
 avoids converting dates or times to or from their string representation.
 
 
 ## API Usage
 
 
-The `CalTime` package provides a top-level object with several member functions
+The `CalTime` module provides a top-level object with several member functions
 and objects. All of these functions and objects can be accessed by installing
-the `caltime` package.
+the `caltime` module.
 
 ```sh
 $ cd <myproject>
 $ npm install --save caltime
 ```
 
-Currently, the `caltime` package provides three object constructors, two functions
+Currently, the `caltime` module provides three object constructors, four functions
 and the constants object.
 
 ```js
 var caltime = require('caltime');
 // functional constructor to create TimeSpan objects
 var timespan = caltime.timeSpan;
+// function to merge TimeSpans in an array
+var mergeTimeSpans = caltime.mergeTimeSpans;
+// function to sort TimeSpans in an array
+var sortTimeSpans = caltime.sortTimeSpans;
 // functional constructor to create DateSpan objects
 var datespan = caltime.dateSpan;
 // function to merge DateSpans in an array
@@ -53,7 +57,7 @@ var mergeDateSpans = caltime.mergeDateSpans;
 var sortDateSpans = caltime.sortDateSpans;
 // functional constructor to create TimeRule objects
 var timerule = caltime.timeRule;
-// Constants object provides all of the constants defined by the package
+// Constants object provides all of the constants defined by the module
 var caltimeConstants = caltime.constants;
 ```
 
@@ -723,7 +727,7 @@ module_constants.CONSTRAINT_FIFTH_OF_MONTH; // Monday, Tuesday,... etc.
 ## API Documentation
 
 Documentation describing the last major release of `CalTime` is available at
-(CalTime API)(https://mickmcc.github.io/node-caltime/).
+[CalTime API](https://mickmcc.github.io/node-caltime/).
 
 The latest API documentation can be generated using `jsdoc`. The documentation
 is created in the `docs/` directory.
@@ -735,7 +739,7 @@ $ npm run -s doc
 
 ## Dependencies
 
-`CalTime` currently depends on two packages when in production. Other packages are
+`CalTime` currently depends on two modules when in production. Other modules are
 required to test or develop `CalTime`. The production dependencies are:
 - [Lodash](https://lodash.com/)
 - [Moment Timezone](https://momentjs.com/timezone/)

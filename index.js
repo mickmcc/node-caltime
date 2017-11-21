@@ -1,7 +1,7 @@
 /**
  * Top-level module which provides all of the functions and constants.
  * @module caltime
- * @version 1.1.0
+ * @version 1.1.1
  *
  * @author Michael McCarthy
  * @copyright Michael McCarthy <michael.mccarthy@ieee.org> 2017
@@ -70,4 +70,4 @@ module.exports.sortTimeSpans = timespanModule.sortSpans;
 module.exports.constants = require('./lib/constants');
 
 /** Version number of the module in SemVer string format. */
-module.exports.VERSION = '1.1.0';
+module.exports.VERSION = '1.1.1';
