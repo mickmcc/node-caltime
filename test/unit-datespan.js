@@ -17,10 +17,12 @@ tc.mergeDateSpans = require('../').mergeDateSpans;
 tc.sortDateSpans = require('../').sortDateSpans;
 /* useful Date objects for testing */
 /* dates which don't span a leap day transition */
-const dateA = new Date(Date.UTC(2017, 6, 15, 12, 0, 0, 0)); // 15th, 12:00
-const dateB = new Date(Date.UTC(2017, 6, 16, 12, 0, 0, 0)); // 16th, 12:00
-const dateC = new Date(Date.UTC(2017, 6, 17, 12, 0, 0, 0)); // 17th, 12:00
-const dateD = new Date(Date.UTC(2017, 6, 18, 12, 0, 0, 0)); // 18th, 12:00
+const dateA = new Date(Date.UTC(2017, 6, 15, 12, 0, 0, 0));  // 15th, 12:00
+const dateB = new Date(Date.UTC(2017, 6, 16, 12, 0, 0, 0));  // 16th, 12:00
+const dateC = new Date(Date.UTC(2017, 6, 17, 12, 0, 0, 0));  // 17th, 12:00
+const dateD = new Date(Date.UTC(2017, 6, 17, 13, 0, 0, 0));  // 17th, 13:00
+const dateE = new Date(Date.UTC(2017, 6, 17, 18, 0, 0, 0));  // 17th, 18:00
+const dateF = new Date(Date.UTC(2017, 6, 18, 12, 0, 0, 0));  // 18th, 12:00
 /* dates which do span a leap day transition */
 const dateLeapB = new Date(Date.UTC(2016, 1, 28, 12, 0, 0, 0));
 const dateLeapC = new Date(Date.UTC(2016, 1, 29, 12, 0, 0, 0));
@@ -45,6 +47,7 @@ after(function() {
 
 
 describe('Date-Span - Instantiation', function() {
+
   it('Create valid minimum duration date-span', function() {
     let periodObject = tc.dateSpanCtor(dateA, null, 0, 0, 1);
     assert.notEqual(periodObject, null, 'DateSpan object was not constructed.');
@@ -161,6 +164,7 @@ describe('Date-Span - Instantiation', function() {
 });
 
 describe('Date-Span - Duration', function() {
+
   it('Check total duration', function() {
     let span = tc.dateSpanCtor(dateA, null, 60, 40, 20);
     assert.notEqual(span, null, 'DateSpan object was not constructed.');
@@ -169,9 +173,19 @@ describe('Date-Span - Duration', function() {
     assert.equal(span.getDurationMs(), 20, 'Expected different value for milliseconds component of duration.');
     assert.equal(span.getTotalDuration(), (60*60*1000)+(40*1000)+20, 'Expected different value for total duration in milliseconds.');
   });
+
+  it('Check total duration over multiple days', function() {
+    let span = tc.dateSpanCtor(dateA, null, 5*24*60, 0, 0);
+    assert.notEqual(span, null, 'DateSpan object was not constructed.');
+    assert.equal(span.getDurationMins(), (5*24*60), 'Expected different value for minutes component of duration.');
+    assert.equal(span.getDurationSecs(), 0, 'Expected different value for seconds component of duration.');
+    assert.equal(span.getDurationMs(), 0, 'Expected different value for milliseconds component of duration.');
+    assert.equal(span.getTotalDuration(), (5*24*60*60*1000)+(0*1000)+0, 'Expected different value for total duration in milliseconds.');
+  });
 });
 
 describe('Date-Span - Intersection', function() {
+
   it('Check two intersecting date-spans', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = tc.dateSpanCtor(dateC, null, 10*60); // 10 hrs
@@ -192,6 +206,7 @@ describe('Date-Span - Intersection', function() {
 });
 
 describe('Date-Span - Union', function() {
+
   it('Union of two intersecting date-spans', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = tc.dateSpanCtor(dateC, null, 10*60); // 10 hrs
@@ -209,6 +224,9 @@ describe('Date-Span - Union', function() {
     let periodC = dateSpanA.union(dateSpanB);
     assert.equal(periodC, null, 'Merge should have returned null as they don\'t overlap.');
   });
+});
+
+describe('Date-Span - Merge List', function() {
 
   it('Merge list of non-intersecting date-spans', function() {
     const dateSpanA = tc.dateSpanCtor(dateB, null, 1*60); // 1 hr
@@ -244,7 +262,7 @@ describe('Date-Span - Union', function() {
   it('Merge list of three intersecting date-spans', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = tc.dateSpanCtor(dateC, null, 30*60); // 10 hrs
-    let periodC = tc.dateSpanCtor(dateD, null, 10*60); // 10 hrs
+    let periodC = tc.dateSpanCtor(dateF, null, 10*60); // 10 hrs
     const list = [dateSpanA, dateSpanB, periodC];
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
     assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
@@ -264,9 +282,6 @@ describe('Date-Span - Union', function() {
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
     assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
     assert.notEqual(periodC, null, 'DateSpan object was not constructed.');
-    // console.log(`dateSpanA begin: ${dateSpanA.getBegin()}, end:${dateSpanA.getEnd()}`); // debug
-    // console.log(`dateSpanB begin: ${dateSpanB.getBegin()}, end:${dateSpanB.getEnd()}`); // debug
-    // console.log(`periodC begin: ${periodC.getBegin()}, end:${periodC.getEnd()}`); // debug
     const result = tc.mergeDateSpans(list);
     assert.notEqual(result, null, 'Function should return an array.');
     assert.equal(result.length, 1, 'Array should contain one merged date-span.');
@@ -276,16 +291,14 @@ describe('Date-Span - Union', function() {
 });
 
 describe('Date-Span - Intersection', function() {
+
   it('Get the Intersection of two intersecting date-spans', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = tc.dateSpanCtor(dateC, null, 10*60); // 10 hrs
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
     assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
-    // console.log(`dateSpanA begin: ${dateSpanA.getBegin()}, end: ${dateSpanA.getEnd()}, duration: ${dateSpanA.getDuration()}`);
-    // console.log(`dateSpanB begin: ${dateSpanB.getBegin()}, end: ${dateSpanB.getEnd()}, duration: ${dateSpanB.getDuration()}`);
     let periodC = dateSpanA.intersect(dateSpanB);
     assert.notEqual(periodC, null, 'DateSpan object was not returned by method.');
-    // console.log(`periodC begin: ${periodC.getBegin()}, end: ${periodC.getEnd()}, duration: ${periodC.getDuration()}`);
     assert.equal(periodC.getBegin().getTime(), dateC.getTime(), 'Incorrect start time of overlapped date-span');
     assert.equal(periodC.getDurationMins(), 6*60, 'Incorrect duration of overlapped date-span'); // expecting 6 hours overlap
   });
@@ -301,15 +314,20 @@ describe('Date-Span - Intersection', function() {
 });
 
 describe('Date-Span - Subtract', function() {
+
   it('Subtraction of two intersecting date-spans', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 30 hrs
-    let dateSpanB = tc.dateSpanCtor(dateC, null, 60); // 1 hr
+    let dateSpanB = tc.dateSpanCtor(dateC, null, 60);    // 1 hr
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
     assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
     let result = dateSpanA.subtract(dateSpanB);
     assert.notEqual(result, null, 'DateSpan objects were not subtracted.');
     assert.equal(_.isArray(result), true, 'Method should return an array.');
-    // TODO check start and duration of remainders
+    assert.equal(result.length, 2, 'Expect array to have 2 elements.');
+    assert.equal(result[0].getBegin().getTime(), dateB.getTime(), 'First remainder has incorrect start time.');
+    assert.equal(result[0].getEnd().getTime(), dateC.getTime(), 'First remainder has incorrect end time.');
+    assert.equal(result[1].getBegin().getTime(), dateD.getTime(), 'Second remainder has incorrect start time.');
+    assert.equal(result[1].getEnd().getTime(), dateE.getTime(), 'Second remainder has incorrect end time.');
   });
 
   it('Subtraction of two non-intersecting date-spans', function() {
@@ -323,6 +341,7 @@ describe('Date-Span - Subtract', function() {
 });
 
 describe('Date-Span - Sort', function() {
+
   it('Sort an empty array', function() {
     const spanArray = [];
     let result = tc.sortDateSpans(spanArray);
@@ -335,7 +354,7 @@ describe('Date-Span - Sort', function() {
     const dateSpanA = tc.dateSpanCtor(dateA, null, 1*60); // 1 hr
     const dateSpanB = tc.dateSpanCtor(dateB, null, 1*60); // 1 hr
     const dateSpanC = tc.dateSpanCtor(dateC, null, 1*60); // 1 hr
-    const dateSpanD = tc.dateSpanCtor(dateD, null, 1*60); // 1 hr
+    const dateSpanD = tc.dateSpanCtor(dateF, null, 1*60); // 1 hr
     // sort in ascending order
     spanArray.push(dateSpanD);
     spanArray.push(dateSpanC);
