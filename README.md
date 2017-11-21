@@ -676,6 +676,50 @@ result[0].getBegin(); // 7 June 2017, 09:00-09:30am Eastern Daylight Time (-0400
 result[1].getBegin(); // 14 June 2017, 09:00-09:30am Eastern Daylight Time (-0400)
 ```
 
+## Constants
+
+The module makes several constants available in the `constants` object. Each
+constant is a data member of this object. Constants are available which can
+be used to convert values between different units of time.
+
+Examples of constants for time conversion:
+```js
+var caltime = require('caltime');
+var module_constants = caltime.constants;
+module_constants.MSECS_PER_HOUR; // milliseconds per hour
+module_constants.MAX_MINS_PER_DAY; // minutes in a 24 hour day
+```
+
+Constants are available which define the day of the week. These values are the
+same as those used by the EcmaScript `Date` object.
+
+```js
+var caltime = require('caltime');
+var module_constants = caltime.constants;
+module_constants.SUNDAY;    // 0
+module_constants.MONDAY;    // 1
+module_constants.TUESDAY;   // 2
+module_constants.WEDNESDAY; // 3
+module_constants.THURSDAY;  // 4
+module_constants.FRIDAY;    // 5
+module_constants.SATURDAY;  // 6
+```
+
+Constants are also available for use with the `TimeRule` functional constructor.
+These constants define the type of constraint applied by the `TimeRule`.
+
+```js
+var caltime = require('caltime');
+var module_constants = caltime.constants;
+module_constants.CONSTRAINT_DAY_OF_WEEK; // Monday, Tuesday,... etc.
+module_constants.CONSTRAINT_DAY_OF_MONTH; // 1st, 2nd, 3rd,... etc.
+module_constants.CONSTRAINT_FIRST_OF_MONTH; // Monday, Tuesday,... etc.
+module_constants.CONSTRAINT_SECOND_OF_MONTH; // Monday, Tuesday,... etc.
+module_constants.CONSTRAINT_THIRD_OF_MONTH; // Monday, Tuesday,... etc.
+module_constants.CONSTRAINT_FOURTH_OF_MONTH; // Monday, Tuesday,... etc.
+module_constants.CONSTRAINT_FIFTH_OF_MONTH; // Monday, Tuesday,... etc.
+```
+
 ## API Documentation
 
 Documentation describing the last major release of `CalTime` is available at
