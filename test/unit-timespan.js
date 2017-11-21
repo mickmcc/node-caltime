@@ -324,7 +324,7 @@ describe('TimeSpan - Operations', function() {
     let result = spanA.subtract(spanB);
     assert.equal(_.isArray(result), true, 'Function should return an array.');
     assert.equal(result.length, 2, 'Expect two timespans in array.');
-    // not sure of order of elements in array, potential for test to fail because of this.
+    // first remainder from subtraction
     assert.equal(result[0].getHours(), 1, 'Incorrect start time: hours.');
     assert.equal(result[0].getMinutes(), 0, 'Incorrect start time: minutes.');
     assert.equal(result[0].getSeconds(), 0, 'Incorrect start time: seconds.');

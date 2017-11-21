@@ -363,6 +363,15 @@ describe('Date-Span - Subtract', function() {
     let periodC = dateSpanA.subtract(dateSpanB);
     assert.equal(periodC, null, 'Subtraction should have returned null.');
   });
+
+  it('Subtraction of two partially intersecting date-spans', function() {
+    let dateSpanA = tc.dateSpanCtor(dateB, null, 26*60); // 26 hr
+    let dateSpanB = tc.dateSpanCtor(dateC, null, 10*60); // 10 hr
+    assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
+    assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
+    let periodC = dateSpanA.subtract(dateSpanB);
+    assert.equal(periodC, null, 'Subtraction should have returned null.');
+  });
 });
 
 describe('Date-Span - Sort', function() {
