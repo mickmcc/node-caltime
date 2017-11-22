@@ -1,15 +1,17 @@
 # CalTime
 
-`CalTime` is a Node.js module which provides objects, methods and functions
+`caltime` is a Node.js module which provides objects, methods and functions
 which help to generate, sort, add and subtract timespans. Operations which are
 supported by the module include:
 - query if timespans overlap with each other
 - calculate the overlap (intersection) of timespans
 - calculate the addition (union) of timespans
 - calculate the remainder left after subtracting timespans
+- calculate the difference between timespans
+- merge the timespans in an array which overlap
 - sort an array of timespans
 
-One useful feature provided by `CalTime` is the ability to define time-based rules.
+One useful feature provided by `caltime` is the ability to define time-based rules.
 This allows timespans to be generated according to a specific period and within
 certain constraints. Examples of the timespans which can be generated are:
 - 2-3pm on Monday of every week in UTC timezone.
@@ -21,15 +23,15 @@ Suggested uses of `caltime` include:
 - Calculate the cost of resource usage using a calendar of costs which changes over time.
 - Schedule work across multiple timezones and reserve the required resources.
 
-`CalTime` does not attempt to provide functionality which is already provided by
-other modules such as [Moment](http://momentjs.com). For this reason, `CalTime`
+`caltime` does not attempt to provide functionality which is already provided by
+other modules such as [Moment](http://momentjs.com). For this reason, `caltime`
 avoids converting dates or times to or from their string representation.
 
 
 ## API Usage
 
 
-The `CalTime` module provides a top-level object with several member functions
+The `caltime` module provides a top-level object with several member functions
 and objects. All of these functions and objects can be accessed by installing
 the `caltime` module.
 
@@ -63,15 +65,14 @@ var caltimeConstants = caltime.constants;
 
 ## TimeSpan
 
-A `TimeSpan` object defines an arc of time which starts at a defined time of the day
-and which has a defined duration and end time. The `TimeSpan` is not associated
-with any specific date or timezone. It just defines the span between two points
-in time during a single day.
+A `TimeSpan` is an immutable object which defines an interval of time during
+a single day. The interval starts at a defined time of the day and has a defined
+duration. The `TimeSpan` is not associated with any specific date or timezone.
 `TimeSpan` is deliberately not date specific. It does not take into
 account factors such as the timezone, leap seconds or Daylight Savings Time.
 The end time of a `TimeSpan` does not form part of the timespan i.e. In
 mathematical terms, the `TimeSpan` object represents a `half-open` interval of
-time where the end time is `exclusive` but the begin time is `inclusive`.
+time where the end time is `exclusive` and the begin time is `inclusive`.
 
 ```js
 var caltime = require('caltime');
@@ -177,7 +178,7 @@ spanA.isIntersect(spanC); // false
 ### intersect()
 
 Method calculates the intersection (overlap), if any, between two `TimeSpan` objects
-and returns a new `TimeSpan` object or null if there was no intersection.
+and returns a new `TimeSpan` object or null if there is no intersection.
 
 ```js
 var caltime = require('caltime');
@@ -224,8 +225,8 @@ newSpan = spanA.intersect(spanC); // null
 
 Method calculates the remainder(s) after subtracting one `TimeSpan` from
 another.  It returns an array containing one or two new `TimeSpan` objects
-which represent the remainders.  The array is empty if there was an exact
-overlap between the timespans and there was no remainder. The method returns
+which represent the remainders.  The array is empty if there is an exact
+overlap between the timespans and there is no remainder. The method returns
 null if subtraction could not be performed because there wasn't sufficient
 overlap.
 
@@ -247,6 +248,29 @@ result[0].getDurationMins(); // 15 minutes
 // these timespans do not intersect
 result = spanA.intersect(spanC); // null
 result.length; // 0
+```
+
+### difference()
+
+Method calculates the interval of one `TimeSpan` (the primary) which does not
+intersect with another `TimeSpan` (the secondary). It returns an array
+containing one or two new `TimeSpan` objects which represent the non-overlapping
+intervals.  The array is empty if there is a complete overlap between the
+timespans. The method returns the primary `TimeSpan` if there is no overlap.
+
+```js
+var caltime = require('caltime');
+var timespanCtor = caltime.timeSpan;
+// create a TimeSpan object which represents 09:30am - 10:00am.
+var spanA = timespanCtor(9, 30, 0, 0, 30, 0, 0);
+// create a TimeSpan object which represents 09:45am - 10:30am.
+var spanB = timespanCtor(9, 45, 0, 0, 45, 0, 0);
+// these two timespans do intersect
+let result = spanA.subtract(spanB);
+result.length; // 1 element in array
+result[0].getHours(); // 9
+result[0].getMinutes(); // 30
+result[0].getDurationMins(); // 15 minutes
 ```
 
 ### mergeTimeSpans()
@@ -452,7 +476,7 @@ spanA.isIntersect(spanC); // false
 ### intersect()
 
 Method calculates the intersection, if any, between two `DateSpan` objects
-and returns a new `DateSpan` object or null if there was no intersection.
+and returns a new `DateSpan` object or null if there is no intersection.
 
 ```js
 var caltime = require('caltime');
@@ -504,8 +528,8 @@ result = spanA.intersect(spanC); // null
 
 Method calculates the remainder(s) after subtracting one `DateSpan` from
 another.  It returns an array containing one or two new `DateSpan` objects
-which represent the remainders.  The array is empty if there was an exact
-overlap between the date-spans and there was no remainder. The method returns
+which represent the remainders.  The array is empty if there is an exact
+overlap between the date-spans and there is no remainder. The method returns
 null if subtraction could not be performed because there wasn't sufficient
 overlap.
 
@@ -620,7 +644,7 @@ called with the `new` operator. The function accepts several arguments:
 - inTimeSpan: `TimeSpan` object describing the start time and duration of the `DateSpan`
   objects which will be generated by the rule.
 - inConstraint: Controls how the rule generates `DateSpan` objects. Constants
-  for each type of constraint are provided by the `CalTime` module's constants object.
+  for each type of constraint are provided by the `caltime` module's constants object.
 - inDay: Specifies the day of the week or day of the month. How this value is
   interpreted depends on `inConstraint`.
 - inTZ: String defining the timezone used when generating the `DateSpan` objects.
@@ -726,7 +750,7 @@ module_constants.CONSTRAINT_FIFTH_OF_MONTH; // Monday, Tuesday,... etc.
 
 ## API Documentation
 
-Documentation describing the last major release of `CalTime` is available at
+Documentation describing the last major release of `caltime` is available at
 [CalTime API](https://mickmcc.github.io/node-caltime/).
 
 The latest API documentation can be generated using `jsdoc`. The documentation
@@ -739,15 +763,15 @@ $ npm run -s doc
 
 ## Dependencies
 
-`CalTime` currently depends on two modules when in production. Other modules are
-required to test or develop `CalTime`. The production dependencies are:
+`caltime` currently depends on two modules when in production. Other modules are
+required to test or develop `caltime`. The production dependencies are:
 - [Lodash](https://lodash.com/)
 - [Moment Timezone](https://momentjs.com/timezone/)
 
 
 ## License
 
-CalTime is copyright (c) 2017 Michael McCarthy <michael.mccarthy@ieee.org>.
+`caltime` is copyright (c) 2017 Michael McCarthy <michael.mccarthy@ieee.org>.
 
-CalTime is free software, licensed under the MIT licence. See the file `LICENSE`
+`caltime` is free software, licensed under the MIT licence. See the file `LICENSE`
 in this distribution for more information.
