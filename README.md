@@ -556,6 +556,30 @@ result[1].getEnd(); // 10:00am
 result = spanA.intersect(spanC); // null
 ```
 
+### difference()
+
+Method calculates the interval of one `DateSpan` (the primary) which does not
+intersect with another `DateSpan` (the secondary). It returns an array
+containing one or two new `DateSpan` objects which represent the non-overlapping
+intervals.  The array is empty if there is a complete overlap between the
+date-spans. The method returns the primary `DateSpan` if there is no overlap.
+
+```js
+var caltime = require('caltime');
+var datespanCtor = caltime.dateSpan;
+// DateSpan object which represents 09:00am - 10:00am, 15.Nov.2017.
+var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
+let dateSpanA = dateSpanCtor(beginDate, null, 60);
+// DateSpan object which represents 09:30am - 10:30am, 15.Nov.2017.
+beginDate = new Date(2017, 10, 15, 9, 30, 0, 0);
+let dateSpanB = dateSpanCtor(beginDate, null, 60);
+// primary date-span starts before the secondary
+let result = dateSpanA.difference(dateSpanB);
+result.length; // 1
+result[0].getBegin(); // 9:00
+result[0].getEnd(); // 9:30
+```
+
 ### toString()
 
 Method returns a string which represents the state of the `DateSpan`. This
