@@ -46,7 +46,7 @@ after(function() {
 });
 
 
-describe('Date-Span - Instantiation', function() {
+describe('DateSpan - Instantiation', function() {
   it('Create valid minimum duration date-span', function() {
     let periodObject = tc.dateSpanCtor(dateA, null, 0, 0, 1);
     assert.notEqual(periodObject, null, 'DateSpan object was not constructed.');
@@ -162,7 +162,8 @@ describe('Date-Span - Instantiation', function() {
   });
 });
 
-describe('Date-Span - Duration', function() {
+describe('DateSpan - Duration', function() {
+
   it('Check total duration', function() {
     let span = tc.dateSpanCtor(dateA, null, 60, 40, 20);
     assert.notEqual(span, null, 'DateSpan object was not constructed.');
@@ -183,6 +184,7 @@ describe('Date-Span - Duration', function() {
 });
 
 describe('DateSpan - Equals', function() {
+
   it('Date-spans which are equals', function() {
       let spanA = tc.dateSpanCtor(dateA, null, 60, 40, 20);
       let spanB = tc.dateSpanCtor(dateA, null, 60, 40, 20);
@@ -204,7 +206,7 @@ describe('DateSpan - Equals', function() {
   });
 });
 
-describe('Date-Span - Intersection', function() {
+describe('DateSpan - Intersection', function() {
   it('Check two intersecting date-spans', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = tc.dateSpanCtor(dateC, null, 10*60); // 10 hrs
@@ -224,7 +226,7 @@ describe('Date-Span - Intersection', function() {
   });
 });
 
-describe('Date-Span - Union', function() {
+describe('DateSpan - Union', function() {
   it('Union of two intersecting date-spans', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = tc.dateSpanCtor(dateC, null, 10*60); // 10 hrs
@@ -244,7 +246,7 @@ describe('Date-Span - Union', function() {
   });
 });
 
-describe('Date-Span - Merge List', function() {
+describe('DateSpan - Merge List', function() {
   it('Merge list of non-intersecting date-spans', function() {
     const dateSpanA = tc.dateSpanCtor(dateB, null, 1*60); // 1 hr
     const dateSpanB = tc.dateSpanCtor(dateC, null, 1*60); // 1 hr
@@ -307,7 +309,7 @@ describe('Date-Span - Merge List', function() {
   });
 });
 
-describe('Date-Span - Intersection', function() {
+describe('DateSpan - Intersection', function() {
   it('Get the Intersection of two intersecting date-spans', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = tc.dateSpanCtor(dateC, null, 10*60); // 10 hrs
@@ -329,7 +331,7 @@ describe('Date-Span - Intersection', function() {
   });
 });
 
-describe('Date-Span - Subtract', function() {
+describe('DateSpan - Subtract', function() {
   it('Subtraction of two intersecting date-spans', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 30 hrs
     let dateSpanB = tc.dateSpanCtor(dateC, null, 60); // 1 hr
@@ -364,7 +366,58 @@ describe('Date-Span - Subtract', function() {
   });
 });
 
-describe('Date-Span - Sort', function() {
+describe('DateSpan - Difference', function() {
+  it('Difference of two completely intersecting date-spans', function() {
+    let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 16th 12:00 - 17th 18:00
+    let dateSpanB = tc.dateSpanCtor(dateC, null, 60); // 17th 12:00 - 17th 13:00
+    assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
+    assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
+    // primary datespan exceeds the start and end times of secondary datespan
+    let result = dateSpanA.difference(dateSpanB);
+    assert.equal(_.isArray(result), true, 'Method should return an array.');
+    assert.equal(result.length, 2, 'Expect array to have 2 elements.');
+    assert.equal(result[0].getBegin().getTime(), dateB.getTime(), 'First remainder has incorrect start time.');
+    assert.equal(result[0].getEnd().getTime(), dateC.getTime(), 'First remainder has incorrect end time.');
+    assert.equal(result[1].getBegin().getTime(), dateD.getTime(), 'Second remainder has incorrect start time.');
+    assert.equal(result[1].getEnd().getTime(), dateE.getTime(), 'Second remainder has incorrect end time.');
+    // primary datespan is exceeded by the start and end times of secondary datespan
+    result = dateSpanB.difference(dateSpanA);
+    assert.equal(_.isArray(result), true, 'Method should return an array.');
+    assert.equal(result.length, 0, 'Expect array to have 0 elements.');
+  });
+
+  it('Difference of two non-intersecting date-spans', function() {
+    let dateSpanA = tc.dateSpanCtor(dateB, null, 1*60); // 1 hr
+    let dateSpanB = tc.dateSpanCtor(dateC, null, 1*60); // 1 hr
+    assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
+    assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
+    let result = dateSpanA.difference(dateSpanB);
+    assert.equal(_.isArray(result), true, 'Method should return an array.');
+    assert.equal(result.length, 1, 'Expect array to have 1 element.');
+    assert.equal(result[0], dateSpanA, 'Expected primary DateSpan to be returned.');
+  });
+
+  it('Difference of two partially intersecting date-spans', function() {
+    let dateSpanA = tc.dateSpanCtor(dateB, null, 26*60); // 16th 12:00 - 17th 14:00
+    let dateSpanB = tc.dateSpanCtor(dateC, null, 10*60); // 17th 12:00 - 17th 22:00
+    assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
+    assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
+    // primary datespan starts before the secondary
+    let result = dateSpanA.difference(dateSpanB);
+    assert.equal(_.isArray(result), true, 'Method should return an array.');
+    assert.equal(result.length, 1, 'Expect array to have 1 elements.');
+    assert.equal(result[0].getBegin().getTime(), dateB.getTime(), 'First remainder has incorrect start time.');
+    assert.equal(result[0].getEnd().getTime(), dateC.getTime(), 'First remainder has incorrect end time.');
+    // primary datespan starts after the secondary
+    result = dateSpanB.difference(dateSpanA);
+    assert.equal(_.isArray(result), true, 'Method should return an array.');
+    assert.equal(result.length, 1, 'Expect array to have 1 elements.');
+    assert.equal(result[0].getBegin().getTime(), dateB.getTime()+(26*60*60*1000), 'Remainder has incorrect start time.');
+    assert.equal(result[0].getEnd().getTime(), dateC.getTime()+(10*60*60*1000), 'Remainder has incorrect end time.');
+  });
+});
+
+describe('DateSpan - Sort', function() {
   it('Sort an empty array', function() {
     const spanArray = [];
     let result = tc.sortDateSpans(spanArray);
@@ -405,7 +458,7 @@ describe('Date-Span - Sort', function() {
   });
 });
 
-describe('Date-Span - String', function() {
+describe('DateSpan - String', function() {
   it('String output of DateSpan', function() {
     let spanA = tc.dateSpanCtor(dateA, null, 11, 22, 33);
     assert.equal(spanA.toString(), '[ '+ dateA.toISOString()+', 11:22:33 ]', 'TimeSpan string not formatted as expected.');
