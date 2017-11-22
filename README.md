@@ -252,7 +252,7 @@ result.length; // 0
 
 ### difference()
 
-Method calculates the interval of one `TimeSpan` (the primary) which does not
+Method calculates the part of one `TimeSpan` (the primary) which does not
 intersect with another `TimeSpan` (the secondary). It returns an array
 containing one or two new `TimeSpan` objects which represent the non-overlapping
 intervals.  The array is empty if there is a complete overlap between the
@@ -558,8 +558,8 @@ result = spanA.intersect(spanC); // null
 
 ### difference()
 
-Method calculates the interval of one `DateSpan` (the primary) which does not
-intersect with another `DateSpan` (the secondary). It returns an array
+Method calculates the part of one `DateSpan` (the primary) which does
+not intersect with another `DateSpan` (the secondary). It returns an array
 containing one or two new `DateSpan` objects which represent the non-overlapping
 intervals.  The array is empty if there is a complete overlap between the
 date-spans. The method returns the primary `DateSpan` if there is no overlap.
