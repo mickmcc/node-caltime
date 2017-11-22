@@ -388,6 +388,105 @@ describe('TimeSpan - Operations', function() {
     assert.equal(_.isNull(result), true, 'Function should return null.');
   });
 
+  it('Difference of timespans with invalid arguments', function() {
+
+    let spanA = tc.spanCtor(1, 0, 0, 0, 60, 0, 0);   // 01:00 - 02:00
+    assert.throws(function() { spanA.difference(null) },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() { spanA.difference(undefined) },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() { spanA.difference( {} ) },
+                    Error,
+                    'Expected method to throw an error.');
+  });
+
+  it('Difference of timespans - one remainder', function() {
+
+    const spanA = tc.spanCtor(12, 0, 0, 0, 60, 0, 0);    // 12:00 - 13:00
+    const spanB = tc.spanCtor(12, 30, 0, 0, 60, 0, 0);   // 12:20 - 13:30
+    const spanC = tc.spanCtor(11, 30, 0, 0, 60, 0, 0);   // 11:30 - 12:30
+    // this timespan starts before other, produces 1 remainder
+    let result = spanA.difference(spanB);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 1, 'Expect one timespan in array.');
+    assert.equal(result[0].getHours(), 12, 'Incorrect start time: hours.');
+    assert.equal(result[0].getMinutes(), 0, 'Incorrect start time: minutes.');
+    assert.equal(result[0].getSeconds(), 0, 'Incorrect start time: seconds.');
+    assert.equal(result[0].getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
+    assert.equal(result[0].getDurationMins(), 30, 'Incorrect duration: minutes.');
+    assert.equal(result[0].getDurationSecs(), 0, 'Incorrect duration: seconds.');
+    assert.equal(result[0].getDurationMs(), 0, 'Incorrect duration: milliseconds.');
+    // this timespan ends after other, produces 1 remainder
+    result = spanA.difference(spanC);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 1, 'Expect one timespan in array.');
+    assert.equal(result[0].getHours(), 12, 'Incorrect start time: hours.');
+    assert.equal(result[0].getMinutes(), 30, 'Incorrect start time: minutes.');
+    assert.equal(result[0].getSeconds(), 0, 'Incorrect start time: seconds.');
+    assert.equal(result[0].getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
+    assert.equal(result[0].getDurationMins(), 30, 'Incorrect duration: minutes.');
+    assert.equal(result[0].getDurationSecs(), 0, 'Incorrect duration: seconds.');
+    assert.equal(result[0].getDurationMs(), 0, 'Incorrect duration: milliseconds.');
+    // no overlap, original timespan returned
+    result = spanC.difference(spanB);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 1, 'Expect one timespan in array.');
+    assert.equal(result[0], spanC, 'Expected return of same timespan object.');
+    assert.equal(result[0].getHours(), spanC.getHours(), 'Incorrect start time: hours.');
+    assert.equal(result[0].getMinutes(), spanC.getMinutes(), 'Incorrect start time: minutes.');
+    assert.equal(result[0].getSeconds(), spanC.getSeconds(), 'Incorrect start time: seconds.');
+    assert.equal(result[0].getMilliseconds(), spanC.getMilliseconds(), 'Incorrect start time: milliseconds.');
+    assert.equal(result[0].getDurationMins(), spanC.getDurationMins(), 'Incorrect duration: minutes.');
+    assert.equal(result[0].getDurationSecs(), spanC.getDurationSecs(), 'Incorrect duration: seconds.');
+    assert.equal(result[0].getDurationMs(), spanC.getDurationMs(), 'Incorrect duration: milliseconds.');
+  });
+
+  it('Difference of timespans - two remainders', function() {
+
+    const spanA = tc.spanCtor(1, 0, 0, 0, 60, 0, 0);    // 01:00 - 02:00
+    const spanB = tc.spanCtor(1, 20, 0, 0, 10, 0, 0);   // 01:20 - 01:40
+    // produces two remainders
+    let result = spanA.difference(spanB);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 2, 'Expect two timespans in array.');
+    // first remainder from difference
+    assert.equal(result[0].getHours(), 1, 'Incorrect start time: hours.');
+    assert.equal(result[0].getMinutes(), 0, 'Incorrect start time: minutes.');
+    assert.equal(result[0].getSeconds(), 0, 'Incorrect start time: seconds.');
+    assert.equal(result[0].getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
+    assert.equal(result[0].getDurationMins(), 20, 'Incorrect duration: minutes.');
+    assert.equal(result[0].getDurationSecs(), 0, 'Incorrect duration: seconds.');
+    assert.equal(result[0].getDurationMs(), 0, 'Incorrect duration: milliseconds.');
+    // second remainder from difference
+    assert.equal(result[1].getHours(), 1, 'Incorrect start time: hours.');
+    assert.equal(result[1].getMinutes(), 30, 'Incorrect start time: minutes.');
+    assert.equal(result[1].getSeconds(), 0, 'Incorrect start time: seconds.');
+    assert.equal(result[1].getMilliseconds(), 0, 'Incorrect start time: milliseconds.');
+    assert.equal(result[1].getDurationMins(), 30, 'Incorrect duration: minutes.');
+    assert.equal(result[1].getDurationSecs(), 0, 'Incorrect duration: seconds.');
+    assert.equal(result[1].getDurationMs(), 0, 'Incorrect duration: milliseconds.');
+  });
+
+  it('Difference of timespans - no remainders', function() {
+
+    const spanB = tc.spanCtor(1, 20, 0, 0, 10, 0, 0);   // 01:20 - 01:40
+    const spanBb = tc.spanCtor(1, 20, 0, 0, 10, 0, 0);  // same as spanB
+    const spanC = tc.spanCtor(1, 0, 0, 0, 60, 0, 0);    // 01:00 - 02:00
+    // equal starts and ends, produces empty array
+    let result = spanB.difference(spanB);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 0, 'Expect empty array.');
+    result = spanB.subtract(spanBb);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 0, 'Expect empty array.');
+    // other timespan exceeds begin and end times, produces empty array
+    result = spanB.difference(spanC);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 0, 'Expect empty array.');
+  });
+
   it('String output of TimeSpan', function() {
 
     let spanA = tc.spanCtor(1, 2, 3, 4, 5, 6, 7);
