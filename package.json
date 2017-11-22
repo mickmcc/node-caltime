@@ -46,10 +46,10 @@
   },
   "homepage": "https://github.com/mickmcc/node-caltime",
   "devDependencies": {
-    "eslint": "~4.8.0",
-    "eslint-config-google": "~0.9.1",
-    "jsdoc": "~3.5.5",
-    "mocha": "~4.0.0"
+    "eslint": "latest",
+    "eslint-config-google": "latest",
+    "jsdoc": "latest",
+    "mocha": "latest"
   },
   "dependencies": {
     "lodash": "~4.17.4",
