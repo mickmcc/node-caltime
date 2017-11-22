@@ -22,10 +22,10 @@ testContext.constants = testContext.module.constants;
 
 /* useful Date objects for testing */
 /* dates which don't span a leap day transition i.e. 29th of Feb. of leap year */
-const dateA = new Date(Date.UTC(2017, 6, 1, 0, 0, 0, 0));   // Saturday 1st, 1st day of July
-const dateB = new Date(Date.UTC(2017, 6, 5, 16, 0, 0, 0));  // First Wed. of July, 16:00
-const dateBa = new Date(Date.UTC(2017, 6, 5, 16, 30, 0, 0));  // First Wed. of July, 16:30
-const dateC = new Date(Date.UTC(2017, 6, 5, 17, 0, 0, 0));  // Last Wed. of July, 17:00
+const dateA = new Date(Date.UTC(2017, 6, 1, 0, 0, 0, 0)); // Saturday 1st, 1st day of July
+const dateB = new Date(Date.UTC(2017, 6, 5, 16, 0, 0, 0)); // First Wed. of July, 16:00
+const dateBa = new Date(Date.UTC(2017, 6, 5, 16, 30, 0, 0)); // First Wed. of July, 16:30
+const dateC = new Date(Date.UTC(2017, 6, 5, 17, 0, 0, 0)); // Last Wed. of July, 17:00
 const dateD = new Date(Date.UTC(2017, 6, 12, 16, 0, 0, 0)); // Second Wed. of July, 16:00
 const dateE = new Date(Date.UTC(2017, 6, 12, 17, 0, 0, 0)); // Second Wed. of July, 17:00
 const dateF = new Date(Date.UTC(2017, 6, 14, 12, 0, 0, 0)); // Friday 14th, 12:00
@@ -37,7 +37,7 @@ const dateK = new Date(Date.UTC(2017, 6, 15, 16, 0, 0, 0)); // Saturday 15th, 16
 const dateL = new Date(Date.UTC(2017, 6, 15, 17, 0, 0, 0)); // Saturday 15th, 17:00
 const dateM = new Date(Date.UTC(2017, 6, 15, 18, 0, 0, 0)); // Saturday 15th, 18:00
 const dateN = new Date(Date.UTC(2017, 6, 15, 22, 0, 0, 0)); // Saturday 15th, 22:00
-const dateO = new Date(Date.UTC(2017, 6, 16, 2, 0, 0, 0));  // Sunday 16th, 02:00
+const dateO = new Date(Date.UTC(2017, 6, 16, 2, 0, 0, 0)); // Sunday 16th, 02:00
 const dateP = new Date(Date.UTC(2017, 6, 16, 13, 0, 0, 0)); // Sunday 16th, 13:00
 const dateQ = new Date(Date.UTC(2017, 6, 19, 16, 0, 0, 0)); // Third Wed. of July, 16:00
 const dateR = new Date(Date.UTC(2017, 6, 19, 17, 0, 0, 0)); // Third Wed. of July, 17:00
@@ -72,7 +72,6 @@ after(function() {
 
 
 describe('Time Rule - Instantiation', function() {
-
   it('Create valid day-of-week time-rule', function() {
     let timespan = testContext.timeSpanCtor(9, 0, 0, 0, 60);
     let ruleObject = testContext.ruleRuleCtor(timespan,
@@ -178,7 +177,6 @@ describe('Time Rule - Instantiation', function() {
 
 
 describe('Time Rule - Generate Date-spans. Timezone: UTC.', function() {
-
   it('Create valid "Day of week" time-rule and get date-span.', function() {
     let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 6*60); // 16:00-22:00
     let ruleObject = testContext.ruleRuleCtor(timespan,
@@ -379,7 +377,6 @@ describe('Time Rule - Generate Date-spans. Timezone: UTC.', function() {
 });
 
 describe('Time Rule - Generate Date-spans. Timezone: UTC+4 hours.', function() {
-
   it('Create valid time-rule and get date-span.', function() {
     let timespan = testContext.timeSpanCtor(14, 0, 0, 0, 8*60); // 14:00-22:00
     let ruleObject = testContext.ruleRuleCtor(timespan,
@@ -420,7 +417,6 @@ describe('Time Rule - Generate Date-spans. Timezone: UTC+4 hours.', function() {
 });
 
 describe('Time Rule - Generate Time Periods. Timezone: UTC-4 hours.', function() {
-
   it('Create valid time-rule and get date-span.', function() {
     let timespan = testContext.timeSpanCtor(14, 0, 0, 0, 8*60); // 14:00-22:00 UTC-4
     let ruleObject = testContext.ruleRuleCtor(timespan,

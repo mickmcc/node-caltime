@@ -20,7 +20,6 @@ testContext.timeZoneCtor = require('../lib/timezone').timeZone;
 const dateA = new Date(Date.UTC(2017, 6, 14, 10, 0, 0, 0)); // UTC+14: Friday/Sat Midnight.
 const dateAa = new Date(Date.UTC(2017, 6, 14, 12, 0, 0, 0)); // UTC-12: Thur/Fri Midnight.
 const dateB = new Date(Date.UTC(2017, 6, 14, 20, 0, 0, 0)); // UTC+4: Fri/Sat Midnight.
-const dateBb = new Date(Date.UTC(2017, 6, 14, 22, 0, 0, 0)); // UTC+14: Thurs/Fri Midnight.
 const dateC = new Date(Date.UTC(2017, 6, 15, 0, 0, 0, 0)); // UTC: Friday/Sat Midnight.
 const dateD = new Date(Date.UTC(2017, 6, 15, 4, 0, 0, 0)); // UTC-4: Friday/Sat Midnight.
 const dateE = new Date(Date.UTC(2017, 6, 15, 10, 0, 0, 0)); // UTC+14: Sat/Sun Midnight.

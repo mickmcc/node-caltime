@@ -17,12 +17,12 @@ tc.mergeDateSpans = require('../').mergeDateSpans;
 tc.sortDateSpans = require('../').sortDateSpans;
 /* useful Date objects for testing */
 /* dates which don't span a leap day transition */
-const dateA = new Date(Date.UTC(2017, 6, 15, 12, 0, 0, 0));  // 15th, 12:00
-const dateB = new Date(Date.UTC(2017, 6, 16, 12, 0, 0, 0));  // 16th, 12:00
-const dateC = new Date(Date.UTC(2017, 6, 17, 12, 0, 0, 0));  // 17th, 12:00
-const dateD = new Date(Date.UTC(2017, 6, 17, 13, 0, 0, 0));  // 17th, 13:00
-const dateE = new Date(Date.UTC(2017, 6, 17, 18, 0, 0, 0));  // 17th, 18:00
-const dateF = new Date(Date.UTC(2017, 6, 18, 12, 0, 0, 0));  // 18th, 12:00
+const dateA = new Date(Date.UTC(2017, 6, 15, 12, 0, 0, 0)); // 15th, 12:00
+const dateB = new Date(Date.UTC(2017, 6, 16, 12, 0, 0, 0)); // 16th, 12:00
+const dateC = new Date(Date.UTC(2017, 6, 17, 12, 0, 0, 0)); // 17th, 12:00
+const dateD = new Date(Date.UTC(2017, 6, 17, 13, 0, 0, 0)); // 17th, 13:00
+const dateE = new Date(Date.UTC(2017, 6, 17, 18, 0, 0, 0)); // 17th, 18:00
+const dateF = new Date(Date.UTC(2017, 6, 18, 12, 0, 0, 0)); // 18th, 12:00
 /* dates which do span a leap day transition */
 const dateLeapB = new Date(Date.UTC(2016, 1, 28, 12, 0, 0, 0));
 const dateLeapC = new Date(Date.UTC(2016, 1, 29, 12, 0, 0, 0));
@@ -47,7 +47,6 @@ after(function() {
 
 
 describe('Date-Span - Instantiation', function() {
-
   it('Create valid minimum duration date-span', function() {
     let periodObject = tc.dateSpanCtor(dateA, null, 0, 0, 1);
     assert.notEqual(periodObject, null, 'DateSpan object was not constructed.');
@@ -164,7 +163,6 @@ describe('Date-Span - Instantiation', function() {
 });
 
 describe('Date-Span - Duration', function() {
-
   it('Check total duration', function() {
     let span = tc.dateSpanCtor(dateA, null, 60, 40, 20);
     assert.notEqual(span, null, 'DateSpan object was not constructed.');
@@ -185,9 +183,7 @@ describe('Date-Span - Duration', function() {
 });
 
 describe('DateSpan - Equals', function() {
-
   it('Date-spans which are equals', function() {
-
       let spanA = tc.dateSpanCtor(dateA, null, 60, 40, 20);
       let spanB = tc.dateSpanCtor(dateA, null, 60, 40, 20);
       assert.equal(spanA.isEqual(spanB), true, 'DateSpan objects should be equal.');
@@ -196,7 +192,6 @@ describe('DateSpan - Equals', function() {
   });
 
   it('Date-spans which are not equals', function() {
-
       let spanA = tc.dateSpanCtor(dateA, null, 60, 40, 20);
       let spanB = tc.dateSpanCtor(dateA, null, 60, 40, 40); // different duration
       let spanC = tc.dateSpanCtor(dateB, null, 60, 40, 20); // different begin time
@@ -210,7 +205,6 @@ describe('DateSpan - Equals', function() {
 });
 
 describe('Date-Span - Intersection', function() {
-
   it('Check two intersecting date-spans', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = tc.dateSpanCtor(dateC, null, 10*60); // 10 hrs
@@ -231,7 +225,6 @@ describe('Date-Span - Intersection', function() {
 });
 
 describe('Date-Span - Union', function() {
-
   it('Union of two intersecting date-spans', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = tc.dateSpanCtor(dateC, null, 10*60); // 10 hrs
@@ -252,7 +245,6 @@ describe('Date-Span - Union', function() {
 });
 
 describe('Date-Span - Merge List', function() {
-
   it('Merge list of non-intersecting date-spans', function() {
     const dateSpanA = tc.dateSpanCtor(dateB, null, 1*60); // 1 hr
     const dateSpanB = tc.dateSpanCtor(dateC, null, 1*60); // 1 hr
@@ -316,7 +308,6 @@ describe('Date-Span - Merge List', function() {
 });
 
 describe('Date-Span - Intersection', function() {
-
   it('Get the Intersection of two intersecting date-spans', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = tc.dateSpanCtor(dateC, null, 10*60); // 10 hrs
@@ -339,10 +330,9 @@ describe('Date-Span - Intersection', function() {
 });
 
 describe('Date-Span - Subtract', function() {
-
   it('Subtraction of two intersecting date-spans', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 30 hrs
-    let dateSpanB = tc.dateSpanCtor(dateC, null, 60);    // 1 hr
+    let dateSpanB = tc.dateSpanCtor(dateC, null, 60); // 1 hr
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
     assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
     let result = dateSpanA.subtract(dateSpanB);
@@ -375,7 +365,6 @@ describe('Date-Span - Subtract', function() {
 });
 
 describe('Date-Span - Sort', function() {
-
   it('Sort an empty array', function() {
     const spanArray = [];
     let result = tc.sortDateSpans(spanArray);
@@ -417,9 +406,7 @@ describe('Date-Span - Sort', function() {
 });
 
 describe('Date-Span - String', function() {
-
   it('String output of DateSpan', function() {
-
     let spanA = tc.dateSpanCtor(dateA, null, 11, 22, 33);
     assert.equal(spanA.toString(), '[ '+ dateA.toISOString()+', 11:22:33 ]', 'TimeSpan string not formatted as expected.');
   });

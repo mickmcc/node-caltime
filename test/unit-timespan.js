@@ -68,7 +68,7 @@ describe('TimeSpan - Instantiation', function() {
 
   it('Attempt to create timespans with null arguments', function() {
 
-    assert.throws(function() { tc.spanCtor(null, 0, 0, 0, 1,)},
+    assert.throws(function() { tc.spanCtor(null, 0, 0, 0, 1)},
                     Error,
                     'Expected functional constructor to throw an error.');
     assert.throws(function() { tc.spanCtor(12, null, 0, 0, 1)},
