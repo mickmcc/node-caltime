@@ -101,6 +101,14 @@ describe('DateSpan - Instantiation', function() {
                     'Expected functional constructor to throw an error.');
   });
 
+  it('Attempt to create an date-span passing both end date and durations.', function() {
+    assert.throws(function() {
+                     tc.dateSpanCtor(dateA, dateB, 1, 2, 3);
+                    },
+                    Error,
+                    'Expected functional constructor to throw an error.');
+  });
+
   it('Attempt to create a date-span with negative durations', function() {
     assert.throws(function() {
                      tc.dateSpanCtor(dateA, null, Number.MIN_SAFE_INTEGER);
@@ -185,6 +193,25 @@ describe('DateSpan - Duration', function() {
 
 describe('DateSpan - Equals', function() {
 
+  it('Call isEqual with invalid argument', function() {
+    let spanA = tc.dateSpanCtor(dateA, null, 60, 40, 20);
+    assert.throws(function() {
+                     spanA.isEqual(null);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     spanA.isEqual(undefined);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     spanA.isEqual([]);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+  });
+
   it('Date-spans which are equals', function() {
       let spanA = tc.dateSpanCtor(dateA, null, 60, 40, 20);
       let spanB = tc.dateSpanCtor(dateA, null, 60, 40, 20);
@@ -207,6 +234,26 @@ describe('DateSpan - Equals', function() {
 });
 
 describe('DateSpan - Intersection', function() {
+
+  it('Call isIntersect with invalid argument', function() {
+    let spanA = tc.dateSpanCtor(dateA, null, 60, 40, 20);
+    assert.throws(function() {
+                     spanA.isIntersect(null);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     spanA.isIntersect(undefined);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     spanA.isIntersect([]);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+  });
+
   it('Check two intersecting date-spans', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = tc.dateSpanCtor(dateC, null, 10*60); // 10 hrs
@@ -227,6 +274,26 @@ describe('DateSpan - Intersection', function() {
 });
 
 describe('DateSpan - Union', function() {
+
+  it('Call union with invalid argument', function() {
+    let spanA = tc.dateSpanCtor(dateA, null, 60, 40, 20);
+    assert.throws(function() {
+                     spanA.union(null);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     spanA.union(undefined);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     spanA.union([]);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+  });
+
   it('Union of two intersecting date-spans', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = tc.dateSpanCtor(dateC, null, 10*60); // 10 hrs
@@ -247,6 +314,25 @@ describe('DateSpan - Union', function() {
 });
 
 describe('DateSpan - Merge List', function() {
+
+  it('Call mergeDateSpans() with invalid argument', function() {
+    assert.throws(function() {
+                     tc.mergeDateSpans(null);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     tc.mergeDateSpans(undefined);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     tc.mergeDateSpans({});
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+  });
+
   it('Merge list of non-intersecting date-spans', function() {
     const dateSpanA = tc.dateSpanCtor(dateB, null, 1*60); // 1 hr
     const dateSpanB = tc.dateSpanCtor(dateC, null, 1*60); // 1 hr
@@ -310,6 +396,26 @@ describe('DateSpan - Merge List', function() {
 });
 
 describe('DateSpan - Intersection', function() {
+
+  it('Call subtract() with invalid argument', function() {
+    let spanA = tc.dateSpanCtor(dateA, null, 60, 40, 20);
+    assert.throws(function() {
+                     spanA.intersect(null);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     spanA.intersect(undefined);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     spanA.intersect([]);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+  });
+
   it('Get the Intersection of two intersecting date-spans', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 24 hrs
     let dateSpanB = tc.dateSpanCtor(dateC, null, 10*60); // 10 hrs
@@ -332,7 +438,27 @@ describe('DateSpan - Intersection', function() {
 });
 
 describe('DateSpan - Subtract', function() {
-  it('Subtraction of two intersecting date-spans', function() {
+
+  it('Call subtract() with invalid argument', function() {
+    let spanA = tc.dateSpanCtor(dateA, null, 60, 40, 20);
+    assert.throws(function() {
+                     spanA.subtract(null);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     spanA.subtract(undefined);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     spanA.subtract([]);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+  });
+
+  it('Subtraction of two intersecting date-spans - 2 remainders', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 30 hrs
     let dateSpanB = tc.dateSpanCtor(dateC, null, 60); // 1 hr
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
@@ -345,6 +471,32 @@ describe('DateSpan - Subtract', function() {
     assert.equal(result[0].getEnd().getTime(), dateC.getTime(), 'First remainder has incorrect end time.');
     assert.equal(result[1].getBegin().getTime(), dateD.getTime(), 'Second remainder has incorrect start time.');
     assert.equal(result[1].getEnd().getTime(), dateE.getTime(), 'Second remainder has incorrect end time.');
+  });
+
+  it('Subtraction of two intersecting date-spans - equal starts - 1 remainder', function() {
+    let dateSpanA = tc.dateSpanCtor(dateC, null, 24*60); // 24 hrs
+    let dateSpanB = tc.dateSpanCtor(dateC, null, 60); // 1 hr
+    assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
+    assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
+    let result = dateSpanA.subtract(dateSpanB);
+    assert.notEqual(result, null, 'DateSpan objects were not subtracted.');
+    assert.equal(_.isArray(result), true, 'Method should return an array.');
+    assert.equal(result.length, 1, 'Expect array to have 1 element.');
+    assert.equal(result[0].getBegin().getTime(), dateD.getTime(), 'Remainder has incorrect start time.');
+    assert.equal(result[0].getEnd().getTime(), dateF.getTime(), 'Remainder has incorrect end time.');
+  });
+
+  it('Subtraction of two intersecting date-spans - equal ends - 1 remainder', function() {
+    let dateSpanA = tc.dateSpanCtor(dateC, null, 24*60); // 24 hrs
+    let dateSpanB = tc.dateSpanCtor(dateD, null, 23*60); // 23 hrs
+    assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
+    assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
+    let result = dateSpanA.subtract(dateSpanB);
+    assert.notEqual(result, null, 'DateSpan objects were not subtracted.');
+    assert.equal(_.isArray(result), true, 'Method should return an array.');
+    assert.equal(result.length, 1, 'Expect array to have 1 element.');
+    assert.equal(result[0].getBegin().getTime(), dateC.getTime(), 'Remainder has incorrect start time.');
+    assert.equal(result[0].getEnd().getTime(), dateD.getTime(), 'Remainder has incorrect end time.');
   });
 
   it('Subtraction of two non-intersecting date-spans', function() {
@@ -367,6 +519,26 @@ describe('DateSpan - Subtract', function() {
 });
 
 describe('DateSpan - Difference', function() {
+
+  it('Call difference with invalid argument', function() {
+    let spanA = tc.dateSpanCtor(dateA, null, 60, 40, 20);
+    assert.throws(function() {
+                     spanA.difference(null);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     spanA.difference(undefined);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     spanA.difference([]);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+  });
+
   it('Difference of two completely intersecting date-spans', function() {
     let dateSpanA = tc.dateSpanCtor(dateB, null, 30*60); // 16th 12:00 - 17th 18:00
     let dateSpanB = tc.dateSpanCtor(dateC, null, 60); // 17th 12:00 - 17th 13:00
@@ -418,6 +590,25 @@ describe('DateSpan - Difference', function() {
 });
 
 describe('DateSpan - Sort', function() {
+
+  it('Call sortDateSpans() with invalid argument', function() {
+    assert.throws(function() {
+                     tc.sortDateSpans(null);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     tc.sortDateSpans(undefined);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     tc.sortDateSpans({});
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+  });
+
   it('Sort an empty array', function() {
     const spanArray = [];
     let result = tc.sortDateSpans(spanArray);

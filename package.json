@@ -18,6 +18,7 @@
     "test-timezone": "./node_modules/.bin/mocha test/unit-timezone.js",
     "test": "npm run -s test-datespan && npm run -s test-timespan && npm run -s test-timezone && npm run -s test-timerule",
     "lint": "./node_modules/.bin/eslint index.js && ./node_modules/.bin/eslint lib && ./node_modules/.bin/eslint test",
+    "coverage": "./node_modules/.bin/nyc --reporter=html npm test",
     "doc": "./node_modules/.bin/jsdoc -d docs README.md index.js lib/"
   },
   "repository": {
@@ -49,7 +50,8 @@
     "eslint": "latest",
     "eslint-config-google": "latest",
     "jsdoc": "latest",
-    "mocha": "latest"
+    "mocha": "latest",
+    "nyc": "latest"
   },
   "dependencies": {
     "lodash": "~4.17.4",

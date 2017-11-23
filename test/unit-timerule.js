@@ -92,36 +92,36 @@ describe('Time Rule - Instantiation', function() {
 
   it('Attempt to create time-rule with null arguments', function() {
     assert.throws(function() {
- testContext.ruleRuleCtor(null,
-                                                        testContext.constants.CONSTRAINT_DAY_OF_WEEK,
-                                                        testContext.constants.MONDAY,
-                                                        TZ_UTC);
-},
+     testContext.ruleRuleCtor(null,
+                                                            testContext.constants.CONSTRAINT_DAY_OF_WEEK,
+                                                            testContext.constants.MONDAY,
+                                                            TZ_UTC);
+    },
                     Error,
                     'Expected functional constructor to throw an error.');
     let timespan = testContext.timeSpanCtor(9, 0, 0, 0, 60);
     assert.throws(function() {
- testContext.ruleRuleCtor(timespan,
-                                                        null,
-                                                        testContext.constants.WEDNESDAY,
-                                                        TZ_UTC);
-},
+     testContext.ruleRuleCtor(timespan,
+                                                            null,
+                                                            testContext.constants.WEDNESDAY,
+                                                            TZ_UTC);
+    },
                     Error,
                     'Expected functional constructor to throw an error.');
     assert.throws(function() {
- testContext.ruleRuleCtor(timespan,
-                                                        testContext.constants.CONSTRAINT_DAY_OF_WEEK,
-                                                        null,
-                                                        TZ_UTC);
-},
+     testContext.ruleRuleCtor(timespan,
+                                                            testContext.constants.CONSTRAINT_DAY_OF_WEEK,
+                                                            null,
+                                                            TZ_UTC);
+    },
                     Error,
                     'Expected functional constructor to throw an error.');
     assert.throws(function() {
- testContext.ruleRuleCtor(timespan,
-                                                        testContext.constants.CONSTRAINT_DAY_OF_WEEK,
-                                                        testContext.constants.MONDAY,
-                                                        null);
-},
+     testContext.ruleRuleCtor(timespan,
+                                                            testContext.constants.CONSTRAINT_DAY_OF_WEEK,
+                                                            testContext.constants.MONDAY,
+                                                            null);
+    },
                     Error,
                     'Expected functional constructor to throw an error.');
   });
@@ -129,11 +129,11 @@ describe('Time Rule - Instantiation', function() {
   it('Attempt to create time-rule with negative day argument', function() {
     let timespan = testContext.timeSpanCtor(9, 0, 0, 0, 60);
     assert.throws(function() {
- testContext.ruleRuleCtor(timespan,
-                                                        testContext.constants.CONSTRAINT_DAY_OF_WEEK,
-                                                        -9,
-                                                        TZ_UTC);
-},
+     testContext.ruleRuleCtor(timespan,
+                                                            testContext.constants.CONSTRAINT_DAY_OF_WEEK,
+                                                            -9,
+                                                            TZ_UTC);
+    },
                     Error,
                     'Expected functional constructor to throw an error.');
   });
@@ -141,40 +141,82 @@ describe('Time Rule - Instantiation', function() {
   it('Attempt to create time-rule with out-of-range arguments', function() {
     let timespan = testContext.timeSpanCtor(9, 0, 0, 0, 60);
     assert.throws(function() {
- testContext.ruleRuleCtor(timespan,
-                                                        testContext.constants.CONSTRAINT_DAY_OF_WEEK-100,
-                                                        testContext.constants.SUNDAY,
-                                                        TZ_UTC);
-},
+     testContext.ruleRuleCtor(timespan,
+                                                            testContext.constants.CONSTRAINT_DAY_OF_WEEK-100,
+                                                            testContext.constants.SUNDAY,
+                                                            TZ_UTC);
+    },
                     Error,
                     'Expected functional constructor to throw an error.');
     assert.throws(function() {
- testContext.ruleRuleCtor(timespan,
-                                                        testContext.constants.CONSTRAINT_DAY_OF_WEEK+100,
-                                                        testContext.constants.SUNDAY,
-                                                        TZ_UTC);
-},
+     testContext.ruleRuleCtor(timespan,
+                                                            testContext.constants.CONSTRAINT_DAY_OF_WEEK+100,
+                                                            testContext.constants.SUNDAY,
+                                                            TZ_UTC);
+    },
                     Error,
                     'Expected functional constructor to throw an error.');
     assert.throws(function() {
- testContext.ruleRuleCtor(timespan,
-                                                        testContext.constants.CONSTRAINT_DAY_OF_WEEK,
-                                                        testContext.constants.SUNDAY-100,
-                                                        TZ_UTC);
-},
+     testContext.ruleRuleCtor(timespan,
+                                                            testContext.constants.CONSTRAINT_DAY_OF_WEEK,
+                                                            testContext.constants.SUNDAY-100,
+                                                            TZ_UTC);
+    },
                     Error,
                     'Expected functional constructor to throw an error.');
     assert.throws(function() {
- testContext.ruleRuleCtor(timespan,
-                                                          testContext.constants.CONSTRAINT_DAY_OF_WEEK,
-                                                          testContext.constants.SATURDAY+100,
-                                                          TZ_UTC);
-},
+     testContext.ruleRuleCtor(timespan,
+                                                              testContext.constants.CONSTRAINT_DAY_OF_WEEK,
+                                                              testContext.constants.SATURDAY+100,
+                                                              TZ_UTC);
+    },
                     Error,
                     'Expected functional constructor to throw an error.');
+    assert.throws(function() {
+     testContext.ruleRuleCtor(timespan,
+                                testContext.constants.CONSTRAINT_DAY_OF_MONTH,
+                                0,
+                                TZ_UTC);
+    },
+                    Error,
+                    'Expected function to throw an error. Month outside range.');
+    assert.throws(function() {
+     testContext.ruleRuleCtor(timespan,
+                                testContext.constants.CONSTRAINT_DAY_OF_MONTH,
+                                32,
+                                TZ_UTC);
+    },
+                    Error,
+                    'Expected function to throw an error. Month outside range.');
+  });
+
+  it('Attempt to create time-rule with incorrect type of arguments', function() {
+
+    let timespan = testContext.timeSpanCtor(9, 0, 0, 0, 60);
+    // invalid arg type passed to function
+    assert.throws(function() {
+      testContext.ruleRuleCtor(timespan,
+                                testContext.constants.CONSTRAINT_DAY_OF_WEEK,
+                                testContext.constants.SATURDAY,
+                                TZ_UTC,
+                                {},
+                                null);
+      },
+      Error,
+      'inBegin argument must be Date or null.');
+    // invalid arg type passed to function
+    assert.throws(function() {
+        testContext.ruleRuleCtor(timespan,
+                                  testContext.constants.CONSTRAINT_DAY_OF_WEEK,
+                                  testContext.constants.SATURDAY,
+                                  TZ_UTC,
+                                  null,
+                                  {});
+        },
+        Error,
+        'inEnd argument must be Date or null.');
   });
 });
-
 
 describe('Time Rule - Generate Date-spans. Timezone: UTC.', function() {
   it('Create valid "Day of week" time-rule and get date-span.', function() {
