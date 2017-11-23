@@ -68,11 +68,15 @@ var caltimeConstants = caltime.constants;
 A `TimeSpan` is an immutable object which defines an interval of time during
 a single day. The interval starts at a defined time of the day and has a defined
 duration. The `TimeSpan` is not associated with any specific date or timezone.
+
 `TimeSpan` is deliberately not date specific. It does not take into
 account factors such as the timezone, leap seconds or Daylight Savings Time.
+If a date-specific timespan must be represented then it is better to use
+`DateSpan`.
+
 The end time of a `TimeSpan` does not form part of the timespan i.e. In
-mathematical terms, the `TimeSpan` object represents a `half-open` interval of
-time where the end time is `exclusive` and the begin time is `inclusive`.
+mathematical terms, the `TimeSpan` object represents a *half-open* interval of
+time where the end time is *exclusive* and the begin time is *inclusive*.
 
 ```js
 var caltime = require('caltime');
@@ -344,9 +348,14 @@ can change between releases.
 
 ## DateSpan
 
-Similar to a `TimeSpan`, a `DateSpan` object specifies a start time and duration, however
-the `DateSpan` is tied to a specific date. This means it is affected by the timezone,
-leap years and Daylight Savings Time.
+Similar to a `TimeSpan`, a `DateSpan` object specifies a start time and
+duration, however the `DateSpan` is tied to a specific date. This means that
+it has a specific end time as factors such as clock changes for Daylight Savings
+Time can be taken into account.
+
+The end time of a `DateSpan` does not form part of the time interval i.e. in
+mathematical terms, the `DateSpan` object represents a *half-open* interval of
+time where the end time is *exclusive* and the begin time is *inclusive*.
 
 ### dateSpan()
 
@@ -387,7 +396,8 @@ called with the `new` operator. The function accepts several arguments:
 ### getDurationMins(), getDurationSecs() and getDurationMs()
 
   These methods return the various components of the duration of the `DateSpan`.
-  A `DateSpan` which is longer than 1 hour will have a duration with > 60 minutes.
+  A `DateSpan` which is longer than 1 hour will have a duration which is
+  greater than 60 minutes.
 
   ```js
   var caltime = require('caltime');
@@ -526,7 +536,7 @@ result = spanA.intersect(spanC); // null
 
 ### subtract()
 
-Method calculates the remainder(s) after subtracting one `DateSpan` from
+This method calculates the remainder(s) after subtracting one `DateSpan` from
 another.  It returns an array containing one or two new `DateSpan` objects
 which represent the remainders.  The array is empty if there is an exact
 overlap between the date-spans and there is no remainder. The method returns

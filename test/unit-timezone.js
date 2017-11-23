@@ -14,6 +14,7 @@ const _ = require('lodash');
 
 const testContext = {};
 testContext.timeZoneCtor = require('../lib/timezone').timeZone;
+testContext.constants = require('../lib/constants');
 
 /* useful Date objects for testing */
 /* dates which don't span a leap day transition i.e. 29th of Feb. of leap year */
@@ -83,13 +84,13 @@ describe('Timezone - Instantiation', function() {
 
   it('Attempt to create timezone with invalid arguments', function() {
     assert.throws(function() {
- testContext.timeZoneCtor('xxxx');
-},
-                    Error,
-                    'Expected functional constructor to throw an error.');
+                    testContext.timeZoneCtor('xxxx');
+                  },
+                  Error,
+                  'Expected functional constructor to throw an error.');
     assert.throws(function() {
- testContext.timeZoneCtor('');
-},
+                    testContext.timeZoneCtor('');
+                  },
                     Error,
                     'Expected functional constructor to throw an error.');
   });
@@ -100,30 +101,40 @@ describe('Timezone - Methods - Null arguments', function() {
     let timezone = testContext.timeZoneCtor(TZ_UTC);
     assert.notEqual(timezone, null, 'Constructor returned null.');
     assert.throws(function() {
- timezone.nextMidnight(null);
-},
+                    timezone.nextMidnight(null);
+                  },
+                  Error,
+                  'Expected method to throw an error.');
+    });
+
+    it('Pass null to method isMidnight.', function() {
+      let timezone = testContext.timeZoneCtor(TZ_UTC);
+      assert.notEqual(timezone, null, 'Constructor returned null.');
+      assert.throws(function() {
+                      timezone.isMidnight(null);
+                    },
                     Error,
                     'Expected method to throw an error.');
-  });
+    });
 
   it('Pass null to method previousMidnight.', function() {
     let timezone = testContext.timeZoneCtor(TZ_UTC);
     assert.notEqual(timezone, null, 'Constructor returned null.');
     assert.throws(function() {
- timezone.previousMidnight(null);
-},
-                    Error,
-                    'Expected method to throw an error.');
+                    timezone.previousMidnight(null);
+                  },
+                  Error,
+                  'Expected method to throw an error.');
   });
 
   it('Pass null to method dayOfWeek.', function() {
     let timezone = testContext.timeZoneCtor(TZ_UTC);
     assert.notEqual(timezone, null, 'Constructor returned null.');
     assert.throws(function() {
- timezone.dayOfWeek(null);
-},
-                    Error,
-                    'Expected method to throw an error.');
+                    timezone.dayOfWeek(null);
+                  },
+                  Error,
+                  'Expected method to throw an error.');
   });
 });
 
@@ -302,5 +313,34 @@ describe('Timezone - Previous Midnight Method.', function() {
     let result = timezone.previousMidnight(dateF);
     assert.equal(_.isDate(result), true, 'Date was not returned by method.');
     assert.equal(result.getTime(), dateAa.getTime(), 'Date not expected. Should be midnight.');
+  });
+});
+
+describe('Timezone - Day Of Week Method.', function() {
+
+  it('Pass invalid argument to dayOfWeek method.', function() {
+    let timezone = testContext.timeZoneCtor(TZ_UTC);
+    assert.throws(function() {
+                    timezone.dayOfWeek(null);
+                  },
+                  Error,
+                  'Expected method to throw an error.');
+    assert.throws(function() {
+                    timezone.dayOfWeek(undefined);
+                  },
+                  Error,
+                  'Expected method to throw an error.');
+    assert.throws(function() {
+                    timezone.dayOfWeek({});
+                  },
+                  Error,
+                  'Expected method to throw an error.');
+  });
+
+  it('Check day in UTC timezone.', function() {
+    let timezone = testContext.timeZoneCtor(TZ_UTC);
+    let result = timezone.dayOfWeek(dateAa);
+    assert.equal(_.isInteger(result), true, 'Integer was not returned by method.');
+    assert.equal(result, testContext.constants.FRIDAY, 'Expected other day of the week.');
   });
 });

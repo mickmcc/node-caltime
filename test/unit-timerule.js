@@ -218,6 +218,33 @@ describe('Time Rule - Instantiation', function() {
   });
 });
 
+describe('TimeRule - Generate Date-spans with invalid arguments.', function() {
+  it('Generate DateSpans with null arguments.', function() {
+    let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 6*60); // 16:00-22:00
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.constants.CONSTRAINT_DAY_OF_WEEK,
+                                                testContext.constants.SATURDAY,
+                                                TZ_UTC);
+    assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
+    assert.throws(function() {
+                      ruleObject.generateDateSpans(null, dateA);
+                    },
+                    Error,
+                    'Expected method to throw error.');
+    assert.throws(function() {
+                      ruleObject.generateDateSpans(dateA, null);
+                    },
+                    Error,
+                    'Expected method to throw error.');
+    // begin date is after start date
+    assert.throws(function() {
+                      ruleObject.generateDateSpans(dateG, dateA);
+                    },
+                    Error,
+                    'Expected method to throw error.');
+  });
+});
+
 describe('Time Rule - Generate Date-spans. Timezone: UTC.', function() {
   it('Create valid "Day of week" time-rule and get date-span.', function() {
     let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 6*60); // 16:00-22:00
