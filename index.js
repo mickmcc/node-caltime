@@ -65,8 +65,8 @@ module.exports.sortTimeSpans = timespanModule.sortSpans;
 
 /* exported constants *********************************************************/
 
-/** Object's data members provides all of the constants which are made
-    available by the package. */
+/** Object's data members provide all of the constants which are made
+    available by the module. */
 module.exports.constants = require('./lib/constants');
 
 /** Version number of the module in SemVer string format. */

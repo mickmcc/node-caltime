@@ -569,10 +569,10 @@ var caltime = require('caltime');
 var datespanCtor = caltime.dateSpan;
 // DateSpan object which represents 09:00am - 10:00am, 15.Nov.2017.
 var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
-let dateSpanA = dateSpanCtor(beginDate, null, 60);
+let dateSpanA = datespanCtor(beginDate, null, 60);
 // DateSpan object which represents 09:30am - 10:30am, 15.Nov.2017.
 beginDate = new Date(2017, 10, 15, 9, 30, 0, 0);
-let dateSpanB = dateSpanCtor(beginDate, null, 60);
+let dateSpanB = datespanCtor(beginDate, null, 60);
 // primary date-span starts before the secondary
 let result = dateSpanA.difference(dateSpanB);
 result.length; // 1
