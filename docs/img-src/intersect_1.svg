@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="39.370701mm"
+   height="14.362641mm"
+   viewBox="0 0 39.3707 14.362641"
+   version="1.1"
+   id="SVGRoot"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
+   sodipodi:docname="intersect_1.svg"
+   inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_4.png"
+   inkscape:export-xdpi="199.44385"
+   inkscape:export-ydpi="199.44385">
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="8"
+     inkscape:cx="58.226112"
+     inkscape:cy="36.762608"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="2529"
+     inkscape:window-height="1215"
+     inkscape:window-x="730"
+     inkscape:window-y="335"
+     inkscape:window-maximized="0" />
+  <defs
+     id="defs3715" />
+  <metadata
+     id="metadata3718">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1"
+     transform="translate(-12.772641,-8.8806775)">
+    <rect
+       id="rect3731"
+       width="38.841534"
+       height="5.3776202"
+       x="13.037225"
+       y="9.1452608"
+       style="fill:#d7e3f4;fill-opacity:0.74901961;stroke:#003380;stroke-width:0.5291667;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_2png.png"
+       inkscape:export-xdpi="199.44385"
+       inkscape:export-ydpi="199.44385" />
+    <rect
+       style="fill:#d40000;fill-opacity:1;stroke:none;stroke-width:0.5248605;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect6127"
+       width="29.806879"
+       height="5.0513945"
+       x="13.240099"
+       y="9.2955275"
+       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_2png.png"
+       inkscape:export-xdpi="199.44385"
+       inkscape:export-ydpi="199.44385" />
+    <rect
+       style="fill:#d7e3f4;fill-opacity:0.74901961;stroke:#003380;stroke-width:0.5291667;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       y="17.481001"
+       x="13.357643"
+       height="5.497735"
+       width="29.640965"
+       id="rect4540"
+       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_2png.png"
+       inkscape:export-xdpi="199.44385"
+       inkscape:export-ydpi="199.44385" />
+  </g>
+</svg>
