@@ -9,16 +9,16 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="39.370701mm"
-   height="14.362641mm"
-   viewBox="0 0 39.3707 14.362641"
+   width="57.032627mm"
+   height="31.797993mm"
+   viewBox="0 0 57.032626 31.797992"
    version="1.1"
    id="SVGRoot"
    inkscape:version="0.92.2 5c3e80d, 2017-08-06"
    sodipodi:docname="intersect_1.svg"
-   inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_4.png"
-   inkscape:export-xdpi="199.44385"
-   inkscape:export-ydpi="199.44385">
+   inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
+   inkscape:export-xdpi="267.22"
+   inkscape:export-ydpi="267.22">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -27,18 +27,64 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="8"
-     inkscape:cx="58.226112"
-     inkscape:cy="36.762608"
+     inkscape:cx="68.316805"
+     inkscape:cy="51.291424"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="2529"
-     inkscape:window-height="1215"
+     inkscape:window-width="2607"
+     inkscape:window-height="1260"
      inkscape:window-x="730"
      inkscape:window-y="335"
      inkscape:window-maximized="0" />
   <defs
-     id="defs3715" />
+     id="defs3715">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path834"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path846"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path828"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
   <metadata
      id="metadata3718">
     <rdf:RDF>
@@ -47,7 +93,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -55,7 +101,7 @@
      id="layer1"
      inkscape:groupmode="layer"
      inkscape:label="Layer 1"
-     transform="translate(-12.772641,-8.8806775)">
+     transform="translate(-4.1496869,-5.1284372)">
     <rect
        id="rect3731"
        width="38.841534"
@@ -63,28 +109,102 @@
        x="13.037225"
        y="9.1452608"
        style="fill:#d7e3f4;fill-opacity:0.74901961;stroke:#003380;stroke-width:0.5291667;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_2png.png"
+       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
        inkscape:export-xdpi="199.44385"
        inkscape:export-ydpi="199.44385" />
     <rect
-       style="fill:#d40000;fill-opacity:1;stroke:none;stroke-width:0.5248605;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#d40000;fill-opacity:1;stroke:none;stroke-width:0.51269197;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect6127"
        width="29.806879"
-       height="5.0513945"
+       height="4.8198838"
        x="13.240099"
-       y="9.2955275"
-       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_2png.png"
+       y="9.4278193"
+       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
        inkscape:export-xdpi="199.44385"
        inkscape:export-ydpi="199.44385" />
     <rect
-       style="fill:#d7e3f4;fill-opacity:0.74901961;stroke:#003380;stroke-width:0.5291667;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#d7e3f4;fill-opacity:0.74901961;stroke:#003380;stroke-width:0.53252834;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        y="17.481001"
-       x="13.357643"
+       x="12.979845"
        height="5.497735"
-       width="29.640965"
+       width="30.018763"
        id="rect4540"
-       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_2png.png"
+       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
        inkscape:export-xdpi="199.44385"
        inkscape:export-ydpi="199.44385" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="M 9.7630057,27.608944 H 55.337485"
+       id="path823"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
+       inkscape:export-xdpi="199.44385"
+       inkscape:export-ydpi="199.44385" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="55.998943"
+       y="29.16337"
+       id="text1137"
+       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
+       inkscape:export-xdpi="199.44385"
+       inkscape:export-ydpi="199.44385"><tspan
+         sodipodi:role="line"
+         id="tspan1135"
+         x="55.998943"
+         y="29.16337"
+         style="font-size:4.93888903px;stroke-width:0.26458332">t</tspan></text>
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.26458332;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1139"
+       width="56.768044"
+       height="31.533409"
+       x="4.2819786"
+       y="5.2607288"
+       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
+       inkscape:export-xdpi="199.44385"
+       inkscape:export-ydpi="199.44385" />
+    <text
+       inkscape:export-ydpi="199.44385"
+       inkscape:export-xdpi="199.44385"
+       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
+       id="text964"
+       y="13.420662"
+       x="8.5723791"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"><tspan
+         style="font-size:4.93888903px;stroke-width:0.26458332"
+         y="13.420662"
+         x="8.5723791"
+         id="tspan962"
+         sodipodi:role="line">A</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="8.6054516"
+       y="21.788109"
+       id="text968"
+       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
+       inkscape:export-xdpi="199.44385"
+       inkscape:export-ydpi="199.44385"><tspan
+         sodipodi:role="line"
+         id="tspan966"
+         x="8.6054516"
+         y="21.788109"
+         style="font-size:4.93888903px;stroke-width:0.26458332">B</tspan></text>
+    <text
+       inkscape:export-ydpi="199.44385"
+       inkscape:export-xdpi="199.44385"
+       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
+       id="text972"
+       y="35.678738"
+       x="20.743212"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"><tspan
+         style="font-size:4.93888903px;stroke-width:0.26458332"
+         y="35.678738"
+         x="20.743212"
+         id="tspan970"
+         sodipodi:role="line">intersect</tspan></text>
   </g>
 </svg>

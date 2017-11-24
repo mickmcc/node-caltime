@@ -15,7 +15,7 @@
    version="1.1"
    id="SVGRoot"
    inkscape:version="0.92.2 5c3e80d, 2017-08-06"
-   sodipodi:docname="difference_1.svg"
+   sodipodi:docname="union_1.svg"
    inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_4.png"
    inkscape:export-xdpi="199.44385"
    inkscape:export-ydpi="199.44385">
@@ -27,7 +27,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="8"
-     inkscape:cx="122.02858"
+     inkscape:cx="95.03913"
      inkscape:cy="51.291423"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -123,11 +123,11 @@
        inkscape:export-xdpi="199.44385"
        inkscape:export-ydpi="199.44385" />
     <rect
-       style="fill:#d7e3f4;fill-opacity:0.74901961;stroke:#003380;stroke-width:0.52916667;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       y="17.521309"
-       x="13.020154"
-       height="5.4171176"
-       width="40.455334"
+       style="fill:#d7e3f4;fill-opacity:0.74901961;stroke:#003380;stroke-width:0.5291667;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       y="17.481001"
+       x="12.979845"
+       height="5.497735"
+       width="30.018763"
        id="rect4540"
        inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
        inkscape:export-xdpi="199.44385"
@@ -205,6 +205,26 @@
          y="35.678738"
          x="19.321075"
          id="tspan970"
-         sodipodi:role="line">difference</tspan></text>
+         sodipodi:role="line">union</tspan></text>
+    <rect
+       inkscape:export-ydpi="199.44385"
+       inkscape:export-xdpi="199.44385"
+       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
+       y="9.3947468"
+       x="42.873432"
+       height="4.8198838"
+       width="8.706358"
+       id="rect1001"
+       style="fill:#d40000;fill-opacity:1;stroke:none;stroke-width:0.27708727;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       inkscape:export-ydpi="199.44385"
+       inkscape:export-xdpi="199.44385"
+       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
+       y="17.729122"
+       x="13.273172"
+       height="4.9521756"
+       width="29.509222"
+       id="rect5792"
+       style="fill:#d40000;fill-opacity:1;stroke:none;stroke-width:0.517079;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
   </g>
 </svg>
