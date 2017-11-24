@@ -202,6 +202,10 @@ newSpan.getDurationMins(); // 15 minutes
 newSpan = spanA.intersect(spanC); // null
 ```
 
+An example of the intersection of two overlapping timespans:
+
+![Timespan Intersection](https://mickmcc.github.io/node-caltime/img/intersect_1.png)
+
 ### union()
 
 Method calculates the union between two intersecting `TimeSpan` objects. It
@@ -224,6 +228,10 @@ newSpan.getDurationMins(); // 35 minutes
 // these timespans do not intersect
 newSpan = spanA.intersect(spanC); // null
 ```
+
+An example of the union of two overlapping timespans:
+
+![Timespan Union](https://mickmcc.github.io/node-caltime/img/union_1.png)
 
 ### subtract()
 
@@ -254,6 +262,10 @@ result = spanA.intersect(spanC); // null
 result.length; // 0
 ```
 
+An example of the subtraction of two overlapping timespans:
+
+![Timespan Subtraction](https://mickmcc.github.io/node-caltime/img/subtract_1.png)
+
 ### difference()
 
 Method calculates the part of one `TimeSpan` (the primary) which does not
@@ -276,6 +288,10 @@ result[0].getHours(); // 9
 result[0].getMinutes(); // 30
 result[0].getDurationMins(); // 15 minutes
 ```
+
+An example of the difference between two partially overlapping timespans:
+
+![Timespan Difference](https://mickmcc.github.io/node-caltime/img/difference_1.png)
 
 ### mergeTimeSpans()
 
