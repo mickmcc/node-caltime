@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="64.102905mm"
-   height="31.797993mm"
-   viewBox="0 0 64.102904 31.797992"
+   width="64.336685mm"
+   height="37.638611mm"
+   viewBox="0 0 64.336684 37.63861"
    version="1.1"
    id="SVGRoot"
    inkscape:version="0.92.2 5c3e80d, 2017-08-06"
@@ -27,15 +27,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="8"
-     inkscape:cx="122.02858"
-     inkscape:cy="51.291423"
+     inkscape:cx="107.36356"
+     inkscape:cy="49.170753"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="2607"
-     inkscape:window-height="1260"
-     inkscape:window-x="730"
-     inkscape:window-y="335"
+     inkscape:window-width="2898"
+     inkscape:window-height="1775"
+     inkscape:window-x="454"
+     inkscape:window-y="136"
      inkscape:window-maximized="0" />
   <defs
      id="defs3715">
@@ -101,7 +101,7 @@
      id="layer1"
      inkscape:groupmode="layer"
      inkscape:label="Layer 1"
-     transform="translate(2.9205938,-5.1284372)">
+     transform="translate(3.1660341,-5.1401011)">
     <rect
        id="rect3731"
        width="47.444733"
@@ -123,7 +123,7 @@
        inkscape:export-xdpi="199.44385"
        inkscape:export-ydpi="199.44385" />
     <rect
-       style="fill:#d7e3f4;fill-opacity:0.74901961;stroke:#003380;stroke-width:0.52916667;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#d7e3f4;fill-opacity:0.74901961;stroke:#003380;stroke-width:0.5291667;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        y="17.521309"
        x="13.020154"
        height="5.4171176"
@@ -157,10 +157,10 @@
     <rect
        style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.26458332;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect1139"
-       width="63.838326"
-       height="31.533409"
-       x="-2.7883022"
-       y="5.2607288"
+       width="64.072105"
+       height="37.374027"
+       x="-3.0337424"
+       y="5.2723927"
        inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
        inkscape:export-xdpi="199.44385"
        inkscape:export-ydpi="199.44385" />
@@ -169,42 +169,50 @@
        inkscape:export-xdpi="199.44385"
        inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
        id="text964"
-       y="13.6191"
-       x="-0.62189174"
-       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       y="13.244923"
+       x="0.1732351"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        xml:space="preserve"><tspan
-         style="font-size:4.93888903px;stroke-width:0.26458332"
-         y="13.6191"
-         x="-0.62189174"
-         id="tspan962"
-         sodipodi:role="line">A</tspan></text>
+         sodipodi:role="line"
+         id="tspan858"
+         x="0.1732351"
+         y="13.244923">A</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-0.52267343"
-       y="21.523525"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="8.3172665"
+       y="21.757385"
        id="text968"
        inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
        inkscape:export-xdpi="199.44385"
        inkscape:export-ydpi="199.44385"><tspan
          sodipodi:role="line"
-         id="tspan966"
-         x="-0.52267343"
-         y="21.523525"
-         style="font-size:4.93888903px;stroke-width:0.26458332">B</tspan></text>
+         id="tspan860"
+         x="8.3172665"
+         y="21.757385">B</tspan></text>
     <text
        inkscape:export-ydpi="199.44385"
        inkscape:export-xdpi="199.44385"
        inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
        id="text972"
-       y="35.678738"
-       x="19.321075"
-       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       y="37.877029"
+       x="15.48576"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        xml:space="preserve"><tspan
-         style="font-size:4.93888903px;stroke-width:0.26458332"
-         y="35.678738"
-         x="19.321075"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332"
+         y="37.877029"
+         x="15.48576"
          id="tspan970"
          sodipodi:role="line">difference</tspan></text>
+    <rect
+       inkscape:export-ydpi="199.44385"
+       inkscape:export-xdpi="199.44385"
+       inkscape:export-filename="/Users/mick/Workspace/github/node-caltime/docs/img/intersect_1.png"
+       style="fill:#d7e3f4;fill-opacity:0.74901961;stroke:#003380;stroke-width:0.5291667;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       y="33.651512"
+       x="3.8508129"
+       height="5.6629801"
+       width="9.4900436"
+       id="rect856" />
   </g>
 </svg>
