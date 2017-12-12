@@ -25,7 +25,7 @@ Suggested uses of `caltime` include:
 
 `caltime` does not attempt to provide functionality which is already provided by
 other modules such as [Moment](http://momentjs.com). For this reason, `caltime`
-avoids converting dates or times to or from their string representation.
+avoids converting dates or times to or from a string representation.
 
 
 ## API Usage
@@ -686,6 +686,7 @@ days or dates the `DateSpan` objects are created. Possible constraints are:
 - The same day of the week, every week e.g. every Monday from 9-10am.
 - The same date every month e.g. 4th of every month from 1-2pm.
 - The Nth weekday of every month e.g. 3rd Tuesday of the month from 9-10pm.
+- The last weekday of every month e.g. last Friday of every month.
 
 ### timeRule()
 
@@ -764,12 +765,13 @@ Examples of constants for time conversion:
 ```js
 var caltime = require('caltime');
 var module_constants = caltime.constants;
+module_constants.MSECS_PER_MIN; // milliseconds per minute
 module_constants.MSECS_PER_HOUR; // milliseconds per hour
-module_constants.MAX_MINS_PER_DAY; // minutes in a 24 hour day
+module_constants.MAX_MINS_PER_DAY; // maximum number of minutes in a 24 hour day
 ```
 
 Constants are available which define the day of the week. These values are the
-same as those used by the EcmaScript `Date` object.
+same as those used by the Javascript `Date` object.
 
 ```js
 var caltime = require('caltime');
@@ -783,19 +785,40 @@ module_constants.FRIDAY;    // 5
 module_constants.SATURDAY;  // 6
 ```
 
+Constants are available which define the months of the year. These values are
+the same as those used by the Javascript `Date` object.
+
+```js
+var caltime = require('caltime');
+var module_constants = caltime.constants;
+module_constants.JAN; // January
+module_constants.FEB; // February
+module_constants.MAR; // March
+module_constants.APR; // April
+module_constants.MAY; // May
+module_constants.JUN; // June
+module_constants.JUL; // July
+module_constants.AUG; // August
+module_constants.SEPT; // September
+module_constants.OCT; // October
+module_constants.NOV; // November
+module_constants.DEC; // December
+```
+
 Constants are also available for use with the `TimeRule` functional constructor.
 These constants define the type of constraint applied by the `TimeRule`.
 
 ```js
 var caltime = require('caltime');
 var module_constants = caltime.constants;
-module_constants.CONSTRAINT_DAY_OF_WEEK; // Monday, Tuesday,... etc.
-module_constants.CONSTRAINT_DAY_OF_MONTH; // 1st, 2nd, 3rd,... etc.
-module_constants.CONSTRAINT_FIRST_OF_MONTH; // Monday, Tuesday,... etc.
-module_constants.CONSTRAINT_SECOND_OF_MONTH; // Monday, Tuesday,... etc.
-module_constants.CONSTRAINT_THIRD_OF_MONTH; // Monday, Tuesday,... etc.
-module_constants.CONSTRAINT_FOURTH_OF_MONTH; // Monday, Tuesday,... etc.
-module_constants.CONSTRAINT_FIFTH_OF_MONTH; // Monday, Tuesday,... etc.
+module_constants.CONSTRAINT_DAY_OF_WEEK; // example: every Tuesday
+module_constants.CONSTRAINT_DAY_OF_MONTH; // example: 4th day of every month
+module_constants.CONSTRAINT_FIRST_OF_MONTH; // example: 1st Wed. of every month
+module_constants.CONSTRAINT_SECOND_OF_MONTH; // example: 2nd Thurs. of every month
+module_constants.CONSTRAINT_THIRD_OF_MONTH; // example: 3rd Sat. of every month
+module_constants.CONSTRAINT_FOURTH_OF_MONTH; // example: 4th Monday of every month
+module_constants.CONSTRAINT_FIFTH_OF_MONTH; // example: 5th Wed. of every month
+module_constants.CONSTRAINT_LAST_OF_MONTH; // example: Last Monday of every month
 ```
 
 ## API Documentation
@@ -803,13 +826,18 @@ module_constants.CONSTRAINT_FIFTH_OF_MONTH; // Monday, Tuesday,... etc.
 Documentation describing the last major release of `caltime` is available at
 [CalTime API](https://mickmcc.github.io/node-caltime/).
 
-The latest API documentation can be generated using `jsdoc`. The documentation
-is created in the `docs/` directory.
+The latest version of the API documentation can be generated using `jsdoc`. The
+documentation is created in the `docs/` directory.
 
 ```sh
 $ cd <caltime-git-clone>
 $ npm run -s doc
 ```
+
+## Support
+
+*Bug Reports* and *New Feature Requests* should be reported at the [CalTime GitHub Issues Page](https://github.com/mickmcc/node-caltime/issues).
+
 
 ## Dependencies
 
