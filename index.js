@@ -39,7 +39,8 @@ module.exports.timeRule = timeruleModule.timeRule;
 
 /* exported functions ++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-/** Function used to merge DateSpan objects in an array.
+/**
+ * Function used to merge DateSpan objects in an array.
  * @public
  * @see {@link module:caltime/datespan~mergeSpans}
  */
@@ -51,13 +52,23 @@ module.exports.mergeDateSpans = datespanModule.mergeSpans;
  */
 module.exports.sortDateSpans = datespanModule.sortSpans;
 
-/** Function used to merge TimeSpan objects in an array.
+/**
+ * Function used to calculate the total duration of DateSpan objects
+ * in an array.
+ * @public
+ * @see {@link module:caltime/datespan~calcDuration}
+ */
+module.exports.calcDuration = datespanModule.calcDuration;
+
+/**
+ * Function used to merge TimeSpan objects in an array.
  * @public
  * @see {@link module:caltime/timespan~mergeSpans}
  */
 module.exports.mergeTimeSpans = timespanModule.mergeSpans;
 
-/** Function used to sort TimeSpan objects in an array.
+/**
+ * Function used to sort TimeSpan objects in an array.
  * @public
  * @see {@link module:caltime/timespan~sortSpans}
  */

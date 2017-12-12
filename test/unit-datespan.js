@@ -15,6 +15,8 @@ const tc = {};
 tc.dateSpanCtor = require('../').dateSpan;
 tc.mergeDateSpans = require('../').mergeDateSpans;
 tc.sortDateSpans = require('../').sortDateSpans;
+tc.calcDuration = require('../').calcDuration;
+tc.constants = require('../').constants;
 /* useful Date objects for testing */
 /* dates which don't span a leap day transition */
 const dateA = new Date(Date.UTC(2017, 6, 15, 12, 0, 0, 0)); // 15th, 12:00
@@ -653,5 +655,57 @@ describe('DateSpan - String', function() {
   it('String output of DateSpan', function() {
     let spanA = tc.dateSpanCtor(dateA, null, 11, 22, 33);
     assert.equal(spanA.toString(), '[ '+ dateA.toISOString()+', 11:22:33 ]', 'TimeSpan string not formatted as expected.');
+  });
+
+  describe('DateSpan - Calculate Duration Function', function() {
+
+    it('Call calcDuration() with invalid arguments', function() {
+      assert.throws(function() {
+                       tc.calcDuration(null, null);
+                      },
+                      Error,
+                      'Expected method to throw an error.');
+      assert.throws(function() {
+                       tc.calcDuration(undefined, undefined);
+                      },
+                      Error,
+                      'Expected method to throw an error.');
+      assert.throws(function() {
+                       tc.calcDuration({});
+                      },
+                      Error,
+                      'Expected method to throw an error.');
+      assert.throws(function() {
+                       tc.calcDuration(null, tc.constants.DURATION_RAW_MSECS);
+                      },
+                      Error,
+                      'Expected method to throw an error.');
+      assert.throws(function() {
+                       tc.calcDuration(undefined, tc.constants.DURATION_RAW_MSECS);
+                      },
+                      Error,
+                      'Expected method to throw an error.');
+    });
+
+    it('Call calcDuration() for an empty array', function() {
+      const spanArray = [];
+      let result = tc.calcDuration(spanArray, tc.constants.DURATION_RAW_MSECS);
+      assert.equal(result, 0, 'Method should return zero for duration.');
+    });
+
+    it('Calculate duration: Raw milliseconds', function() {
+      const spanArray = [];
+      const dateSpanA = tc.dateSpanCtor(dateA, null, 1*60); // 1 hr
+      const dateSpanB = tc.dateSpanCtor(dateB, null, 1*60); // 1 hr
+      const dateSpanC = tc.dateSpanCtor(dateC, null, 1*60); // 1 hr
+      const dateSpanD = tc.dateSpanCtor(dateF, null, 1*60); // 1 hr
+      // sort in ascending order
+      spanArray.push(dateSpanD);
+      spanArray.push(dateSpanC);
+      spanArray.push(dateSpanB);
+      spanArray.push(dateSpanA);
+      let result = tc.calcDuration(spanArray, tc.constants.DURATION_RAW_MSECS);
+      assert.equal(result, 4*tc.constants.MSECS_PER_HOUR, 'DateSpan objects were not subtracted.');
+    });
   });
 });
