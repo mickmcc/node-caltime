@@ -31,7 +31,6 @@ const dateLeapC = new Date(Date.UTC(2016, 1, 29, 12, 0, 0, 0));
 const dateLeapD = new Date(Date.UTC(2016, 2, 1, 12, 0, 0, 0));
 /* dates which are not on 'natural' boundaries */
 const dateBx = new Date(Date.UTC(2017, 6, 16, 12, 55, 40, 600)); // 16th, 12:55:40:600
-const dateCx = new Date(Date.UTC(2017, 6, 17, 12, 10, 30, 200)); // 17th, 12:10:30:200
 
 before(function() {
 
@@ -767,5 +766,18 @@ describe('DateSpan - Calculate Duration Function', function() {
       spanArray.push(dateSpanA);
       let result = tc.calcDuration(spanArray, tc.constants.DURATION_NATURAL_DAYS);
       assert.equal(result, 2, 'Total duration is incorrect.');
+    });
+
+    it('Calculate duration: Natural days, three datespans.', function() {
+      const spanArray = [];
+      const dateSpanA = tc.dateSpanCtor(dateA, null, 24*30); // 15th-16th
+      spanArray.push(dateSpanA);
+      const dateSpanB = tc.dateSpanCtor(dateB, null, 24*30); // 16th-17th
+      spanArray.push(dateSpanB);
+      const dateSpanC = tc.dateSpanCtor(dateC, null, 24*30); // 17th-18th
+      spanArray.push(dateSpanC);
+      let result = tc.calcDuration(spanArray, tc.constants.DURATION_NATURAL_DAYS);
+      // expect 4 days i.e. 15th-18th inclusive
+      assert.equal(result, 4, 'Total duration is incorrect.');
     });
 });

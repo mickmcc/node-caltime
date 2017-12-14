@@ -10,18 +10,15 @@ supported by the module include:
 - calculate the difference between timespans
 - merge the timespans in an array which overlap
 - sort an array of timespans
+- calulate the total duration of an array of timespans
 
-One useful feature provided by `caltime` is the ability to define time-based rules.
-This allows timespans to be generated according to a specific period and within
-certain constraints. Examples of the timespans which can be generated are:
+A feature provided by `caltime` is the ability to define time-based rules using
+'TimeRule' objects. This allows timespans to be generated according to a
+specific period and within certain constraints. Examples of the timespans which
+can be generated are:
 - 2-3pm on Monday of every week in UTC timezone.
 - 14:00-16:00 on the 24th of every month in New York timezone.
 - 9-10am on the third Tuesday of every month in Delhi timezone.
-
-Suggested uses of `caltime` include:
-- Track the effort assigned to multiple resources across multiple timezones.
-- Calculate the cost of resource usage using a calendar of costs which changes over time.
-- Schedule work across multiple timezones and reserve the required resources.
 
 `caltime` does not attempt to provide functionality which is already provided by
 other modules such as [Moment](http://momentjs.com). For this reason, `caltime`
@@ -40,7 +37,7 @@ $ cd <myproject>
 $ npm install --save caltime
 ```
 
-Currently, the `caltime` module provides three object constructors, four functions
+Currently, the `caltime` module provides three object constructors, five functions
 and the constants object.
 
 ```js
@@ -675,6 +672,43 @@ result.length; // 3
 result[0].getBegin(); // 09:00am
 result[1].getBegin(); // 09:30am
 result[2].getBegin(); // 10:00am
+```
+
+### calcDuration()
+
+Function is passed an Array of `DateSpan` objects and sorts the objects in
+the array based on the start time. It then merges any of the `DateSpan`
+objects which are overlapping. The function then examines each remaining
+'DateSpan' and calculates the total duration. The duration is calculated using
+one of many available rules. The simplest way to calculate the duration is
+the raw number of milliseconds i.e. `DateSpan#DURATION_RAW_MSECS`. Other options
+round-up the duration based on the number of *natural* time units which the
+`DateSpan` objects overlap with.
+A *natural* time unit is an interval of time within the boundaries defined by
+a clock or calendar. For example, a *natural day* is the interval of time
+between 00:00 midnight and the following midnight. A *natural minute* is the
+interval of clock time from when the millisecond count is zero until the
+following occurrence of zero milliseconds.
+*Natural* durations can be useful when you need to know how many whole units of
+time are used by multiple time-spans. Rounding up the raw total duration is not
+possible as some some time-spans may overlap with the same *natural* time
+intervals. An example of this situation could be where a resource charges per
+day even where they are only partially utilised on some days.
+
+```js
+const caltime = require('caltime');
+const datespanCtor = caltime.dateSpan;
+const calcDuration = caltime.calcDuration;
+const spanList = [];
+// DateSpan object which represents 09:00am 15.Nov.2017 - 9:00am 16.Nov.2017.
+const dateA = new Date(2017, 10, 15, 9, 0, 0, 0);
+const dateSpanA = tc.dateSpanCtor(dateA, null, 24*60); // 24 hours
+spanList.push(dateSpanA);
+// DateSpan object which represents 10:00am 16.Nov.2017 - 10:00am 17.Nov.2017.
+const dateB = new Date(2017, 10, 16, 10, 0, 0, 0);
+const dateSpanB = tc.dateSpanCtor(dateB, null, 24*60); // 24 hours
+spanList.push(dateSpanB);
+tc.calcDuration(spanList, tc.constants.DURATION_NATURAL_DAYS); // 3 natural days
 ```
 
 ## TimeRule
