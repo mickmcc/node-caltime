@@ -674,16 +674,15 @@ result[1].getBegin(); // 09:30am
 result[2].getBegin(); // 10:00am
 ```
 
-### measure()
+### measureDateSpans()
 
-Function is passed an Array of `DateSpan` objects and sorts the objects in
-the array based on the start time. It then merges any of the `DateSpan`
-objects which are overlapping. The function then examines each remaining
-'DateSpan' and calculates the total duration. The duration is calculated using
-one of many available rules. The simplest way to calculate the duration is
-the raw number of milliseconds i.e. `DateSpan#DURATION_RAW_MSECS`. Other options
-round-up the duration based on the number of *natural* time units which the
-`DateSpan` objects overlap with.
+Function is passed an Array of `DateSpan` objects, sorts the objects based on
+their start time and then merges any which overlap. The function then examines
+each remaining 'DateSpan' object and calculates the total duration. The duration
+is calculated using one of many available rules. The simplest way to calculate
+the duration is the raw number of milliseconds i.e. `DURATION_RAW_MSECS`. Other
+options round-up the duration based on the number of *natural* time units which
+the `DateSpan` objects overlap with.
 
 A *natural* time unit is an interval of time within the boundaries defined by
 a clock or calendar. For example, a *natural day* is the interval of time
@@ -697,10 +696,17 @@ possible as some some time-spans may overlap with the same *natural* time
 intervals. An example of this situation could be where a resource charges per
 day even where they are only partially utilised on some days.
 
+The options (constants) available to control how the duration is calculated:
+- `DURATION_RAW_MSECS`
+- `DURATION_NATURAL_SECS`
+- `DURATION_NATURAL_MINS`
+- `DURATION_NATURAL_HOURS`
+- `DURATION_NATURAL_DAYS`
+
 ```js
 const caltime = require('caltime');
 const datespanCtor = caltime.dateSpan;
-const measure = caltime.measure;
+const measureDateSpans = caltime.measureDateSpans;
 const spanList = [];
 // DateSpan object which represents 09:00am 15.Nov.2017 - 9:00am 16.Nov.2017.
 const dateA = new Date(2017, 10, 15, 9, 0, 0, 0);
@@ -710,7 +716,7 @@ spanList.push(dateSpanA);
 const dateB = new Date(2017, 10, 16, 10, 0, 0, 0);
 const dateSpanB = tc.dateSpanCtor(dateB, null, 24*60); // 24 hours
 spanList.push(dateSpanB);
-tc.measure(spanList, tc.constants.DURATION_NATURAL_DAYS); // 3 natural days
+tc.measureDateSpans(spanList, tc.constants.DURATION_NATURAL_DAYS); // 3 natural days
 ```
 
 ## TimeRule

@@ -56,7 +56,7 @@ module.exports.sortDateSpans = datespanModule.sortSpans;
  * Function used to count the number of time units which overlap with
 *  multiple DateSpan objects in an array.
  * @public
- * @see {@link module:caltime/datespan~measureDateSpans}
+ * @see {@link module:caltime/datespan~measureSpans}
  */
 module.exports.measureDateSpans = datespanModule.measureSpans;
 
