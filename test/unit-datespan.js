@@ -768,13 +768,13 @@ describe('DateSpan - Calculate Duration Function', function() {
       assert.equal(result, 2, 'Total duration is incorrect.');
     });
 
-    it('Calculate duration: Natural days, three datespans.', function() {
+    it('Calculate duration: Natural days, three datespans, no overlap.', function() {
       const spanArray = [];
-      const dateSpanA = tc.dateSpanCtor(dateA, null, 24*30); // 15th-16th
+      const dateSpanA = tc.dateSpanCtor(dateA, null, 22*60); // 15th-16th
       spanArray.push(dateSpanA);
-      const dateSpanB = tc.dateSpanCtor(dateB, null, 24*30); // 16th-17th
+      const dateSpanB = tc.dateSpanCtor(dateB, null, 22*60); // 16th-17th
       spanArray.push(dateSpanB);
-      const dateSpanC = tc.dateSpanCtor(dateC, null, 24*30); // 17th-18th
+      const dateSpanC = tc.dateSpanCtor(dateC, null, 22*60); // 17th-18th
       spanArray.push(dateSpanC);
       let result = tc.calcDuration(spanArray, tc.constants.DURATION_NATURAL_DAYS);
       // expect 4 days i.e. 15th-18th inclusive
