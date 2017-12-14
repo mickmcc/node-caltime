@@ -29,7 +29,9 @@ const dateF = new Date(Date.UTC(2017, 6, 18, 12, 0, 0, 0)); // 18th, 12:00
 const dateLeapB = new Date(Date.UTC(2016, 1, 28, 12, 0, 0, 0));
 const dateLeapC = new Date(Date.UTC(2016, 1, 29, 12, 0, 0, 0));
 const dateLeapD = new Date(Date.UTC(2016, 2, 1, 12, 0, 0, 0));
-
+/* dates which are not on 'natural' boundaries */
+const dateBx = new Date(Date.UTC(2017, 6, 16, 12, 55, 40, 600)); // 16th, 12:55:40:600
+const dateCx = new Date(Date.UTC(2017, 6, 17, 12, 10, 30, 200)); // 17th, 12:10:30:200
 
 before(function() {
 
@@ -733,5 +735,37 @@ describe('DateSpan - Calculate Duration Function', function() {
       spanArray.push(dateSpanC);
       let result = tc.calcDuration(spanArray, tc.constants.DURATION_RAW_MSECS);
       assert.equal(result, 3*tc.constants.MSECS_PER_HOUR, 'Total duration is incorrect.');
+    });
+
+    it('Calculate duration: Natural seconds, one datespan.', function() {
+      const spanArray = [];
+      const dateSpanA = tc.dateSpanCtor(dateBx, null, 1*30); // 30 minutes
+      spanArray.push(dateSpanA);
+      let result = tc.calcDuration(spanArray, tc.constants.DURATION_NATURAL_SECS);
+      assert.equal(result, (30*60)+1, 'Total duration is incorrect.');
+    });
+
+    it('Calculate duration: Natural minutes, one datespan.', function() {
+      const spanArray = [];
+      const dateSpanA = tc.dateSpanCtor(dateBx, null, 1*30); // 30 minutes
+      spanArray.push(dateSpanA);
+      let result = tc.calcDuration(spanArray, tc.constants.DURATION_NATURAL_MINS);
+      assert.equal(result, 31, 'Total duration is incorrect.');
+    });
+
+    it('Calculate duration: Natural hours, one datespan.', function() {
+      const spanArray = [];
+      const dateSpanA = tc.dateSpanCtor(dateBx, null, 4*60); // 4 hours
+      spanArray.push(dateSpanA);
+      let result = tc.calcDuration(spanArray, tc.constants.DURATION_NATURAL_HOURS);
+      assert.equal(result, 5, 'Total duration is incorrect.');
+    });
+
+    it('Calculate duration: Natural days, one datespan.', function() {
+      const spanArray = [];
+      const dateSpanA = tc.dateSpanCtor(dateBx, null, 24*30); // 24 hours
+      spanArray.push(dateSpanA);
+      let result = tc.calcDuration(spanArray, tc.constants.DURATION_NATURAL_DAYS);
+      assert.equal(result, 2, 'Total duration is incorrect.');
     });
 });
