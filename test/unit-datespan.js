@@ -335,15 +335,30 @@ describe('DateSpan - Merge List', function() {
                     'Expected method to throw an error.');
   });
 
-  it('Merge list of non-intersecting date-spans', function() {
-    const dateSpanA = tc.dateSpanCtor(dateB, null, 1*60); // 1 hr
-    const dateSpanB = tc.dateSpanCtor(dateC, null, 1*60); // 1 hr
-    const list = [dateSpanA, dateSpanB];
+  it('Merge list of four sorted non-intersecting date-spans', function() {
+    const dateSpanA = tc.dateSpanCtor(dateA, null, 1*60); // 1 hr
+    const dateSpanB = tc.dateSpanCtor(dateB, null, 1*60); // 1 hr
+    const dateSpanC = tc.dateSpanCtor(dateC, null, 1*60); // 1 hr
+    const dateSpanD = tc.dateSpanCtor(dateF, null, 1*60); // 1 hr
+    const list = [dateSpanA, dateSpanB, dateSpanC, dateSpanD];
     assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
     assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
     const result = tc.mergeDateSpans(list);
     assert.notEqual(result, null, 'Function should return an array.');
-    assert.equal(result.length, 2, 'Array should contain the two original elements.');
+    assert.equal(result.length, 4, 'Array should contain the four original elements.');
+  });
+
+  it('Merge list of four unsorted non-intersecting date-spans', function() {
+    const dateSpanA = tc.dateSpanCtor(dateA, null, 1*60); // 1 hr
+    const dateSpanB = tc.dateSpanCtor(dateB, null, 1*60); // 1 hr
+    const dateSpanC = tc.dateSpanCtor(dateC, null, 1*60); // 1 hr
+    const dateSpanD = tc.dateSpanCtor(dateF, null, 1*60); // 1 hr
+    const list = [dateSpanD, dateSpanC, dateSpanB, dateSpanA];
+    assert.notEqual(dateSpanA, null, 'DateSpan object was not constructed.');
+    assert.notEqual(dateSpanB, null, 'DateSpan object was not constructed.');
+    const result = tc.mergeDateSpans(list);
+    assert.notEqual(result, null, 'Function should return an array.');
+    assert.equal(result.length, 4, 'Array should contain the four original elements.');
   });
 
   it('Merge empty list of non-intersecting date-spans', function() {
@@ -693,19 +708,30 @@ describe('DateSpan - String', function() {
       assert.equal(result, 0, 'Method should return zero for duration.');
     });
 
-    it('Calculate duration: Raw milliseconds', function() {
+    it('Calculate duration: Raw milliseconds, no overlap.', function() {
       const spanArray = [];
-      const dateSpanA = tc.dateSpanCtor(dateA, null, 1*60); // 1 hr
-      const dateSpanB = tc.dateSpanCtor(dateB, null, 1*60); // 1 hr
-      const dateSpanC = tc.dateSpanCtor(dateC, null, 1*60); // 1 hr
-      const dateSpanD = tc.dateSpanCtor(dateF, null, 1*60); // 1 hr
+      const dateSpanA = tc.dateSpanCtor(dateA, null, 1*30); // 30 minutes
+      const dateSpanB = tc.dateSpanCtor(dateB, null, 1*30); // 30 minutes
+      const dateSpanC = tc.dateSpanCtor(dateC, null, 1*30); // 30 minutes
+      const dateSpanD = tc.dateSpanCtor(dateF, null, 1*30); // 30 minutes
       // sort in ascending order
       spanArray.push(dateSpanD);
       spanArray.push(dateSpanC);
       spanArray.push(dateSpanB);
       spanArray.push(dateSpanA);
       let result = tc.calcDuration(spanArray, tc.constants.DURATION_RAW_MSECS);
-      assert.equal(result, 4*tc.constants.MSECS_PER_HOUR, 'DateSpan objects were not subtracted.');
+      assert.equal(result, 2*tc.constants.MSECS_PER_HOUR, 'Total duration is incorrect.');
+    });
+
+    it('Calculate duration: Raw milliseconds with overlap.', function() {
+      const spanArray = [];
+      const dateSpanC = tc.dateSpanCtor(dateC, null, 2*60); // 1 hr
+      const dateSpanD = tc.dateSpanCtor(dateF, null, 2*60); // 1 hr
+      // sort in ascending order
+      spanArray.push(dateSpanD);
+      spanArray.push(dateSpanC);
+      let result = tc.calcDuration(spanArray, tc.constants.DURATION_RAW_MSECS);
+      assert.equal(result, 3*tc.constants.MSECS_PER_HOUR, 'Total duration is incorrect.');
     });
   });
 });
