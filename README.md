@@ -674,7 +674,7 @@ result[1].getBegin(); // 09:30am
 result[2].getBegin(); // 10:00am
 ```
 
-### calcDuration()
+### measure()
 
 Function is passed an Array of `DateSpan` objects and sorts the objects in
 the array based on the start time. It then merges any of the `DateSpan`
@@ -684,11 +684,13 @@ one of many available rules. The simplest way to calculate the duration is
 the raw number of milliseconds i.e. `DateSpan#DURATION_RAW_MSECS`. Other options
 round-up the duration based on the number of *natural* time units which the
 `DateSpan` objects overlap with.
+
 A *natural* time unit is an interval of time within the boundaries defined by
 a clock or calendar. For example, a *natural day* is the interval of time
 between 00:00 midnight and the following midnight. A *natural minute* is the
 interval of clock time from when the millisecond count is zero until the
 following occurrence of zero milliseconds.
+
 *Natural* durations can be useful when you need to know how many whole units of
 time are used by multiple time-spans. Rounding up the raw total duration is not
 possible as some some time-spans may overlap with the same *natural* time
@@ -698,7 +700,7 @@ day even where they are only partially utilised on some days.
 ```js
 const caltime = require('caltime');
 const datespanCtor = caltime.dateSpan;
-const calcDuration = caltime.calcDuration;
+const measure = caltime.measure;
 const spanList = [];
 // DateSpan object which represents 09:00am 15.Nov.2017 - 9:00am 16.Nov.2017.
 const dateA = new Date(2017, 10, 15, 9, 0, 0, 0);
@@ -708,7 +710,7 @@ spanList.push(dateSpanA);
 const dateB = new Date(2017, 10, 16, 10, 0, 0, 0);
 const dateSpanB = tc.dateSpanCtor(dateB, null, 24*60); // 24 hours
 spanList.push(dateSpanB);
-tc.calcDuration(spanList, tc.constants.DURATION_NATURAL_DAYS); // 3 natural days
+tc.measure(spanList, tc.constants.DURATION_NATURAL_DAYS); // 3 natural days
 ```
 
 ## TimeRule

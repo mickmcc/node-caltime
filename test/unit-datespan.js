@@ -15,7 +15,7 @@ const tc = {};
 tc.dateSpanCtor = require('../').dateSpan;
 tc.mergeDateSpans = require('../').mergeDateSpans;
 tc.sortDateSpans = require('../').sortDateSpans;
-tc.calcDuration = require('../').calcDuration;
+tc.measureDateSpans = require('../').measureDateSpans;
 tc.constants = require('../').constants;
 /* useful Date objects for testing */
 /* dates which don't span a leap day transition */
@@ -676,37 +676,37 @@ describe('DateSpan - String', function() {
 
 describe('DateSpan - Calculate Duration Function', function() {
 
-    it('Call calcDuration() with invalid arguments', function() {
+    it('Call measureDateSpans() with invalid arguments', function() {
       assert.throws(function() {
-                       tc.calcDuration(null, null);
+                       tc.measureDateSpans(null, null);
                       },
                       Error,
                       'Expected method to throw an error.');
       assert.throws(function() {
-                       tc.calcDuration(undefined, undefined);
+                       tc.measureDateSpans(undefined, undefined);
                       },
                       Error,
                       'Expected method to throw an error.');
       assert.throws(function() {
-                       tc.calcDuration({});
+                       tc.measureDateSpans({});
                       },
                       Error,
                       'Expected method to throw an error.');
       assert.throws(function() {
-                       tc.calcDuration(null, tc.constants.DURATION_RAW_MSECS);
+                       tc.measureDateSpans(null, tc.constants.DURATION_RAW_MSECS);
                       },
                       Error,
                       'Expected method to throw an error.');
       assert.throws(function() {
-                       tc.calcDuration(undefined, tc.constants.DURATION_RAW_MSECS);
+                       tc.measureDateSpans(undefined, tc.constants.DURATION_RAW_MSECS);
                       },
                       Error,
                       'Expected method to throw an error.');
     });
 
-    it('Call calcDuration() for an empty array', function() {
+    it('Call measureDateSpans() for an empty array', function() {
       const spanArray = [];
-      let result = tc.calcDuration(spanArray, tc.constants.DURATION_RAW_MSECS);
+      let result = tc.measureDateSpans(spanArray, tc.constants.DURATION_RAW_MSECS);
       assert.equal(result, 0, 'Method should return zero for duration.');
     });
 
@@ -721,7 +721,7 @@ describe('DateSpan - Calculate Duration Function', function() {
       spanArray.push(dateSpanC);
       spanArray.push(dateSpanB);
       spanArray.push(dateSpanA);
-      let result = tc.calcDuration(spanArray, tc.constants.DURATION_RAW_MSECS);
+      let result = tc.measureDateSpans(spanArray, tc.constants.DURATION_RAW_MSECS);
       assert.equal(result, 2*tc.constants.MSECS_PER_HOUR, 'Total duration is incorrect.');
     });
 
@@ -732,7 +732,7 @@ describe('DateSpan - Calculate Duration Function', function() {
       // sort in ascending order
       spanArray.push(dateSpanD);
       spanArray.push(dateSpanC);
-      let result = tc.calcDuration(spanArray, tc.constants.DURATION_RAW_MSECS);
+      let result = tc.measureDateSpans(spanArray, tc.constants.DURATION_RAW_MSECS);
       assert.equal(result, 3*tc.constants.MSECS_PER_HOUR, 'Total duration is incorrect.');
     });
 
@@ -740,7 +740,7 @@ describe('DateSpan - Calculate Duration Function', function() {
       const spanArray = [];
       const dateSpanA = tc.dateSpanCtor(dateBx, null, 1*30); // 30 minutes
       spanArray.push(dateSpanA);
-      let result = tc.calcDuration(spanArray, tc.constants.DURATION_NATURAL_SECS);
+      let result = tc.measureDateSpans(spanArray, tc.constants.DURATION_NATURAL_SECS);
       assert.equal(result, (30*60)+1, 'Total duration is incorrect.');
     });
 
@@ -748,7 +748,7 @@ describe('DateSpan - Calculate Duration Function', function() {
       const spanArray = [];
       const dateSpanA = tc.dateSpanCtor(dateBx, null, 1*30); // 30 minutes
       spanArray.push(dateSpanA);
-      let result = tc.calcDuration(spanArray, tc.constants.DURATION_NATURAL_MINS);
+      let result = tc.measureDateSpans(spanArray, tc.constants.DURATION_NATURAL_MINS);
       assert.equal(result, 31, 'Total duration is incorrect.');
     });
 
@@ -756,7 +756,7 @@ describe('DateSpan - Calculate Duration Function', function() {
       const spanArray = [];
       const dateSpanA = tc.dateSpanCtor(dateBx, null, 4*60); // 4 hours
       spanArray.push(dateSpanA);
-      let result = tc.calcDuration(spanArray, tc.constants.DURATION_NATURAL_HOURS);
+      let result = tc.measureDateSpans(spanArray, tc.constants.DURATION_NATURAL_HOURS);
       assert.equal(result, 5, 'Total duration is incorrect.');
     });
 
@@ -764,7 +764,7 @@ describe('DateSpan - Calculate Duration Function', function() {
       const spanArray = [];
       const dateSpanA = tc.dateSpanCtor(dateBx, null, 24*30); // 24 hours
       spanArray.push(dateSpanA);
-      let result = tc.calcDuration(spanArray, tc.constants.DURATION_NATURAL_DAYS);
+      let result = tc.measureDateSpans(spanArray, tc.constants.DURATION_NATURAL_DAYS);
       assert.equal(result, 2, 'Total duration is incorrect.');
     });
 
@@ -776,7 +776,7 @@ describe('DateSpan - Calculate Duration Function', function() {
       spanArray.push(dateSpanB);
       const dateSpanC = tc.dateSpanCtor(dateC, null, 22*60); // 17th-18th
       spanArray.push(dateSpanC);
-      let result = tc.calcDuration(spanArray, tc.constants.DURATION_NATURAL_DAYS);
+      let result = tc.measureDateSpans(spanArray, tc.constants.DURATION_NATURAL_DAYS);
       // expect 4 days i.e. 15th-18th inclusive
       assert.equal(result, 4, 'Total duration is incorrect.');
     });

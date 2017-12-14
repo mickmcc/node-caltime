@@ -53,12 +53,12 @@ module.exports.mergeDateSpans = datespanModule.mergeSpans;
 module.exports.sortDateSpans = datespanModule.sortSpans;
 
 /**
- * Function used to calculate the total duration of DateSpan objects
- * in an array.
+ * Function used to count the number of time units which overlap with
+*  multiple DateSpan objects in an array.
  * @public
- * @see {@link module:caltime/datespan~calcDuration}
+ * @see {@link module:caltime/datespan~measureDateSpans}
  */
-module.exports.calcDuration = datespanModule.calcDuration;
+module.exports.measureDateSpans = datespanModule.measureSpans;
 
 /**
  * Function used to merge TimeSpan objects in an array.
