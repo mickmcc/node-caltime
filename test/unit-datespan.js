@@ -671,8 +671,9 @@ describe('DateSpan - String', function() {
     let spanA = tc.dateSpanCtor(dateA, null, 11, 22, 33);
     assert.equal(spanA.toString(), '[ '+ dateA.toISOString()+', 11:22:33 ]', 'TimeSpan string not formatted as expected.');
   });
+});
 
-  describe('DateSpan - Calculate Duration Function', function() {
+describe('DateSpan - Calculate Duration Function', function() {
 
     it('Call calcDuration() with invalid arguments', function() {
       assert.throws(function() {
@@ -726,12 +727,11 @@ describe('DateSpan - String', function() {
     it('Calculate duration: Raw milliseconds with overlap.', function() {
       const spanArray = [];
       const dateSpanC = tc.dateSpanCtor(dateC, null, 2*60); // 1 hr
-      const dateSpanD = tc.dateSpanCtor(dateF, null, 2*60); // 1 hr
+      const dateSpanD = tc.dateSpanCtor(dateD, null, 2*60); // 1 hr
       // sort in ascending order
       spanArray.push(dateSpanD);
       spanArray.push(dateSpanC);
       let result = tc.calcDuration(spanArray, tc.constants.DURATION_RAW_MSECS);
       assert.equal(result, 3*tc.constants.MSECS_PER_HOUR, 'Total duration is incorrect.');
     });
-  });
 });
