@@ -10,7 +10,8 @@ supported by the module include:
 - calculate the difference between timespans
 - merge the timespans in an array which overlap
 - sort an array of timespans
-- calulate the total duration of an array of timespans
+- calculate the total duration of an array of timespans
+- calculate the intersections between two arrays of timespans
 
 A feature provided by `caltime` is the ability to define time-based rules using
 'TimeRule' objects. This allows timespans to be generated according to a
@@ -21,7 +22,7 @@ can be generated are:
 - 9-10am on the third Tuesday of every month in Delhi timezone.
 
 `caltime` does not attempt to provide functionality which is already provided by
-other modules such as [Moment](http://momentjs.com). For this reason, `caltime`
+modules such as [Moment](http://momentjs.com). For this reason, `caltime`
 avoids converting dates or times to or from a string representation.
 
 
@@ -717,6 +718,40 @@ const dateB = new Date(2017, 10, 16, 10, 0, 0, 0);
 const dateSpanB = tc.dateSpanCtor(dateB, null, 24*60); // 24 hours
 spanList.push(dateSpanB);
 tc.measureDateSpans(spanList, tc.constants.DURATION_NATURAL_DAYS); // 3 natural days
+```
+
+### intersectDateSpans()
+
+Function takes two Arrays of `DateSpan` objects and returns a new Array which
+contains new `DateSpan` objects, each representing an intersection between
+a `DateSpan` object from each Array.
+
+```js
+const caltime = require('caltime');
+const datespanCtor = caltime.dateSpan;
+const intersectDateSpans = caltime.intersectDateSpans;
+let spanListA = null;
+let spanListB = null;
+// DateSpan object which represents 09:00am - 10:00am.
+var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
+var spanA = datespanCtor(beginDate, 60, 0, 0);
+// create a DateSpan object which represents 10:00am - 11:00am.
+beginDate = new Date(2017, 10, 15, 10, 0, 0, 0);
+var spanB = datespanCtor(beginDate, 60, 0, 0);
+// create a DateSpan object which represents 10:00am - 10:30am.
+beginDate = new Date(2017, 10, 15, 10, 0, 0, 0);
+var spanC = datespanCtor(beginDate, 15, 0, 0);
+// create a DateSpan object which represents 14:00 - 15:00.
+beginDate = new Date(2017, 10, 15, 14, 0, 0, 0);
+var spanD = datespanCtor(beginDate, 60, 0, 0);
+// populate the arrays
+spanListA = [ spanA, spanB ];
+spanListB = [ spanC, spanD ];
+// sort in descending order
+let result = intersectDateSpans(spanListA, spanListB);
+result.length; // 1 overlap between spanB and spanC
+result[0].getBegin(); // 10:00am
+result[0].getEnd(); // 10:30am
 ```
 
 ## TimeRule
