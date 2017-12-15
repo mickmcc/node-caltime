@@ -854,10 +854,12 @@ describe('DateSpan - Intersect Arrays', function() {
     const dateSpanB = tc.dateSpanCtor(dateB, null, 1*60); // 1 hr
     const dateSpanC = tc.dateSpanCtor(dateA, null, 2*60); // 2 hrs
     const dateSpanD = tc.dateSpanCtor(dateB, null, 2*60); // 2 hrs
+    const dateSpanE = tc.dateSpanCtor(dateF, null, 1*60); // 1 hr
     spansA.push(dateSpanA);
     spansA.push(dateSpanB);
     spansB.push(dateSpanC);
     spansB.push(dateSpanD);
+    spansB.push(dateSpanE);
     const result = tc.intersectDateSpans(spansA, spansB);
     assert.equal(_.isArray(result), true, 'Function should return an array.');
     assert.equal(result.length, 2, 'Expected 2 elements in array.');
