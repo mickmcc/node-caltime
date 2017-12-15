@@ -16,6 +16,7 @@ tc.dateSpanCtor = require('../').dateSpan;
 tc.mergeDateSpans = require('../').mergeDateSpans;
 tc.sortDateSpans = require('../').sortDateSpans;
 tc.measureDateSpans = require('../').measureDateSpans;
+tc.intersectDateSpans = require('../').intersectDateSpans;
 tc.constants = require('../').constants;
 /* useful Date objects for testing */
 /* dates which don't span a leap day transition */
@@ -780,4 +781,91 @@ describe('DateSpan - Calculate Duration Function', function() {
       // expect 4 days i.e. 15th-18th inclusive
       assert.equal(result, 4, 'Total duration is incorrect.');
     });
+});
+
+describe('DateSpan - Intersect Arrays', function() {
+
+  it('Pass invalid arguments', function() {
+    const spanArray = [];
+    // check first argument
+    assert.throws(function() {
+                     tc.intersectDateSpans(null, spanArray);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     tc.intersectDateSpans(undefined, spanArray);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     tc.intersectDateSpans({}, spanArray);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    // check second argument
+    assert.throws(function() {
+                     tc.intersectDateSpans(spanArray, null);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     tc.intersectDateSpans(spanArray, undefined);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     tc.intersectDateSpans(spanArray, {});
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+  });
+
+  it('Pass two empty arrays', function() {
+    const spansA = [];
+    const spansB = [];
+    let result = tc.intersectDateSpans(spansA, spansB);
+    assert.notEqual(result, null, 'Function should return an array.');
+    assert.equal(_.isArray(result), true, 'Method should return an array.');
+  });
+
+  it('Intersect arrays with no overlap', function() {
+    const spansA = [];
+    const spansB = [];
+    const dateSpanA = tc.dateSpanCtor(dateA, null, 1*60); // 1 hr
+    const dateSpanB = tc.dateSpanCtor(dateB, null, 1*60); // 1 hr
+    const dateSpanC = tc.dateSpanCtor(dateC, null, 1*60); // 1 hr
+    const dateSpanD = tc.dateSpanCtor(dateF, null, 1*60); // 1 hr
+    spansA.push(dateSpanA);
+    spansA.push(dateSpanB);
+    spansB.push(dateSpanC);
+    spansB.push(dateSpanD);
+    const result = tc.intersectDateSpans(spansA, spansB);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 0, 'Expected 0 elements in array.');
+    assert.notEqual(result, spansA, 'Method should return a new array object.');
+    assert.notEqual(result, spansB, 'Method should return a new array object.');
+  });
+
+  it('Intersect arrays with two overlaps', function() {
+    const spansA = [];
+    const spansB = [];
+    const dateSpanA = tc.dateSpanCtor(dateA, null, 1*60); // 1 hr
+    const dateSpanB = tc.dateSpanCtor(dateB, null, 1*60); // 1 hr
+    const dateSpanC = tc.dateSpanCtor(dateA, null, 2*60); // 2 hrs
+    const dateSpanD = tc.dateSpanCtor(dateB, null, 2*60); // 2 hrs
+    spansA.push(dateSpanA);
+    spansA.push(dateSpanB);
+    spansB.push(dateSpanC);
+    spansB.push(dateSpanD);
+    const result = tc.intersectDateSpans(spansA, spansB);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 2, 'Expected 2 elements in array.');
+    assert.notEqual(result, spansA, 'Method should return a new array object.');
+    assert.notEqual(result, spansB, 'Method should return a new array object.');
+    assert.equal(result[0].getBegin().getTime(), dateA.getTime(), 'Expected a different start date');
+    assert.equal(result[0].getDurationMins(), 1*60, 'Expected a different duration');
+    assert.equal(result[1].getBegin().getTime(), dateB.getTime(), 'Expected a different start date');
+    assert.equal(result[1].getDurationMins(), 1*60, 'Expected a different duration');
+  });
 });
