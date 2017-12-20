@@ -14,7 +14,7 @@ supported by the module include:
 - calculate the intersections between two arrays of timespans
 
 A feature provided by `caltime` is the ability to define time-based rules using
-'TimeRule' objects. This allows timespans to be generated according to a
+`TimeRule` objects. This allows timespans to be generated according to a
 specific period and within certain constraints. Examples of the timespans which
 can be generated are:
 - 2-3pm on Monday of every week in UTC timezone.

@@ -26,6 +26,7 @@ const dateC = new Date(Date.UTC(2017, 6, 17, 12, 0, 0, 0)); // 17th, 12:00
 const dateD = new Date(Date.UTC(2017, 6, 17, 13, 0, 0, 0)); // 17th, 13:00
 const dateE = new Date(Date.UTC(2017, 6, 17, 18, 0, 0, 0)); // 17th, 18:00
 const dateF = new Date(Date.UTC(2017, 6, 18, 12, 0, 0, 0)); // 18th, 12:00
+const dateG = new Date(Date.UTC(2017, 6, 18, 12, 33, 44, 555)); // 18th, 12:33:44:555
 /* dates which do span a leap day transition */
 const dateLeapB = new Date(Date.UTC(2016, 1, 28, 12, 0, 0, 0));
 const dateLeapC = new Date(Date.UTC(2016, 1, 29, 12, 0, 0, 0));
@@ -175,6 +176,24 @@ describe('DateSpan - Instantiation', function() {
 });
 
 describe('DateSpan - Duration', function() {
+
+  it('Check components of duration - end date', function() {
+    let span = tc.dateSpanCtor(dateF, dateG);
+    assert.notEqual(span, null, 'DateSpan object was not constructed.');
+    assert.equal(span.getDurationMins(), 33, 'Expected different value for minutes component of duration.');
+    assert.equal(span.getDurationSecs(), 44, 'Expected different value for seconds component of duration.');
+    assert.equal(span.getDurationMs(), 555, 'Expected different value for milliseconds component of duration.');
+    assert.equal(span.getTotalDuration(), (33*60*1000)+(44*1000)+555, 'Expected different value for total duration in milliseconds.');
+  });
+
+  it('Check components of duration - explicit duration', function() {
+    let span = tc.dateSpanCtor(dateF, null, 33, 44, 555);
+    assert.notEqual(span, null, 'DateSpan object was not constructed.');
+    assert.equal(span.getDurationMins(), 33, 'Expected different value for minutes component of duration.');
+    assert.equal(span.getDurationSecs(), 44, 'Expected different value for seconds component of duration.');
+    assert.equal(span.getDurationMs(), 555, 'Expected different value for milliseconds component of duration.');
+    assert.equal(span.getTotalDuration(), (33*60*1000)+(44*1000)+555, 'Expected different value for total duration in milliseconds.');
+  });
 
   it('Check total duration', function() {
     let span = tc.dateSpanCtor(dateA, null, 60, 40, 20);

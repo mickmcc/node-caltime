@@ -37,6 +37,7 @@ const dateK = new Date(Date.UTC(2017, 6, 15, 16, 0, 0, 0)); // Saturday 15th, 16
 const dateL = new Date(Date.UTC(2017, 6, 15, 17, 0, 0, 0)); // Saturday 15th, 17:00
 const dateM = new Date(Date.UTC(2017, 6, 15, 18, 0, 0, 0)); // Saturday 15th, 18:00
 const dateN = new Date(Date.UTC(2017, 6, 15, 22, 0, 0, 0)); // Saturday 15th, 22:00
+const dateNa = new Date(Date.UTC(2017, 6, 15, 22, 33, 44, 222)); // Saturday 15th, 22:33:44:222
 const dateO = new Date(Date.UTC(2017, 6, 16, 2, 0, 0, 0)); // Sunday 16th, 02:00
 const dateP = new Date(Date.UTC(2017, 6, 16, 13, 0, 0, 0)); // Sunday 16th, 13:00
 const dateQ = new Date(Date.UTC(2017, 6, 19, 16, 0, 0, 0)); // Third Wed. of July, 16:00
@@ -258,6 +259,20 @@ describe('Time Rule - Generate Date-spans. Timezone: UTC.', function() {
     assert.equal(result.length, 1, 'Method should return one date-span.');
     assert.equal(result[0].getBegin().getTime(), dateK.getTime(), 'Incorrect start time of date-span.');
     assert.equal(result[0].getEnd().getTime(), dateN.getTime(), 'Incorrect end time of date-span.');
+  });
+
+  it('Create valid "Day of week" time-rule with minutes, seconds and msecs.', function() {
+    let timespan = testContext.timeSpanCtor(16, 0, 0, 0, (6*60)+33, 44, 222); // 16:00:00:000-22:33:44:222
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.constants.CONSTRAINT_DAY_OF_WEEK,
+                                                testContext.constants.SATURDAY,
+                                                TZ_UTC);
+    assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
+    let result = ruleObject.generateDateSpans(dateH, dateP);
+    assert.equal(typeof result, 'object', 'Method should return an array of TimePeriod objects.');
+    assert.equal(result.length, 1, 'Method should return one date-span.');
+    assert.equal(result[0].getBegin().getTime(), dateK.getTime(), 'Incorrect start time of date-span.');
+    assert.equal(result[0].getEnd().getTime(), dateNa.getTime(), 'Incorrect end time of date-span.');
   });
 
   it('Create valid "Day of month" time-rule and get date-span.', function() {
