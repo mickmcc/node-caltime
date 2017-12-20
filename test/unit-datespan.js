@@ -726,7 +726,18 @@ describe('DateSpan - Calculate Duration Function', function() {
       assert.equal(result, 2*tc.constants.MSECS_PER_HOUR, 'Total duration is incorrect.');
     });
 
-    it('Calculate duration: Raw milliseconds with overlap.', function() {
+    it('Calculate duration: Raw milliseconds, one datespan.', function() {
+      const spanArray = [];
+      const dateSpanA = tc.dateSpanCtor(dateA, null, 30, 22, 444); // 30 minutes, 22 seconds and 444 msecs.
+      // sort in ascending order
+      spanArray.push(dateSpanA);
+      let result = tc.measureDateSpans(spanArray, tc.constants.DURATION_RAW_MSECS);
+      assert.equal(result,
+                    (30*tc.constants.MSECS_PER_MIN+22*tc.constants.MSECS_PER_SEC+444),
+                    'Total duration is incorrect.');
+    });
+
+    it('Calculate duration: Raw milliseconds, one overlap.', function() {
       const spanArray = [];
       const dateSpanC = tc.dateSpanCtor(dateC, null, 2*60); // 1 hr
       const dateSpanD = tc.dateSpanCtor(dateD, null, 2*60); // 1 hr
