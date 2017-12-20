@@ -694,7 +694,7 @@ describe('DateSpan - String', function() {
   });
 });
 
-describe('DateSpan - Calculate Duration Function', function() {
+describe('DateSpan - Measure Duration Function', function() {
 
     it('Call measureDateSpans() with invalid arguments', function() {
       assert.throws(function() {
@@ -789,6 +789,30 @@ describe('DateSpan - Calculate Duration Function', function() {
       spanArray.push(dateSpanA);
       let result = tc.measureDateSpans(spanArray, tc.constants.DURATION_NATURAL_HOURS);
       assert.equal(result, 5, 'Total duration is incorrect.');
+    });
+
+    it('Calculate duration: Natural hours, one datespan, one hour.', function() {
+      const spanArray = [];
+      const dateSpanA = tc.dateSpanCtor(dateB, null, 60); // 60 minutes
+      spanArray.push(dateSpanA);
+      let result = tc.measureDateSpans(spanArray, tc.constants.DURATION_NATURAL_HOURS);
+      assert.equal(result, 1, 'Total duration is incorrect.');
+    });
+
+    it('Calculate duration: Natural hours, one datespan, less than one hour.', function() {
+      const spanArray = [];
+      const dateSpanA = tc.dateSpanCtor(dateB, null, 25); // 25 minutes
+      spanArray.push(dateSpanA);
+      let result = tc.measureDateSpans(spanArray, tc.constants.DURATION_NATURAL_HOURS);
+      assert.equal(result, 1, 'Total duration is incorrect.');
+    });
+
+    it('Calculate duration: Natural hours, one datespan, zero duration.', function() {
+      const spanArray = [];
+      const dateSpanA = tc.dateSpanCtor(dateB, null, 0); // 0 minutes
+      spanArray.push(dateSpanA);
+      let result = tc.measureDateSpans(spanArray, tc.constants.DURATION_NATURAL_HOURS);
+      assert.equal(result, 0, 'Total duration is incorrect.');
     });
 
     it('Calculate duration: Natural days, one datespan.', function() {
