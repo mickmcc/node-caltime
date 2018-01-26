@@ -1,6 +1,6 @@
 {
   "name": "caltime",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Node.js module to add, subtract, intersect timespans and generate them from rules.",
   "main": "index.js",
   "directories": {
@@ -47,6 +47,7 @@
   },
   "homepage": "https://github.com/mickmcc/node-caltime",
   "devDependencies": {
+    "marked": ">= 0.3.9",
     "eslint": "latest",
     "eslint-config-google": "latest",
     "jsdoc": "latest",
