@@ -4,7 +4,7 @@
  * @version 1.4.2
  *
  * @author Michael McCarthy
- * @copyright Michael McCarthy <michael.mccarthy@ieee.org> 2017
+ * @copyright Michael McCarthy <michael.mccarthy@ieee.org> 2017-2018
  * @license MIT
  */
 

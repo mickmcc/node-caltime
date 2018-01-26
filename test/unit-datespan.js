@@ -1,6 +1,6 @@
 /**
  * unit-datespan.js
- * Copyright(c) 2017 Michael McCarthy <michael.mccarthy@ieee.org>
+ * Copyright(c) 2017-2018 Michael McCarthy <michael.mccarthy@ieee.org>
  * See accompanying MIT License file.
  */
 
