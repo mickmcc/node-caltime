@@ -926,7 +926,7 @@ required to test or develop `caltime`. The production dependencies are:
 
 ## License
 
-`caltime` is copyright (c) 2017 Michael McCarthy <michael.mccarthy@ieee.org>.
+`caltime` is copyright (c) 2017-2018 Michael McCarthy <michael.mccarthy@ieee.org>.
 
 `caltime` is free software, licensed under the MIT licence. See the file `LICENSE`
 in this distribution for more information.
