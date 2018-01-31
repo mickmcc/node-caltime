@@ -1,8 +1,8 @@
 # CalTime
 
-`caltime` is a Node.js module which provides objects, methods and functions
+`caltime` is a Node.js package which provides objects, methods and functions
 which help to generate, sort, add and subtract timespans. Operations which are
-supported by the module include:
+supported by the package include:
 - query if timespans overlap with each other
 - calculate the overlap (intersection) of timespans
 - calculate the addition (union) of timespans
@@ -20,10 +20,11 @@ can be generated are:
 - 2-3pm on Monday of every week in UTC timezone.
 - 14:00-16:00 on the 24th of every month in New York timezone.
 - 9-10am on the third Tuesday of every month in Delhi timezone.
+- 9am-6pm on Friday and Saturday of every week in Dubai timezone.
 
 `caltime` does not attempt to provide functionality which is already provided by
-modules such as [Moment](http://momentjs.com). For this reason, `caltime`
-avoids converting dates or times to or from a string representation.
+packages such as [Moment](http://momentjs.com). For this reason, `caltime`
+avoids converting dates or times to or from their string representation.
 
 
 ## API Usage
@@ -760,7 +761,7 @@ The `TimeRule` object allows logic to be defined which can then be used to
 automatically generate `DateSpan` objects for a range of time. Several types
 of rules can be created. The constraint applied to the rule controls for which
 days or dates the `DateSpan` objects are created. Possible constraints are:
-- The same day of the week, every week e.g. every Monday from 9-10am.
+- The same day(s) of the week, every week e.g. every Monday from 9-10am.
 - The same date every month e.g. 4th of every month from 1-2pm.
 - The Nth weekday of every month e.g. 3rd Tuesday of the month from 9-10pm.
 - The last weekday of every month e.g. last Friday of every month.
@@ -883,6 +884,28 @@ module_constants.DEC; // December
 ```
 
 Constants are also available for use with the `TimeRule` functional constructor.
+
+These constants define more than one day of the week. They represent commonly
+used working weeks and weekends from various cultures. They can be passed as
+the `inDay` argument to the `timeRule` constructor.
+
+```js
+var caltime = require('caltime');
+var module_constants = caltime.constants;
+module_constants.WEEKDAYS_MON_FRI; // 5 days, Monday - Friday
+module_constants.WEEKDAYS_SUN_THURS; // 5 days, Sunday - Thursday
+module_constants.WEEKDAYS_MON_SAT; // 6 days, Monday - Saturday
+module_constants.WEEKDAYS_MON_SUN; // 7 days, Monday - Sunday
+module_constants.WEEKDAYS_SUN_FRI; // 6 days, Sunday - Friday
+module_constants.WEEKDAYS_SAT_WED; // 5 days, Sunday - Wednesday and Saturday
+module_constants.WEEKDAYS_SAT_THURS; // 6 days, Sunday - Thursday and Saturday
+module_constants.WEEKDAYS_BRUNEI; // 5 days, Monday - Thursday and Saturday
+module_constants.WEEKDAYS_SAT_SUN; // 2 days, Saturday and Sunday
+module_constants.WEEKDAYS_FRI_SAT; // 2 days, Friday and Saturday
+module_constants.WEEKDAYS_THURS_FRI; // 2 days, Thursday and Friday
+module_constants.WEEKDAYS_BRUNEI_WEEKEND; // 2 days, Friday and Sunday
+```
+
 These constants define the type of constraint applied by the `TimeRule`.
 
 ```js
