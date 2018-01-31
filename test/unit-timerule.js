@@ -28,7 +28,9 @@ const dateAb = new Date(Date.UTC(2017, 6, 2, 16, 0, 0, 0)); // Sunday 2nd, 1st S
 const dateAa = new Date(Date.UTC(2017, 6, 3, 16, 0, 0, 0)); // Monday 3rd, 1st Monday of July, 16:00
 const dateB = new Date(Date.UTC(2017, 6, 5, 16, 0, 0, 0)); // First Wed. of July, 16:00
 const dateBa = new Date(Date.UTC(2017, 6, 5, 16, 30, 0, 0)); // First Wed. of July, 16:30
-const dateC = new Date(Date.UTC(2017, 6, 5, 17, 0, 0, 0)); // Last Wed. of July, 17:00
+const dateC = new Date(Date.UTC(2017, 6, 5, 17, 0, 0, 0)); // First Wed. of July, 17:00
+const dateCa = new Date(Date.UTC(2017, 6, 6, 16, 0, 0, 0)); // First Thurs. of July, 16:00
+const dateCb = new Date(Date.UTC(2017, 6, 7, 16, 0, 0, 0)); // First Friday of July, 16:00
 const dateD = new Date(Date.UTC(2017, 6, 12, 16, 0, 0, 0)); // Second Wed. of July, 16:00
 const dateE = new Date(Date.UTC(2017, 6, 12, 17, 0, 0, 0)); // Second Wed. of July, 17:00
 const dateF = new Date(Date.UTC(2017, 6, 14, 12, 0, 0, 0)); // Friday 14th, 12:00
@@ -47,8 +49,10 @@ const dateQ = new Date(Date.UTC(2017, 6, 19, 16, 0, 0, 0)); // Third Wed. of Jul
 const dateR = new Date(Date.UTC(2017, 6, 19, 17, 0, 0, 0)); // Third Wed. of July, 17:00
 const dateS = new Date(Date.UTC(2017, 6, 26, 16, 0, 0, 0)); // Last Wed. of July, 16:00
 const dateT = new Date(Date.UTC(2017, 6, 26, 17, 0, 0, 0)); // Last Wed. of July, 17:00
-const dateU = new Date(Date.UTC(2017, 6, 29, 16, 0, 0, 0)); // Last Wed. of July, 16:00
-const dateV = new Date(Date.UTC(2017, 6, 29, 17, 0, 0, 0)); // Last Wed. of July, 17:00
+const dateTa = new Date(Date.UTC(2017, 6, 28, 22, 0, 0, 0)); // Last Fri. of July, 22:00
+const dateU = new Date(Date.UTC(2017, 6, 29, 16, 0, 0, 0)); // Sat. 29th, 22:00, Last Sat. of July, 16:00
+const dateV = new Date(Date.UTC(2017, 6, 29, 17, 0, 0, 0)); // Sat. 29th, 22:00, Last Sat. of July, 17:00
+const dateVb = new Date(Date.UTC(2017, 6, 29, 22, 0, 0, 0)); // Sat. 29th, 22:00, Last Sat. of July, 22:00
 const dateVa = new Date(Date.UTC(2017, 6, 30, 22, 0, 0, 0)); // Sunday 30th, 22:00, Last Sunday of July
 const dateX = new Date(Date.UTC(2017, 6, 31, 16, 0, 0, 0)); // Monday 31st, 16:00, Last day of July
 const dateY = new Date(Date.UTC(2017, 6, 31, 17, 0, 0, 0)); // Monday 31st, 17:00, Last day of July
@@ -348,6 +352,90 @@ describe('Time Rule - Generate Date-spans. Timezone: UTC.', function() {
     assert.equal(result.length, 23, 'Method should return one date-span.');
     assert.equal(result[0].getBegin().getTime(), dateAc.getTime(), 'Incorrect start time of date-span.');
     assert.equal(result[result.length-1].getEnd().getTime(), dateYa.getTime(), 'Incorrect end time of date-span.');
+  });
+
+  it('Create valid "Day of week" time-rule, Saturday-Thursday.', function() {
+    let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 6*60); // 16:00-22:00
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.constants.CONSTRAINT_DAY_OF_WEEK,
+                                                testContext.constants.WEEKDAYS_SAT_THURS,
+                                                TZ_UTC);
+    assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
+    let result = ruleObject.generateDateSpans(dateA, dateZ); // 1-31 July
+    assert.equal(typeof result, 'object', 'Method should return an array of TimePeriod objects.');
+    assert.equal(result.length, 27, 'Method should return one date-span.');
+    assert.equal(result[0].getBegin().getTime(), dateAc.getTime(), 'Incorrect start time of date-span.');
+    assert.equal(result[result.length-1].getEnd().getTime(), dateYa.getTime(), 'Incorrect end time of date-span.');
+  });
+
+  it('Create valid "Day of week" time-rule, Brunei working week.', function() {
+    let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 6*60); // 16:00-22:00
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.constants.CONSTRAINT_DAY_OF_WEEK,
+                                                testContext.constants.WEEKDAYS_BRUNEI,
+                                                TZ_UTC);
+    assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
+    let result = ruleObject.generateDateSpans(dateA, dateZ); // 1-31 July
+    assert.equal(typeof result, 'object', 'Method should return an array of TimePeriod objects.');
+    assert.equal(result.length, 22, 'Method should return one date-span.');
+    assert.equal(result[0].getBegin().getTime(), dateAc.getTime(), 'Incorrect start time of date-span.');
+    assert.equal(result[result.length-1].getEnd().getTime(), dateYa.getTime(), 'Incorrect end time of date-span.');
+  });
+
+  it('Create valid "Day of week" time-rule, Sat. and Sunday.', function() {
+    let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 6*60); // 16:00-22:00
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.constants.CONSTRAINT_DAY_OF_WEEK,
+                                                testContext.constants.WEEKDAYS_SAT_SUN,
+                                                TZ_UTC);
+    assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
+    let result = ruleObject.generateDateSpans(dateA, dateZ); // 1-31 July
+    assert.equal(typeof result, 'object', 'Method should return an array of TimePeriod objects.');
+    assert.equal(result.length, 10, 'Method should return one date-span.');
+    assert.equal(result[0].getBegin().getTime(), dateAc.getTime(), 'Incorrect start time of date-span.');
+    assert.equal(result[result.length-1].getEnd().getTime(), dateVa.getTime(), 'Incorrect end time of date-span.');
+  });
+
+  it('Create valid "Day of week" time-rule, Friday and Saturday.', function() {
+    let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 6*60); // 16:00-22:00
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.constants.CONSTRAINT_DAY_OF_WEEK,
+                                                testContext.constants.WEEKDAYS_FRI_SAT,
+                                                TZ_UTC);
+    assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
+    let result = ruleObject.generateDateSpans(dateA, dateZ); // 1-31 July
+    assert.equal(typeof result, 'object', 'Method should return an array of TimePeriod objects.');
+    assert.equal(result.length, 9, 'Method should return one date-span.');
+    assert.equal(result[0].getBegin().getTime(), dateAc.getTime(), 'Incorrect start time of date-span.');
+    assert.equal(result[result.length-1].getEnd().getTime(), dateVb.getTime(), 'Incorrect end time of date-span.');
+  });
+
+  it('Create valid "Day of week" time-rule, Thursday and Friday.', function() {
+    let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 6*60); // 16:00-22:00
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.constants.CONSTRAINT_DAY_OF_WEEK,
+                                                testContext.constants.WEEKDAYS_THURS_FRI,
+                                                TZ_UTC);
+    assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
+    let result = ruleObject.generateDateSpans(dateA, dateZ); // 1-31 July
+    assert.equal(typeof result, 'object', 'Method should return an array of TimePeriod objects.');
+    assert.equal(result.length, 8, 'Method should return one date-span.');
+    assert.equal(result[0].getBegin().getTime(), dateCa.getTime(), 'Incorrect start time of date-span.');
+    assert.equal(result[result.length-1].getEnd().getTime(), dateTa.getTime(), 'Incorrect end time of date-span.');
+  });
+
+  it('Create valid "Day of week" time-rule, Brunei weekend.', function() {
+    let timespan = testContext.timeSpanCtor(16, 0, 0, 0, 6*60); // 16:00-22:00
+    let ruleObject = testContext.ruleRuleCtor(timespan,
+                                                testContext.constants.CONSTRAINT_DAY_OF_WEEK,
+                                                testContext.constants.WEEKDAYS_BRUNEI_WEEKEND,
+                                                TZ_UTC);
+    assert.notEqual(ruleObject, null, 'TimeRule object was not constructed.');
+    let result = ruleObject.generateDateSpans(dateA, dateZ); // 1-31 July
+    assert.equal(typeof result, 'object', 'Method should return an array of TimePeriod objects.');
+    assert.equal(result.length, 9, 'Method should return one date-span.');
+    assert.equal(result[0].getBegin().getTime(), dateAb.getTime(), 'Incorrect start time of date-span.');
+    assert.equal(result[result.length-1].getEnd().getTime(), dateVa.getTime(), 'Incorrect end time of date-span.');
   });
 
   it('Create valid "Day of week" time-rule with minutes, seconds and msecs.', function() {
