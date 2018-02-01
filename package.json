@@ -1,6 +1,6 @@
 {
   "name": "caltime",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "Node.js module to add, subtract, intersect timespans and generate them from rules.",
   "main": "index.js",
   "directories": {
