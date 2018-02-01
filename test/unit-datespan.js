@@ -21,13 +21,14 @@ tc.constants = require('../').constants;
 
 /* useful Date objects for testing */
 /* dates which don't span a leap day transition */
-const dateA = new Date(Date.UTC(2017, 6, 15, 12, 0, 0, 0)); // 15th, 12:00
-const dateB = new Date(Date.UTC(2017, 6, 16, 12, 0, 0, 0)); // 16th, 12:00
-const dateC = new Date(Date.UTC(2017, 6, 17, 12, 0, 0, 0)); // 17th, 12:00
-const dateD = new Date(Date.UTC(2017, 6, 17, 13, 0, 0, 0)); // 17th, 13:00
-const dateE = new Date(Date.UTC(2017, 6, 17, 18, 0, 0, 0)); // 17th, 18:00
-const dateF = new Date(Date.UTC(2017, 6, 18, 12, 0, 0, 0)); // 18th, 12:00
-const dateG = new Date(Date.UTC(2017, 6, 18, 12, 33, 44, 555)); // 18th, 12:33:44:555
+const dateA = new Date(Date.UTC(2017, 6, 15, 12, 0, 0, 0)); // Saturday 15th, 12:00
+const dateB = new Date(Date.UTC(2017, 6, 16, 12, 0, 0, 0)); // Sunday 16th, 12:00
+const dateC = new Date(Date.UTC(2017, 6, 17, 12, 0, 0, 0)); // Monday 17th, 12:00
+const dateD = new Date(Date.UTC(2017, 6, 17, 13, 0, 0, 0)); // Monday 17th, 13:00
+const dateE = new Date(Date.UTC(2017, 6, 17, 18, 0, 0, 0)); // Monday 17th, 18:00
+const dateF = new Date(Date.UTC(2017, 6, 18, 12, 0, 0, 0)); // Tuesday 18th, 12:00
+const dateG = new Date(Date.UTC(2017, 6, 18, 12, 33, 44, 555)); // Tuesday 18th, 12:33:44:555
+const dateH = new Date(Date.UTC(2017, 6, 23, 12, 0, 0, 0)); // Sunday 23rd, 12:00
 /* dates which do span a leap day transition */
 const dateLeapB = new Date(Date.UTC(2016, 1, 28, 12, 0, 0, 0));
 const dateLeapC = new Date(Date.UTC(2016, 1, 29, 12, 0, 0, 0));
@@ -260,7 +261,7 @@ describe('DateSpan - Equals', function() {
   });
 });
 
-describe('DateSpan - Intersection', function() {
+describe('DateSpan - Is Intersection?', function() {
 
   it('Call isIntersect with invalid argument', function() {
     let spanA = tc.dateSpanCtor(dateA, null, 60, 40, 20);
@@ -298,6 +299,7 @@ describe('DateSpan - Intersection', function() {
     let result = dateSpanA.isIntersect(dateSpanB);
     assert.equal(result, false, 'DateSpan objects are intersecting.');
   });
+
 });
 
 describe('DateSpan - Union', function() {
@@ -961,7 +963,7 @@ describe('DateSpan - Intersect Arrays', function() {
     assert.notEqual(result, spansB, 'Method should return a new array object.');
   });
 
-  it('Intersect arrays with two overlaps', function() {
+  it('Intersect arrays, two overlaps', function() {
     const spansA = [];
     const spansB = [];
     const dateSpanA = tc.dateSpanCtor(dateA, null, 1*60); // 1 hr
@@ -983,5 +985,35 @@ describe('DateSpan - Intersect Arrays', function() {
     assert.equal(result[0].getDurationMins(), 1*60, 'Expected a different duration');
     assert.equal(result[1].getBegin().getTime(), dateB.getTime(), 'Expected a different start date');
     assert.equal(result[1].getDurationMins(), 1*60, 'Expected a different duration');
+  });
+
+  it('Intersect arrays, multiple overlaps', function() {
+    const spansA = [];
+    const spansB = [];
+    const dateSpanA = tc.dateSpanCtor(dateB, null, 1*60); // Sunday 16/7/2017, 12:00
+    const dateSpanB = tc.dateSpanCtor(dateC, null, 1*60); // Monday 17/7/2017, 12:00
+    const dateSpanC = tc.dateSpanCtor(dateE, null, 1*60); // Monday 17/7/2017, 18:00
+    const dateSpanD = tc.dateSpanCtor(dateF, null, 1*60); // Tuesday 18/7/2017, 12:00
+    const dateSpanE = tc.dateSpanCtor(dateH, null, 1*60); // Sunday 23/7/2017, 12:00
+    const dateSpanF = tc.dateSpanCtor(dateA, null, (9*24*60)); // 15/7/17, 12:00 - 24/7/2017 12:00
+    spansA.push(dateSpanA);
+    spansA.push(dateSpanB);
+    spansA.push(dateSpanC);
+    spansA.push(dateSpanD);
+    spansA.push(dateSpanE);
+    spansB.push(dateSpanF);
+    const result = tc.intersectDateSpans(spansA, spansB);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 5, 'Expected 5 elements in array.');
+    assert.notEqual(result, spansA, 'Method should return a new array object.');
+    assert.notEqual(result, spansB, 'Method should return a new array object.');
+    assert.equal(result[0].getBegin().getTime(), dateB.getTime(), 'Expected a different start date');
+    assert.equal(result[0].getDurationMins(), 1*60, 'Expected a different duration');
+    assert.equal(result[1].getBegin().getTime(), dateC.getTime(), 'Expected a different start date');
+    assert.equal(result[1].getDurationMins(), 1*60, 'Expected a different duration');
+    assert.equal(result[2].getBegin().getTime(), dateE.getTime(), 'Expected a different start date');
+    assert.equal(result[2].getDurationMins(), 1*60, 'Expected a different duration');
+    assert.equal(result[result.length-1].getBegin().getTime(), dateH.getTime(), 'Expected a different start date');
+    assert.equal(result[result.length-1].getDurationMins(), 1*60, 'Expected a different duration');
   });
 });
