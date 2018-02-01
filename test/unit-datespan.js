@@ -1016,4 +1016,46 @@ describe('DateSpan - Intersect Arrays', function() {
     assert.equal(result[result.length-1].getBegin().getTime(), dateH.getTime(), 'Expected a different start date');
     assert.equal(result[result.length-1].getDurationMins(), 1*60, 'Expected a different duration');
   });
+
+  it('Intersect arrays, CalCost scenario', function() {
+    const spansA = [];
+    const spansX = [];
+    const dateA = new Date(Date.UTC(2017, 6, 5, 12, 0, 0, 0)); // 5th July, 12:00
+    const dateCCB = new Date(Date.UTC(2017, 6, 5, 16, 0, 0, 0)); // 5th July, 16:00
+    const dateCCF = new Date(Date.UTC(2017, 6, 14, 12, 0, 0, 0)); // Friday 14th, 12:00
+    const dateCCFa = new Date(Date.UTC(2017, 6, 14, 19, 0, 0, 0)); // Friday 14th, 19:00
+    const dateCCG = new Date(Date.UTC(2017, 6, 15, 10, 0, 0, 0)); // Saturday 15th, 10:00
+    const dateCCP = new Date(Date.UTC(2017, 6, 16, 13, 0, 0, 0)); // Sunday 16th, 13:00
+    const spanA = tc.dateSpanCtor(dateCCB, null, 1*60, 0, 0); // Wednesday, 16:00 - 17:00
+    const spanB = tc.dateSpanCtor(dateCCF, null, 5*60, 0, 0); // Friday, 12:00 - 17:00
+    const spanC = tc.dateSpanCtor(dateCCFa, null, 4*60, 0, 0); // Friday 19:00 - 23:00
+    const spanD = tc.dateSpanCtor(dateCCG, null, 12*60, 0, 0); // Saturday, 10:00 - 22:00
+    const spanE = tc.dateSpanCtor(dateCCP, null, 4*60, 0, 0); // Sunday, 13:00 - 17:00
+    spansA.push(spanA);
+    spansA.push(spanB);
+    spansA.push(spanC);
+    spansA.push(spanD);
+    spansA.push(spanE);
+    const dateXA = new Date(Date.UTC(2017, 6, 5, 1, 0, 0, 0)); // 5th July, 01:00
+    const dateXB = new Date(Date.UTC(2017, 6, 14, 1, 0, 0, 0)); // 14th July, 01:00
+    const dateXC = new Date(Date.UTC(2017, 6, 15, 1, 0, 0, 0)); // 15th July, 01:00
+    const dateXD = new Date(Date.UTC(2017, 6, 16, 1, 0, 0, 0)); // 16th July, 01:00
+    const spanXA = tc.dateSpanCtor(dateXA, null, (22*60), 0, 0); // 01:00-23:00
+    const spanXB = tc.dateSpanCtor(dateXB, null, (22*60), 0, 0); // 01:00-23:00
+    const spanXC = tc.dateSpanCtor(dateXC, null, (22*60), 0, 0); // 01:00-23:00
+    const spanXD = tc.dateSpanCtor(dateXD, null, (22*60), 0, 0); // 01:00-23:00
+    //spansX.push(spanXA);
+    //spansX.push(spanXB);
+    spansX.push(spanXC);
+    spansX.push(spanXD);
+    const result = tc.intersectDateSpans(spansA, spansX);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 5, 'Expected 5 elements in array.');
+    assert.notEqual(result, spansA, 'Method should return a new array object.');
+    assert.notEqual(result, spansB, 'Method should return a new array object.');
+    assert.equal(result[0].getBegin().getTime(), dateCCB.getTime(), 'Expected a different start date');
+    assert.equal(result[0].getDurationMins(), 1*60, 'Expected a different duration');
+    assert.equal(result[result.length-1].getBegin().getTime(), dateCCP.getTime(), 'Expected a different start date');
+    assert.equal(result[result.length-1].getDurationMins(), 4*60, 'Expected a different duration');
+  });
 });
