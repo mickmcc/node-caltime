@@ -392,7 +392,7 @@ called with the `new` operator. The function accepts several arguments:
   var datespanCtor = caltime.dateSpan;
   // DateSpan object which represents 09:00:00:000am - 09:30:00:000am, 15.Nov.2017.
   var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
-  var spanA = datespanCtor(beginDate, 30, 0, 0);
+  var spanA = datespanCtor(beginDate, null, 30, 0, 0);
   ```
 
 ### getBegin()
@@ -404,7 +404,7 @@ called with the `new` operator. The function accepts several arguments:
   var datespanCtor = caltime.dateSpan;
   // DateSpan object which represents 09:00:00:000am - 09:30:00:000am, 15.Nov.2017.
   var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
-  var spanA = datespanCtor(beginDate, 30, 0, 0);
+  var spanA = datespanCtor(beginDate, null, 30, 0, 0);
   spanA.getBegin(); // Date object
   ```
 
@@ -419,7 +419,7 @@ called with the `new` operator. The function accepts several arguments:
   var datespanCtor = caltime.dateSpan;
   // DateSpan object which represents 09:00:00:000am - 09:30:11:222am, 15.Nov.2017.
   var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
-  var spanA = datespanCtor(beginDate, 30, 11, 222);
+  var spanA = datespanCtor(beginDate, null, 30, 11, 222);
   spanA.getDurationMins(); // 30 minutes
   spanA.getDurationSecs(); // 11 seconds
   spanA.getDurationMs(); // 222 milliseconds
@@ -434,7 +434,7 @@ var caltime = require('caltime');
 var datespanCtor = caltime.dateSpan;
 // DateSpan object which represents 09:00:00:000am - 09:31:02:003am, 15.Nov.2017.
 var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
-var spanA = datespanCtor(beginDate, 1, 2, 3);
+var spanA = datespanCtor(beginDate, null, 1, 2, 3);
 spanA.getTotalDuration(); // (1*60000)+(2*1000)+(3) = 62003 milliseconds
 ```
 
@@ -447,7 +447,7 @@ spanA.getTotalDuration(); // (1*60000)+(2*1000)+(3) = 62003 milliseconds
   var datespanCtor = caltime.dateSpan;
   // DateSpan object which represents 09:00:00:000am - 09:30:00:000am, 15.Nov.2017.
   var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
-  var spanA = datespanCtor(beginDate, 30, 0, 0);
+  var spanA = datespanCtor(beginDate, null, 30, 0, 0);
   spanA.getEnd(); // Date object with time 09:30am
   ```
 
@@ -461,14 +461,14 @@ spanA.getTotalDuration(); // (1*60000)+(2*1000)+(3) = 62003 milliseconds
   var datespanCtor = caltime.dateSpan;
   // DateSpan object which represents 09:00am - 9:45:00am, 15.Nov.2017.
   var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
-  var spanA = datespanCtor(beginDate, 45, 0, 0);
+  var spanA = datespanCtor(beginDate, null, 45, 0, 0);
   // create a DateSpan object with same start and duration
-  var spanB = datespanCtor(beginDate, 45, 0, 0);
+  var spanB = datespanCtor(beginDate, null, 45, 0, 0);
   // create a DateSpan object a different start time
   var otherDate = new Date(2017, 10, 15, 10, 0, 0, 0);
   var spanC = datespanCtor(otherDate, 45, 0, 0);
   // create a DateSpan object with same start but different duration
-  var spanC = datespanCtor(beginDate, 40, 0, 0);
+  var spanC = datespanCtor(beginDate, null, 40, 0, 0);
   spanA.isEqual(spanA); // true
   spanA.isEqual(spanB); // true
   spanA.isEqual(spanC); // false
@@ -487,13 +487,13 @@ var caltime = require('caltime');
 var datespanCtor = caltime.dateSpan;
 // DateSpan object which represents 09:00am - 9:45:00am, 15.Nov.2017.
 var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
-var spanA = datespanCtor(beginDate, 45, 0, 0);
+var spanA = datespanCtor(beginDate, null, 45, 0, 0);
 // create a DateSpan object which represents 09:30am - 10:00am.
 beginDate = new Date(2017, 10, 15, 9, 30, 0, 0);
-var spanB = datespanCtor(beginDate, 30, 0, 0);
+var spanB = datespanCtor(beginDate, null, 30, 0, 0);
 // create a DateSpan object which represents 10:00am - 10:15am.
 beginDate = new Date(2017, 10, 15, 10, 0, 0, 0);
-var spanC = datespanCtor(beginDate, 15, 0, 0);
+var spanC = datespanCtor(beginDate, null, 15, 0, 0);
 spanA.isIntersect(spanB); // true
 spanA.isIntersect(spanC); // false
 ```
@@ -508,13 +508,13 @@ var caltime = require('caltime');
 var datespanCtor = caltime.dateSpan;
 // DateSpan object which represents 09:00am - 09:45am, 15.Nov.2017.
 var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
-var spanA = datespanCtor(beginDate, 45, 0, 0);
+var spanA = datespanCtor(beginDate, null, 45, 0, 0);
 // create a DateSpan object which represents 09:30am - 10:00am.
 beginDate = new Date(2017, 10, 15, 9, 30, 0, 0);
-var spanB = datespanCtor(beginDate, 30, 0, 0);
+var spanB = datespanCtor(beginDate, null, 30, 0, 0);
 // create a DateSpan object which represents 10:00am - 10:15am.
 beginDate = new Date(2017, 10, 15, 10, 0, 0, 0);
-var spanC = datespanCtor(beginDate, 15, 0, 0);
+var spanC = datespanCtor(beginDate, null, 15, 0, 0);
 // date-spans with intersection
 var result = spanA.intersect(spanB);
 result.getBegin(); // 9:30am
@@ -534,13 +534,13 @@ var caltime = require('caltime');
 var datespanCtor = caltime.dateSpan;
 // DateSpan object which represents 09:00am - 09:45am, 15.Nov.2017.
 var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
-var spanA = datespanCtor(beginDate, 45, 0, 0);
+var spanA = datespanCtor(beginDate, null, 45, 0, 0);
 // create a DateSpan object which represents 09:30am - 10:00am.
 beginDate = new Date(2017, 10, 15, 9, 30, 0, 0);
-var spanB = datespanCtor(beginDate, 30, 0, 0);
+var spanB = datespanCtor(beginDate, null, 30, 0, 0);
 // create a DateSpan object which represents 10:00am - 10:15am.
 beginDate = new Date(2017, 10, 15, 10, 0, 0, 0);
-var spanC = datespanCtor(beginDate, 15, 0, 0);
+var spanC = datespanCtor(beginDate, null, 15, 0, 0);
 // date-spans with intersection
 var result = spanA.intersect(spanB);
 result.getBegin(); // 9:00am
@@ -563,13 +563,13 @@ var caltime = require('caltime');
 var datespanCtor = caltime.dateSpan;
 // DateSpan object which represents 09:00am - 10:00am, 15.Nov.2017.
 var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
-var spanA = datespanCtor(beginDate, 60, 0, 0);
+var spanA = datespanCtor(beginDate, null, 60, 0, 0);
 // create a DateSpan object which represents 09:30am - 09:45am.
 beginDate = new Date(2017, 10, 15, 9, 30, 0, 0);
-var spanB = datespanCtor(beginDate, 15, 0, 0);
+var spanB = datespanCtor(beginDate, null, 15, 0, 0);
 // create a DateSpan object which represents 10:00am - 10:15am.
 beginDate = new Date(2017, 10, 15, 10, 0, 0, 0);
-var spanC = datespanCtor(beginDate, 15, 0, 0);
+var spanC = datespanCtor(beginDate, null, 15, 0, 0);
 // date-spans with intersection
 var result = spanA.subtract(spanB);
 result.length; // 2
@@ -625,13 +625,13 @@ var mergeDateSpans = caltime.mergeDateSpans;
 var spanList = null;
 // DateSpan object which represents 09:00am - 09:45am, 15.Nov.2017.
 var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
-var spanA = datespanCtor(beginDate, 45, 0, 0);
+var spanA = datespanCtor(beginDate, null, 45, 0, 0);
 // create a DateSpan object which represents 09:30am - 10:00am.
 beginDate = new Date(2017, 10, 15, 9, 30, 0, 0);
-var spanB = datespanCtor(beginDate, 30, 0, 0);
+var spanB = datespanCtor(beginDate, null, 30, 0, 0);
 // create a DateSpan object which represents 10:00am - 10:15am.
 beginDate = new Date(2017, 10, 15, 10, 0, 0, 0);
-var spanC = datespanCtor(beginDate, 15, 0, 0);
+var spanC = datespanCtor(beginDate, null, 15, 0, 0);
 spanList = [ spanA, spanB, spanC ];
 // merge the intersecting date-spans
 var result = mergeDateSpans(spanList);
@@ -654,13 +654,13 @@ var sortDateSpans = caltime.sortDateSpans;
 var spanList = null;
 // DateSpan object which represents 09:00am - 09:30am, 15.Nov.2017.
 var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
-var spanA = datespanCtor(beginDate, 45, 0, 0);
+var spanA = datespanCtor(beginDate, null, 45, 0, 0);
 // create a DateSpan object which represents 09:30am - 10:00am.
 beginDate = new Date(2017, 10, 15, 9, 30, 0, 0);
-var spanB = datespanCtor(beginDate, 30, 0, 0);
+var spanB = datespanCtor(beginDate, null, 30, 0, 0);
 // create a DateSpan object which represents 10:00am - 10:15am.
 beginDate = new Date(2017, 10, 15, 10, 0, 0, 0);
-var spanC = datespanCtor(beginDate, 15, 0, 0);
+var spanC = datespanCtor(beginDate, null, 15, 0, 0);
 spanList = [ spanA, spanB, spanC ];
 // sort in descending order
 var result = sortDateSpans(spanList, true);
@@ -735,16 +735,16 @@ let spanListA = null;
 let spanListB = null;
 // DateSpan object which represents 09:00am - 10:00am.
 var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
-var spanA = datespanCtor(beginDate, 60, 0, 0);
+var spanA = datespanCtor(beginDate, null, 60, 0, 0);
 // create a DateSpan object which represents 10:00am - 11:00am.
 beginDate = new Date(2017, 10, 15, 10, 0, 0, 0);
-var spanB = datespanCtor(beginDate, 60, 0, 0);
-// create a DateSpan object which represents 10:00am - 10:30am.
+var spanB = datespanCtor(beginDate, null, 60, 0, 0);
+// create a DateSpan object which represents 10:00am - 10:15am.
 beginDate = new Date(2017, 10, 15, 10, 0, 0, 0);
-var spanC = datespanCtor(beginDate, 15, 0, 0);
+var spanC = datespanCtor(beginDate, null, 15, 0, 0);
 // create a DateSpan object which represents 14:00 - 15:00.
 beginDate = new Date(2017, 10, 15, 14, 0, 0, 0);
-var spanD = datespanCtor(beginDate, 60, 0, 0);
+var spanD = datespanCtor(beginDate, null, 60, 0, 0);
 // populate the arrays
 spanListA = [ spanA, spanB ];
 spanListB = [ spanC, spanD ];
@@ -752,7 +752,7 @@ spanListB = [ spanC, spanD ];
 let result = intersectDateSpans(spanListA, spanListB);
 result.length; // 1 overlap between spanB and spanC
 result[0].getBegin(); // 10:00am
-result[0].getEnd(); // 10:30am
+result[0].getEnd(); // 10:15am
 ```
 
 ## TimeRule
