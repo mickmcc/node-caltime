@@ -17,6 +17,7 @@ tc.mergeDateSpans = require('../').mergeDateSpans;
 tc.sortDateSpans = require('../').sortDateSpans;
 tc.measureDateSpans = require('../').measureDateSpans;
 tc.intersectDateSpans = require('../').intersectDateSpans;
+tc.subtractDateSpans = require('../').subtractDateSpans;
 tc.constants = require('../').constants;
 
 /* useful Date objects for testing */
@@ -1040,4 +1041,148 @@ describe('DateSpan - Intersect Arrays', function() {
     assert.equal(result[0].getBegin().getTime(), dateSD.getTime(), 'Expected a different start date');
     assert.equal(result[0].getDurationMins(), 4*60, 'Expected a different duration');
   });
+});
+
+describe('DateSpan - Subtract Arrays', function() {
+
+  it('Pass invalid arguments', function() {
+    const spanArray = [];
+    // check first argument
+    assert.throws(function() {
+                     tc.subtractDateSpans(null, spanArray);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     tc.subtractDateSpans(undefined, spanArray);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     tc.subtractDateSpans({}, spanArray);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    // check second argument
+    assert.throws(function() {
+                     tc.subtractDateSpans(spanArray, null);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     tc.subtractDateSpans(spanArray, undefined);
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+    assert.throws(function() {
+                     tc.subtractDateSpans(spanArray, {});
+                    },
+                    Error,
+                    'Expected method to throw an error.');
+  });
+
+  it('Pass two empty arrays', function() {
+    const spansA = [];
+    const spansB = [];
+    let result = tc.subtractDateSpans(spansA, spansB);
+    assert.notEqual(result, null, 'Function should return an array.');
+    assert.equal(_.isArray(result), true, 'Method should return an array.');
+  });
+
+  it('Subtract arrays with no overlap', function() {
+    const spansA = [];
+    const spansB = [];
+    const dateSpanA = tc.dateSpanCtor(dateA, null, 1*60); // 1 hr
+    const dateSpanB = tc.dateSpanCtor(dateB, null, 1*60); // 1 hr
+    const dateSpanC = tc.dateSpanCtor(dateC, null, 1*60); // 1 hr
+    const dateSpanD = tc.dateSpanCtor(dateF, null, 1*60); // 1 hr
+    spansA.push(dateSpanA);
+    spansA.push(dateSpanB);
+    spansB.push(dateSpanC);
+    spansB.push(dateSpanD);
+    const result = tc.subtractDateSpans(spansA, spansB);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, spansA.length, 'Expected same amount of elements in array as in spansA.');
+    assert.notEqual(result, spansA, 'Method should return a new array object (but with same contents as spansA).');
+    assert.notEqual(result, spansB, 'Method should return a new array object.');
+    assert.equal(result[0].isEqual(spansA[0]), true, 'Method should return a new array object (but with same contents as spansA).');
+    assert.equal(result[1].isEqual(spansA[1]), true, 'Method should return a new array object (but with same contents as spansA).');
+  });
+
+  it('Subtract arrays, two overlaps', function() {
+    const spansA = [];
+    const spansB = [];
+    const dateSpanA = tc.dateSpanCtor(dateA, null, 2*60); // 2 hr
+    const dateSpanB = tc.dateSpanCtor(dateB, null, 2*60); // 2 hr
+    const dateSpanC = tc.dateSpanCtor(dateA, null, 1*60); // 1 hrs
+    const dateSpanD = tc.dateSpanCtor(dateB, null, 1*60); // 1 hrs
+    const dateSpanE = tc.dateSpanCtor(dateF, null, 1*60); // 1 hr
+    spansA.push(dateSpanA);
+    spansA.push(dateSpanB);
+    spansB.push(dateSpanC);
+    spansB.push(dateSpanD);
+    spansB.push(dateSpanE);
+    const result = tc.subtractDateSpans(spansA, spansB);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 2, 'Expected 2 elements in array.');
+    assert.notEqual(result, spansA, 'Method should return a new array object.');
+    assert.notEqual(result, spansB, 'Method should return a new array object.');
+    assert.equal(result[0].getBegin().getTime(), dateA.getTime() + 3600000, 'Expected a different start date on first time span');
+    assert.equal(result[0].getDurationMins(), 1*60, 'Expected a different duration');
+    assert.equal(result[1].getBegin().getTime(), dateB.getTime() + 3600000, 'Expected a different start date on second time span');
+    assert.equal(result[1].getDurationMins(), 1*60, 'Expected a different duration');
+  });
+
+  it('Subtract arrays, multiple overlaps', function() {
+    const spansA = [];
+    const spansB = [];
+    const dateSpanA = tc.dateSpanCtor(dateB, null, 1*60); // Sunday 16/7/2017, 12:00
+    const dateSpanB = tc.dateSpanCtor(dateC, null, 3*60); // Monday 17/7/2017, 12:00 - 15:00
+    const dateSpanC = tc.dateSpanCtor(dateE, null, 1*60); // Monday 17/7/2017, 18:00
+    const dateSpanD = tc.dateSpanCtor(dateF, null, 1*60); // Tuesday 18/7/2017, 12:00
+    const dateSpanE = tc.dateSpanCtor(dateH, null, 1*60); // Sunday 23/7/2017, 12:00
+    const dateSpanF = tc.dateSpanCtor(dateD, null, 1*60); // Monday 17/7/2017, 13:00 - 14:00
+    spansA.push(dateSpanA);
+    spansA.push(dateSpanB);
+    spansA.push(dateSpanC);
+    spansA.push(dateSpanD);
+    spansA.push(dateSpanE);
+    spansB.push(dateSpanF);
+    const result = tc.subtractDateSpans(spansA, spansB);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 6, 'Expected 6 elements in array.');
+    assert.notEqual(result, spansA, 'Method should return a new array object.');
+    assert.notEqual(result, spansB, 'Method should return a new array object.');
+    assert.equal(result[0].getBegin().getTime(), dateB.getTime(), 'Expected a different start date');
+    assert.equal(result[0].getDurationMins(), 1*60, 'Expected a different duration');
+    assert.equal(result[1].getBegin().getTime(), dateC.getTime(), 'Expected a different start date');
+    assert.equal(result[1].getDurationMins(), 1*60, 'Expected a different duration');
+    assert.equal(result[2].getBegin().getTime(), dateD.getTime() + 3600000, 'Expected a different start date');
+    assert.equal(result[2].getDurationMins(), 1*60, 'Expected a different duration');
+    assert.equal(result[result.length-1].getBegin().getTime(), dateH.getTime(), 'Expected a different start date');
+    assert.equal(result[result.length-1].getDurationMins(), 1*60, 'Expected a different duration');
+  });
+
+  it('Subtract arrays, CalCost scenario', function() {
+    const spansA = [];
+    const spansX = [];
+    const dateSD = new Date(Date.UTC(2017, 6, 16, 12, 0, 0, 0)); // Sunday 16th, 12:00
+    const spanD = tc.dateSpanCtor(dateSD, null, 4*60, 0, 0); // Sunday, 12:00 - 16:00
+    spansA.push(spanD);
+    const dateXB = new Date(Date.UTC(2017, 6, 14, 1, 0, 0, 0)); // 14th July, 01:00
+    const dateXC = new Date(Date.UTC(2017, 6, 15, 1, 0, 0, 0)); // 15th July, 01:00
+    const dateXD = new Date(Date.UTC(2017, 6, 16, 1, 0, 0, 0)); // 16th July, 01:00
+    const spanXB = tc.dateSpanCtor(dateXB, null, (22*60), 0, 0); // 01:00-23:00
+    const spanXC = tc.dateSpanCtor(dateXC, null, (22*60), 0, 0); // 01:00-23:00
+    const spanXD = tc.dateSpanCtor(dateXD, null, (22*60), 0, 0); // 01:00-23:00
+    spansX.push(spanXB);
+    spansX.push(spanXC);
+    spansX.push(spanXD);
+    const result = tc.subtractDateSpans(spansA, spansX);
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 0, 'Expected 0 element in array.');
+    assert.notEqual(result, spansA, 'Method should return a new array object.');
+    assert.notEqual(result, spansX, 'Method should return a new array object.');
+  });
+  
 });

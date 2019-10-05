@@ -755,6 +755,44 @@ result[0].getBegin(); // 10:00am
 result[0].getEnd(); // 10:30am
 ```
 
+### subtractDateSpans()
+
+Function takes two Arrays of `DateSpan` objects and returns a new Array which
+contains new `DateSpan` objects, each representing an subtraction between
+a `DateSpan` object from each Array.
+
+```js
+const caltime = require('caltime');
+const datespanCtor = caltime.dateSpan;
+const subtractDateSpans = caltime.subtractDateSpans;
+let spanListA = null;
+let spanListB = null;
+// DateSpan object which represents 09:00am - 12:00am.
+var beginDate = new Date(2017, 10, 15, 9, 0, 0, 0);
+var spanA = datespanCtor(beginDate, null, 180, 0, 0);
+// create a DateSpan object which represents 14:00am - 16:00am.
+beginDate = new Date(2017, 10, 15, 14, 0, 0, 0);
+var spanB = datespanCtor(beginDate, null, 120, 0, 0);
+// create a DateSpan object which represents 10:00am - 11:00am.
+beginDate = new Date(2017, 10, 15, 10, 0, 0, 0);
+var spanC = datespanCtor(beginDate, null, 60, 0, 0);
+// create a DateSpan object which represents 15:00 - 16:00.
+beginDate = new Date(2017, 10, 15, 15, 0, 0, 0);
+var spanD = datespanCtor(beginDate, null, 60, 0, 0);
+// populate the arrays
+spanListA = [ spanA, spanB ];
+spanListB = [ spanC, spanD ];
+// sort in descending order
+let result = subtractDateSpans(spanListA, spanListB);
+result.length; // 3
+result[0].getBegin(); // 09:00am
+result[0].getEnd(); // 10:00am
+result[1].getBegin(); // 11:00am
+result[1].getEnd(); // 12:00am
+result[2].getBegin(); // 14:00am
+result[2].getEnd(); // 15:00am
+```
+
 ## TimeRule
 
 The `TimeRule` object allows logic to be defined which can then be used to
