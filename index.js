@@ -68,6 +68,13 @@ module.exports.measureDateSpans = datespanModule.measureSpans;
 module.exports.intersectDateSpans = datespanModule.intersectSpans;
 
 /**
+ * Function used to intersect the DateSpan objects in two arrays.
+ * @public
+ * @see {@link module:caltime/datespan~subtractSpans}
+ */
+module.exports.subtractDateSpans = datespanModule.subtractSpans;
+
+/**
  * Function used to merge TimeSpan objects in an array.
  * @public
  * @see {@link module:caltime/timespan~mergeSpans}
