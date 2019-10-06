@@ -1184,5 +1184,35 @@ describe('DateSpan - Subtract Arrays', function() {
     assert.notEqual(result, spansA, 'Method should return a new array object.');
     assert.notEqual(result, spansX, 'Method should return a new array object.');
   });
+
+  it('Subtract arrays, single timespan in the subtractor', function() {
+    const spansA = []; // Think of as Presence
+    const spansB = []; // Think of as Absence
+
+    // Presence
+    const dateA = new Date(Date.UTC(2017, 5, 2, 9, 0, 0, 0)); // [ 2017-06-02T09:00:00.000Z, 420:0:0 ]
+    const dateB = new Date(Date.UTC(2017, 5, 5, 9, 0, 0, 0)); // [ 2017-06-05T09:00:00.000Z, 420:0:0 ]
+    const dateC = new Date(Date.UTC(2017, 5, 6, 9, 0, 0, 0)); // [ 2017-06-06T09:00:00.000Z, 420:0:0 ]
+    const spanA = tc.dateSpanCtor(dateA, null, 8*60, 0, 0);
+    const spanB = tc.dateSpanCtor(dateB, null, 8*60, 0, 0);
+    const spanC = tc.dateSpanCtor(dateC, null, 8*60, 0, 0);
+    spansA.push(spanA);
+    spansA.push(spanB);
+    spansA.push(spanC);
+
+    // Absence
+    const dateH = new Date(Date.UTC(2017, 5, 4, 9, 0, 0, 0)); // [ 2017-06-04T09:00:00.000Z, 480:0:0 ]
+    const spanH = tc.dateSpanCtor(dateH, null, 8*60, 0, 0);
+    spansB.push(spanH);
+
+    const result = tc.subtractDateSpans(spansA, spansB);
+
+    assert.equal(_.isArray(result), true, 'Function should return an array.');
+    assert.equal(result.length, 3, 'Expected 3 element in array.');
+    assert.equal(spansA[0].isEqual(result[0]), true, 'Expected same timespan as dateA[0]');
+    assert.equal(spansA[1].isEqual(result[1]), true, 'Expected same timespan as dateA[1]');
+    assert.equal(spansA[2].isEqual(result[2]), true, 'Expected same timespan as dateA[2]');
+  });
+
   
 });
